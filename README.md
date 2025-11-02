@@ -63,16 +63,21 @@ That means you’re in the right place to type Git commands.
 ### 💾 Common Commands
 
 **Before you start working (to get the newest updates):**
+
 git pull
 
 
 **After you make changes in Unity (to save and upload your work):**
+
 git add .
+
 git commit -m "Describe your change (e.g. Added new puzzle script)"
+
 git push
 
 
 **If you get updates from others:**
+
 git pull
 
 
@@ -81,11 +86,14 @@ git pull
 ### 💡 Tips
 
 Check what files you’ve changed:
+
 git status
 
 
 If you ever see a “push rejected” message (someone else pushed first):
+
 git pull --rebase
+
 git push
 
 
@@ -95,6 +103,7 @@ git push
 
 - Don’t edit the same scene file as another team member at the same time.  
 - Use your own branch for large changes:
+- 
 git checkout -b feature/puzzle-system
 
 - Always commit **small, clear updates** — not huge dumps of work.  
