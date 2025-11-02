@@ -6,8 +6,11 @@
 ## 📁 Project Structure
 
 Assets/ → Game scenes, scripts, prefabs, materials
+
 Packages/ → Unity packages
+
 ProjectSettings/ → Engine and build configuration
+
 .gitignore → Prevents unnecessary Unity files (Library, Logs, Temp)
 
 
