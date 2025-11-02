@@ -103,8 +103,7 @@ git push
 
 - Don’t edit the same scene file as another team member at the same time.  
 - Use your own branch for large changes:
-- 
-git checkout -b feature/puzzle-system
+  git checkout -b feature/puzzle-system
 
 - Always commit **small, clear updates** — not huge dumps of work.  
 - Always **pull before starting** and **push when finished**.  
