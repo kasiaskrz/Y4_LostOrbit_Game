@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class LoadSceneOnTouch : MonoBehaviour
 {
     public string sceneToLoad = "SC003";
+    
 
     private void OnTriggerEnter(Collider other)
     {
