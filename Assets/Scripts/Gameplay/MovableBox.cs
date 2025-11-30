@@ -6,6 +6,9 @@ public class MovableBox : MonoBehaviour
     public float moveSpeed = 2f;
     public float interactRange = 2f;
 
+    [HideInInspector] public bool isBeingMoved = false;
+    [HideInInspector] public bool hasBeenMoved = false;
+
     private Vector3 startPos;
     private Vector3 targetPos;
     private bool activated = false;
@@ -24,16 +27,15 @@ public class MovableBox : MonoBehaviour
 
     void Update()
     {
-        // Check if player presses E near the box
-        if (!activated && Vector3.Distance(player.position, transform.position) < interactRange)
+        if (!activated && !hasBeenMoved && Vector3.Distance(player.position, transform.position) < interactRange)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 activated = true;
+                isBeingMoved = true;
             }
         }
 
-        // Move the box if activated
         if (activated)
         {
             Vector3 current = transform.position;
@@ -44,21 +46,21 @@ public class MovableBox : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(current, nextTarget, moveSpeed * Time.deltaTime);
 
-            // Stop once we reach the target
             if (Vector3.Distance(transform.position, nextTarget) < 0.05f)
             {
                 activated = false;
+                isBeingMoved = false;
+                hasBeenMoved = true; // <-- important: permanent state
             }
         }
-
-
     }
 
     public void Activate()
     {
-        activated = true;
+        if (!hasBeenMoved)
+        {
+            activated = true;
+            isBeingMoved = true;
+        }
     }
 }
-
-
-
