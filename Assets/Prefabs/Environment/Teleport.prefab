@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4720422929907675531}
   - component: {fileID: 9052585858699268549}
   - component: {fileID: 7300915301749782464}
-  - component: {fileID: 909727257043552502}
   m_Layer: 0
   m_Name: Teleport
   m_TagString: Untagged
@@ -112,16 +111,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &909727257043552502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3711593797474439852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c812526dd05687c4ba72e7b08752d28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LoadSceneOnTouch
-  sceneToLoad: SC003
