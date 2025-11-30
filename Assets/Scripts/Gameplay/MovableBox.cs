@@ -51,6 +51,11 @@ public class MovableBox : MonoBehaviour
                 activated = false;
                 isBeingMoved = false;
                 hasBeenMoved = true; // <-- important: permanent state
+
+                // ⭐ TELL THE TUTORIAL WE MOVED THE CRATE ⭐
+                var tutorial = Object.FindFirstObjectByType<TutorialManager>();
+                if (tutorial != null)
+                    tutorial.NotifyCrateMoved();
             }
         }
     }
