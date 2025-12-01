@@ -195,13 +195,17 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4097195505043946274, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
       insertIndex: -1
       addedObject: {fileID: 193572179}
+    - targetCorrespondingSourceObject: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 193572180}
   m_SourcePrefab: {fileID: 100100000, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
 --- !u!1 &78244602
 GameObject:
@@ -468,9 +472,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 193572178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7158c2ce52fd8ba448a298b71056cd76, type: 3}
+  m_Script: {fileID: 11500000, guid: 030d1da1590e11a46ac2b1d6dbf4988b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KeyCollectible
+  m_EditorClassIdentifier: Assembly-CSharp::SC002KeyPickup
+--- !u!65 &193572180
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193572178}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.12193209, y: 0.039105885, z: 0.2326241}
+  m_Center: {x: 4.1633363e-16, y: -9.313227e-10, z: -0.00000023469329}
 --- !u!1 &232030835
 GameObject:
   m_ObjectHideFlags: 0
