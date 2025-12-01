@@ -2409,10 +2409,10 @@ PrefabInstance:
       addedObject: {fileID: 1769921162}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1769921161}
+      addedObject: {fileID: 1769921160}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1769921160}
+      addedObject: {fileID: 1769921164}
   m_SourcePrefab: {fileID: 100100000, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
 --- !u!1001 &1547749871
 PrefabInstance:
@@ -2792,7 +2792,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1769921161
+--- !u!114 &1769921162
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2801,27 +2801,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1769921159}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e658708d25b97c24fb30f30acfc34f27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CrateInteraction
-  interactText: {fileID: 0}
---- !u!114 &1769921162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769921159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb8109791388b2d458c0f36480722303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovableBox
-  targetOffset: {x: 1, y: 0, z: 1.5}
+  goalSpots: []
   moveSpeed: 2
   interactRange: 0.02
+  keyObject: {fileID: 0}
   isBeingMoved: 0
-  hasBeenMoved: 0
+  hasBeenMovedOnce: 0
+  movementFinished: 0
 --- !u!65 &1769921163
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2843,6 +2832,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.33, y: 4.48, z: 3.26}
   m_Center: {x: 0, y: 1, z: 0.56}
+--- !u!114 &1769921164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769921159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0066013ea91af2f44987152a72bc154d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveBoxTutorial
+  targetOffset: {x: 2, y: 0, z: 2}
+  moveSpeed: 2
+  interactRange: 2
 --- !u!1001 &1788912427
 PrefabInstance:
   m_ObjectHideFlags: 0

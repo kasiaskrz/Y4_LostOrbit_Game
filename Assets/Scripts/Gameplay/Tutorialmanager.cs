@@ -9,7 +9,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject buttonObject;
 
     private bool hasMoved = false;
-    private bool crateMoved = false;   // 👈 NEW
+    private bool crateMoved = false;   
     private bool buttonPressed = false;
 
     void Start()
