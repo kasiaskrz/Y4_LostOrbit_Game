@@ -2,23 +2,19 @@ using UnityEngine;
 
 public class SC002KeyPickup : MonoBehaviour
 {
-    private bool collected = false;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (collected) return;
+        if (!other.CompareTag("Player")) return;
 
-        if (other.CompareTag("Player"))
-        {
-            collected = true;
+        Debug.Log("SC002 KEY COLLECTED!");
 
-            // Hide the key
-            gameObject.SetActive(false);
+        GameProgress.Instance.keyCollected = true;
 
-            // Save that we got the key
-            GameProgress.Instance.keyCollected = true;
+        // Find the door in Main Hall
+        DoorWithLock door = FindFirstObjectByType<DoorWithLock>();
+        if (door != null)
+            door.UnlockDoor();
 
-            Debug.Log("SC002 KEY COLLECTED!");
-        }
+        gameObject.SetActive(false);
     }
 }
