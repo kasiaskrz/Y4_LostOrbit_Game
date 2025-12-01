@@ -13,6 +13,7 @@ public class BoxPuzzleGoal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (solved) return;
 
         if (other.CompareTag(requiredTag))

@@ -1184,13 +1184,13 @@ PrefabInstance:
       addedObject: {fileID: 1045255759}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1045255758}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1045255763}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1045255764}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1045255769}
   m_SourcePrefab: {fileID: 100100000, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
 --- !u!4 &576076309 stripped
 Transform:
@@ -1903,23 +1903,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e33f13ea364d4f40a596ad1f5cd58fb, type: 3}
   m_PrefabInstance: {fileID: 574279720}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1045255758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045255757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb8109791388b2d458c0f36480722303, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovableBox
-  targetOffset: {x: -1, y: 0, z: -2}
-  moveSpeed: 2
-  interactRange: 0.02
-  isBeingMoved: 0
-  hasBeenMoved: 0
 --- !u!65 &1045255759
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1975,6 +1958,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 6.62, z: 2}
   m_Center: {x: 0, y: 2.23, z: 0}
+--- !u!114 &1045255769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045255757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8109791388b2d458c0f36480722303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovableBox
+  mode: 0
+  moveSpeed: 2
+  interactRange: 2
+  targetOffset: {x: -1, y: 0, z: -2}
+  goalSpots: []
+  keyObject: {fileID: 0}
+  hasBeenMovedOnce: 0
+  movementFinished: 0
 --- !u!4 &1066096880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5342383326647749171, guid: 0f18081e9f44f834d968e14094703061, type: 3}

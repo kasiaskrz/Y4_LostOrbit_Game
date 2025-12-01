@@ -6,6 +6,7 @@ public class GameProgress : MonoBehaviour
 
     // Add more flags later if you want more puzzles
     public bool boxPuzzleSolved = false;
+    public bool keyCollected = false;
 
     private void Awake()
     {
