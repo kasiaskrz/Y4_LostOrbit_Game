@@ -5,7 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public GameObject winPanel;   // assign WinPanel in inspector
+    [Header("Assign the GameOverPanel object here!")]
+    public GameOverUI gameOverUI;   // Drag GameOverPanel here in Inspector
 
     private void Awake()
     {
@@ -18,14 +19,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    // CALLED by EnemyHealth → Die()
     public void WinGame()
     {
-        if (winPanel != null)
-        {
-            winPanel.SetActive(true);
-        }
-
-        Time.timeScale = 0f;
+        Debug.Log("Enemy defeated → Showing Game Over UI");
+        gameOverUI.ShowGameOver();  // SHOW UI
     }
 
     public void RestartLevel()

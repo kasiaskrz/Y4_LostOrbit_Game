@@ -9,7 +9,7 @@ public class GameOverUI : MonoBehaviour
 
     private void Awake()
     {
-        // Hide this panel at the start
+        // Hide panel at start
         gameObject.SetActive(false);
 
         mainMenuButton.onClick.AddListener(() =>
@@ -19,7 +19,7 @@ public class GameOverUI : MonoBehaviour
 
         retryButton.onClick.AddListener(() =>
         {
-            Loader.Load(Loader.Scene.SC001);   // your gameplay scene
+            GameManager.Instance.RestartLevel();
         });
 
         quitButton.onClick.AddListener(() =>
@@ -28,9 +28,10 @@ public class GameOverUI : MonoBehaviour
         });
     }
 
+    // Called by GameManager
     public void ShowGameOver()
     {
         gameObject.SetActive(true);
-        Time.timeScale = 0f;   // optional: pause game
+        Time.timeScale = 0f;
     }
 }
