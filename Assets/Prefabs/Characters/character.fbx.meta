@@ -3,7 +3,27 @@ guid: 401c0145d14deba4a9bd3d922ecfab83
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 92a9ed32ad630d641a13ac63637166de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chest_armour
+    second: {fileID: 2100000, guid: 2b757d6b39b0fe143b9e162618652961, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Helmet
+    second: {fileID: 2100000, guid: 3fe7f85ed29e2ee4c89167b628f3dd86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: thigh_armour
+    second: {fileID: 2100000, guid: 80f8e172b234f264287264e3e18e4d2f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
