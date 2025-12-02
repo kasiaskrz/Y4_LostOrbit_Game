@@ -2,29 +2,58 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public float interactRange = 2f;
+    [Header("Interaction")]
+    public float interactDistance = 2f;          // how close you need to be
+    public KeyCode interactKey = KeyCode.E;     // key to press
+
+    [Header("UI")]
+    public GameObject interactPrompt;           // the "Press E" text object
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        EnemyHealth closestEnemy = FindClosestEnemy();
+        bool canInteract = false;
+
+        if (closestEnemy != null)
         {
-            TryInteract();
+            float distance = Vector3.Distance(transform.position, closestEnemy.transform.position);
+
+            if (distance <= interactDistance)
+            {
+                canInteract = true;
+
+                // If in range and key pressed -> kill enemy
+                if (Input.GetKeyDown(interactKey))
+                {
+                    closestEnemy.KillInstantly();
+                }
+            }
+        }
+
+        // Show / hide the prompt
+        if (interactPrompt != null)
+        {
+            interactPrompt.SetActive(canInteract);
         }
     }
 
-    void TryInteract()
+    EnemyHealth FindClosestEnemy()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, interactRange);
+        EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>();
 
-        foreach (Collider hit in hits)
+        EnemyHealth closest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (EnemyHealth enemy in enemies)
         {
-            MovableBox box = hit.GetComponent<MovableBox>();
-            if (box != null)
+            float dist = Vector3.Distance(transform.position, enemy.transform.position);
+            if (dist < minDist)
             {
-                box.Activate();
-                Debug.Log("Box activated!");
-                return;
+                minDist = dist;
+                closest = enemy;
             }
         }
+
+        return closest;
     }
 }

@@ -3,9 +3,9 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
-    float currentHealth;
+    private float currentHealth;
 
-    void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
     }
@@ -20,7 +20,13 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void Die()
+    // We’ll call this directly when pressing E
+    public void KillInstantly()
+    {
+        Die();
+    }
+
+    private void Die()
     {
         GameManager.Instance.WinGame();
         Destroy(gameObject);

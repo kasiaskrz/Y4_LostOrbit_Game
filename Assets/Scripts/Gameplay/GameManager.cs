@@ -5,9 +5,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public GameObject winPanel;
+    public GameObject winPanel;   // assign WinPanel in inspector
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
     public void WinGame()
     {
         if (winPanel != null)
+        {
             winPanel.SetActive(true);
+        }
 
         Time.timeScale = 0f;
     }
