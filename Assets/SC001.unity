@@ -603,13 +603,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310495593}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.808, y: 1, z: 1.80904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &357909364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2804,11 +2804,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8109791388b2d458c0f36480722303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovableBox
-  goalSpots: []
+  mode: 0
   moveSpeed: 2
   interactRange: 0.02
+  targetOffset: {x: -2, y: 0, z: -2}
+  goalSpots: []
   keyObject: {fileID: 0}
-  isBeingMoved: 0
   hasBeenMovedOnce: 0
   movementFinished: 0
 --- !u!65 &1769921163

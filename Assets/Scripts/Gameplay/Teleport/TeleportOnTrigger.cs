@@ -12,6 +12,13 @@ public class TeleportOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("TELEPORTER ACTIVE? " + this.enabled);
+
+        if (!this.enabled)
+        {
+            Debug.Log("Teleport script is DISABLED, so no teleport should happen.");
+            return;
+        }
         if (hasTriggered) return;
 
         if (other.CompareTag("Player"))

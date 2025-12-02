@@ -13,9 +13,12 @@ public class FinishTrigger : MonoBehaviour
     private Color lockedColor;
     private Color unlockedColor;
 
+    [Header("Scene to load")]
+    public string sceneToLoad = "MainHall";
+
     void Start()
     {
-        Debug.Log("🚪 FINISHTRIGGER STARTED on: " + gameObject.name);
+        Debug.Log(" FINISHTRIGGER STARTED on: " + gameObject.name);
 
         col = GetComponent<BoxCollider>();
         rend = GetComponent<Renderer>();
@@ -23,10 +26,10 @@ public class FinishTrigger : MonoBehaviour
         ColorUtility.TryParseHtmlString(lockedHex, out lockedColor);
         ColorUtility.TryParseHtmlString(unlockedHex, out unlockedColor);
 
-        //  Auto-unlock if key was already collected
+        // Auto-unlock if key was already collected
         if (GameProgress.Instance != null && GameProgress.Instance.keyCollected)
         {
-            Debug.Log("🚪 DOOR AUTO-UNLOCKED (key already collected).");
+            Debug.Log(" DOOR AUTO-UNLOCKED (key already collected).");
             EnableFinishZone();
         }
         else
@@ -53,12 +56,15 @@ public class FinishTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("🚪 Door Trigger Enter: " + other.name);
+        if (!other.CompareTag("Player")) return;
 
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log(" Player entering door → loading SC005...");
-            SceneManager.LoadScene("SC005");
-        }
+        //  Prevent crash if GameProgress.Instance isn't ready yet
+        if (GameProgress.Instance == null) return;
+
+        //  Only teleport when key is collected
+        if (!GameProgress.Instance.keyCollected) return;
+
+        SceneManager.LoadScene(sceneToLoad);
     }
+
 }
