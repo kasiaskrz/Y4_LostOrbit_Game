@@ -60,7 +60,6 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
         // Block all gun input when inventory is open
         if (Time.timeScale == 0f) return;
-
         if (!busy && Input.GetMouseButtonDown(0))
             TryFire();
 
@@ -72,8 +71,12 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
         if (!busy && Input.GetKeyDown(interactKey))
         {
-            TriggerBoth(interactTrigger);
-            StartCoroutine(LockFor(interactLockTime));
+            if (Interactor.CurrentInteractable != null)
+            {
+                TriggerBoth(interactTrigger);
+                Interactor.CurrentInteractable.Interact();
+                StartCoroutine(LockFor(interactLockTime));
+            }
         }
 
         if (!busy && Input.GetKeyDown(reloadKey))

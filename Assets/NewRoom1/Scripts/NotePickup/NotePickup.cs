@@ -5,25 +5,26 @@ public class NotePickup : MonoBehaviour, IInteractable
     [TextArea(3, 10)]
     public string noteContent;
 
-    [Header("Assign your Canvas here (the one that has NoteUI on it)")]
+    [Header("UI")]
     public GameObject noteCanvasObject;
 
     [Header("Auto-disable controller while reading")]
     public string controllerTypeName = "FPS_PlayerMovement";
 
-    NoteUI noteUI;
-    MonoBehaviour controller;
+    [Header("Close Keys")]
+    public KeyCode primaryCloseKey = KeyCode.E;
+    public KeyCode secondaryCloseKey = KeyCode.Escape;
 
-    bool reading;
-    public static bool IsReading;
+    private NoteUI noteUI;
+    private MonoBehaviour controller;
+
+    private bool reading = false;
 
     void Awake()
     {
-        // Find NoteUI on the canvas object
         if (noteCanvasObject != null)
             noteUI = noteCanvasObject.GetComponent<NoteUI>();
 
-        // Find player controller by tag
         var player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -40,47 +41,39 @@ public class NotePickup : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log("NOTE Interact called on: " + gameObject.name);
+        if (noteUI == null) return;
 
-        if (noteUI == null)
+        if (reading)
         {
-            Debug.LogError("NotePickup: NoteUI not found. Assign noteCanvasObject with NoteUI on it.");
+            Close();
             return;
         }
-        if (reading) return;
 
         reading = true;
-        IsReading = true;
-
         noteUI.Toggle(noteContent);
 
         if (controller != null)
             controller.enabled = false;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()
     {
         if (!reading) return;
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(primaryCloseKey) || Input.GetKeyDown(secondaryCloseKey))
+        {
             Close();
+        }
     }
 
     void Close()
     {
         reading = false;
-        IsReading = false;
 
         if (noteUI != null)
             noteUI.Toggle("");
 
         if (controller != null)
             controller.enabled = true;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 }

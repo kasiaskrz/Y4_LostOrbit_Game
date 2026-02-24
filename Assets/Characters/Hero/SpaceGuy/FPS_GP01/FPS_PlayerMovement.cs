@@ -69,17 +69,10 @@ public class FPS_PlayerMovement : MonoBehaviour
     {
         // Stop all input when inventory is open (timeScale = 0)
         if (Time.timeScale == 0f) return;
-
         Look();
         Move();
         Headbob();
         FovKick();
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
     }
 
     void Look()
