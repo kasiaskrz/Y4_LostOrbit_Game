@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Interactor : MonoBehaviour
 {
@@ -14,36 +15,57 @@ public class Interactor : MonoBehaviour
     public Color idleColor = Color.white;
     public Color highlightColor = Color.green;
 
+    [Header("Interaction Prompt")]
+    public GameObject promptPanel;         // parent panel GameObject
+    public TextMeshProUGUI promptText;     // the text component
+
     public static IInteractable CurrentInteractable { get; private set; }
 
     void Awake()
     {
         if (cam == null) cam = Camera.main;
+        if (promptPanel != null) promptPanel.SetActive(false);
     }
 
     void Update()
     {
         FindInteractable();
         UpdateCrosshair();
+        UpdatePrompt();
+
+        if (CurrentInteractable != null && Input.GetKeyDown(KeyCode.E))
+            CurrentInteractable.Interact();
     }
 
     void FindInteractable()
     {
         CurrentInteractable = null;
-
         if (cam == null) return;
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask, triggerInteraction))
-        {
             CurrentInteractable = hit.collider.GetComponentInParent<IInteractable>();
-        }
     }
 
     void UpdateCrosshair()
     {
         if (crosshair == null) return;
         crosshair.color = (CurrentInteractable != null) ? highlightColor : idleColor;
+    }
+
+    void UpdatePrompt()
+    {
+        if (promptPanel == null) return;
+
+        if (CurrentInteractable != null)
+        {
+            promptPanel.SetActive(true);
+            if (promptText != null)
+                promptText.text = $"[E] {CurrentInteractable.PromptText}";
+        }
+        else
+        {
+            promptPanel.SetActive(false);
+        }
     }
 }

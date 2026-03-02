@@ -7,12 +7,13 @@ public class ChestInteract : MonoBehaviour, IInteractable
 
     private bool opened = false;
 
+    public string PromptText => opened ? "" : !KeyPickup2.KeyCollected ? "Locked - Need Key" : "Open Chest";
+
     void Awake()
     {
         if (anim == null)
             anim = GetComponent<Animation>();
 
-        // Force chest to start CLOSED
         if (anim != null && anim.GetClip(clipName) != null)
         {
             anim.Play(clipName);
@@ -25,7 +26,6 @@ public class ChestInteract : MonoBehaviour, IInteractable
     {
         if (opened) return;
 
-        // 🔑 check simple key flag
         if (!KeyPickup2.KeyCollected)
         {
             Debug.Log("Chest locked. Key required.");

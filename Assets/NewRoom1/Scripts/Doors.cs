@@ -9,6 +9,8 @@ public class Doors : MonoBehaviour, IInteractable
     Vector3 closedPos;
     bool isOpen;
 
+    public string PromptText => isOpen ? "" : "Open Door";
+
     void Awake()
     {
         if (doorMesh == null)
@@ -19,16 +21,10 @@ public class Doors : MonoBehaviour, IInteractable
 
     void Update()
     {
-        Vector3 target = isOpen
-            ? closedPos + openOffset
-            : closedPos;
+        Vector3 target = isOpen ? closedPos + openOffset : closedPos;
 
-        doorMesh.localPosition =
-            Vector3.MoveTowards(
-                doorMesh.localPosition,
-                target,
-                speed * Time.deltaTime
-            );
+        doorMesh.localPosition = Vector3.MoveTowards(
+            doorMesh.localPosition, target, speed * Time.deltaTime);
     }
 
     public void Interact()

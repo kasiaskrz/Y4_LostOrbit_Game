@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\PowerCell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\NewRoom1\\Scripts\\PowerCell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,6 +31,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Interactor.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "RelativeToolTip": "Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAswDAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-27T11:57:25.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "PowerCell.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\PowerCell.cs",
               "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\PowerCell.cs",
@@ -39,7 +56,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "DoorsUnlockButtons.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\Puzzle1\\DoorsUnlockButtons.cs",
               "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\Puzzle1\\DoorsUnlockButtons.cs",
@@ -47,12 +64,11 @@
               "RelativeToolTip": "Assets\\NewRoom1\\Scripts\\Puzzle1\\DoorsUnlockButtons.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAkwFEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-20T21:03:53.997Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-20T21:03:53.997Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "KeyPickup2.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\Y4_LostOrbit_Game-main\\Assets\\NewRoom1\\Scripts\\KeyPickup2.cs",
               "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\KeyPickup2.cs",

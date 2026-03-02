@@ -17,8 +17,9 @@ public class NotePickup : MonoBehaviour, IInteractable
 
     private NoteUI noteUI;
     private MonoBehaviour controller;
-
     private bool reading = false;
+
+    public string PromptText => reading ? "Close Note" : "Read Note";
 
     void Awake()
     {
@@ -43,11 +44,7 @@ public class NotePickup : MonoBehaviour, IInteractable
     {
         if (noteUI == null) return;
 
-        if (reading)
-        {
-            Close();
-            return;
-        }
+        if (reading) { Close(); return; }
 
         reading = true;
         noteUI.Toggle(noteContent);
@@ -61,9 +58,7 @@ public class NotePickup : MonoBehaviour, IInteractable
         if (!reading) return;
 
         if (Input.GetKeyDown(primaryCloseKey) || Input.GetKeyDown(secondaryCloseKey))
-        {
             Close();
-        }
     }
 
     void Close()

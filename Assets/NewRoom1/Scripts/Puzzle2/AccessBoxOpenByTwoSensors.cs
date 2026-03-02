@@ -12,6 +12,8 @@ public class AccessBoxOpenByTwoSensors : MonoBehaviour, IInteractable
 
     private bool opened = false;
 
+    public string PromptText => opened ? "" : "Open Access Box";
+
     void Awake()
     {
         if (animator == null)
@@ -25,13 +27,9 @@ public class AccessBoxOpenByTwoSensors : MonoBehaviour, IInteractable
         if (sensorA == null || sensorB == null) return;
 
         if (sensorA.isActive && sensorB.isActive)
-        {
             OpenBox();
-        }
         else
-        {
             Debug.Log("Sensors not active.");
-        }
     }
 
     void OpenBox()

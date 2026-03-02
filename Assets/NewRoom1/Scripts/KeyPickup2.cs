@@ -7,6 +7,8 @@ public class KeyPickup2 : MonoBehaviour, IInteractable
     [Header("Inventory")]
     public ItemData keyItemData;
 
+    public string PromptText => "Pick Up Rusty Key";
+
     public void Interact()
     {
         KeyCollected = true;
@@ -15,7 +17,6 @@ public class KeyPickup2 : MonoBehaviour, IInteractable
         if (keyItemData != null && InventoryManager.Instance != null)
         {
             InventoryManager.Instance.TryAddItem(keyItemData, 1);
-            // Show pickup notification
             PickupNotification.Show(keyItemData.icon, keyItemData.itemName, 1);
         }
 

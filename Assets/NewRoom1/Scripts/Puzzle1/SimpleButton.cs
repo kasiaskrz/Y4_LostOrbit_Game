@@ -20,6 +20,8 @@ public class SimpleButton : MonoBehaviour, IInteractable
 
     Material _matInstance;
 
+    public string PromptText => pressed ? "" : "Press Button";
+
     void Awake()
     {
         if (lightRenderer != null)
@@ -29,10 +31,7 @@ public class SimpleButton : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
-    {
-        Press();
-    }
+    public void Interact() => Press();
 
     public void Press()
     {
@@ -41,11 +40,9 @@ public class SimpleButton : MonoBehaviour, IInteractable
         pressed = true;
         SetLightColor(onColor);
 
-        // old system (if you still use it anywhere)
         if (door != null)
             door.ButtonPressed(this);
 
-        // new sequence system
         if (puzzle != null)
             puzzle.OnButtonPressed(this);
     }
@@ -56,11 +53,7 @@ public class SimpleButton : MonoBehaviour, IInteractable
         SetLightColor(offColor);
     }
 
-    // IMPORTANT: keeps your existing DoorsUnlockButtons.cs from erroring
-    public void ResetButton()
-    {
-        ResetVisual();
-    }
+    public void ResetButton() => ResetVisual();
 
     void SetLightColor(Color c)
     {
