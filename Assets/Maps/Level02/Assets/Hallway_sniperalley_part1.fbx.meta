@@ -3,7 +3,52 @@ guid: 22e7a5348e7150f4d80b51a79fa0eb62
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_agriculture
+    second: {fileID: 2100000, guid: 839d40af540971442a3c95a9d2a404e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_agriculture_frame
+    second: {fileID: 2100000, guid: 2db0ede7e464436408624118432322a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor_agriculte_hallway
+    second: {fileID: 2100000, guid: 09b7fd39881b2c540aa237dadd20a4ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pillar_agriculture_hallway
+    second: {fileID: 2100000, guid: 613be91f011195b48a486226b7b7ea29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof_agriculte_hallway
+    second: {fileID: 2100000, guid: d7f862b7b2686aa4086d9b3f493b5601, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sidepassage_floor
+    second: {fileID: 2100000, guid: 811cc7396f2c98f49b324a293a083076, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sidepassage_roof
+    second: {fileID: 2100000, guid: 81bb38466c295554387e0b7b36c2b29c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sidepassage_wall
+    second: {fileID: 2100000, guid: f4e3ca25d528e4445a10b03be026e5d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall_agriculture_hallway
+    second: {fileID: 2100000, guid: 4d307700c4b40414a9a0ae472e0b6e12, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
