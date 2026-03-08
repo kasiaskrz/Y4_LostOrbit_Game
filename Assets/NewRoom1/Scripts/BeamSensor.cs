@@ -3,13 +3,14 @@ using UnityEngine;
 public class BeamSensor : MonoBehaviour
 {
     [Header("Visual")]
-    public Renderer targetRenderer;            // drag the mesh renderer you want recolored
+    public Renderer targetRenderer;
     public Color idleColor = Color.red;
-    public Color hitColor  = Color.green;
+    public Color hitColor = Color.green;
 
-    [Header("Optional glow")]
+    [Header("Glow Settings")]
     public bool useEmission = true;
-    public float emissionIntensity = 2f;
+    [Range(0f,10f)]
+    public float emissionIntensity = 2.5f;
 
     [Header("State")]
     [SerializeField] public bool isActive;
@@ -18,7 +19,6 @@ public class BeamSensor : MonoBehaviour
 
     void OnEnable()
     {
-        // Make sure visuals initialize even if Awake didn’t run for some reason
         Deactivate();
     }
 
@@ -29,16 +29,21 @@ public class BeamSensor : MonoBehaviour
 
         if (targetRenderer == null) return;
 
-        // ✅ prevents "Parameter name: dest"
-        if (mpb == null) mpb = new MaterialPropertyBlock();
+        if (mpb == null)
+            mpb = new MaterialPropertyBlock();
 
         targetRenderer.GetPropertyBlock(mpb);
 
+        // Base surface color
         mpb.SetColor("_BaseColor", c);
         mpb.SetColor("_Color", c);
 
+        // Emission (HDR for bloom)
         if (useEmission)
-            mpb.SetColor("_EmissionColor", c * emissionIntensity);
+        {
+            Color emission = c * emissionIntensity;
+            mpb.SetColor("_EmissionColor", emission);
+        }
 
         targetRenderer.SetPropertyBlock(mpb);
     }

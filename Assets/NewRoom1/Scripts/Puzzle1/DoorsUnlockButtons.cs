@@ -10,8 +10,13 @@ public class DoorsUnlockedButtons : MonoBehaviour
     public Vector3 openOffset = new Vector3(0f, 4f, 0f); // Y = up
     public float openSpeed = 2f;
 
+    [Header("Sound")]
+    public AudioSource audioSource;
+    public AudioClip openSound;
+
     private readonly List<SimpleButton> pressedSequence = new List<SimpleButton>();
     private bool opened = false;
+    private bool soundPlayed = false;
 
     private Vector3 closedLocalPos;
     private Vector3 openLocalPos;
@@ -38,6 +43,13 @@ public class DoorsUnlockedButtons : MonoBehaviour
             if (IsCorrectSequence())
             {
                 opened = true;
+
+                // Play door sound
+                if (!soundPlayed && audioSource && openSound)
+                {
+                    audioSource.PlayOneShot(openSound, 5f);
+                    soundPlayed = true;
+                }
             }
             else
             {

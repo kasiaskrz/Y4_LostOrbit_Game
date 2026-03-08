@@ -70,8 +70,7 @@ public class ButtonSequencePuzzle : MonoBehaviour
     {
         // turn all buttons red
         for (int i = 0; i < 5; i++)
-            allButtons[i].SetLightColor(Color.red);
-
+            allButtons[i].ResetButton();
         yield return new WaitForSeconds(wrongDelay);
 
         ResetAllInstant();

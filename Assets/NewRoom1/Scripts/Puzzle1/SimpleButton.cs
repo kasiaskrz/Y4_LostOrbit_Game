@@ -10,30 +10,27 @@ public class SimpleButton : MonoBehaviour, IInteractable
     [Header("Optional Puzzle Manager (new system)")]
     public ButtonSequencePuzzle puzzle;
 
-    [Header("Light above button (separate object)")]
+    [Header("Visual")]
     public Renderer lightRenderer;
     public Color offColor = Color.red;
     public Color onColor = Color.green;
 
-    public bool useEmission = false;
-    public string emissionProperty = "_EmissionColor";
+    [Header("Emission")]
+    public bool useEmission = true;
+    public float emissionIntensity = 2f;
 
     [Header("Sound")]
     public AudioSource audioSource;
     public AudioClip pressSound;
     [Range(0.8f, 1.2f)] public float pitchVariation = 0.05f;
 
-    Material _matInstance;
+    MaterialPropertyBlock mpb;
 
     public string PromptText => pressed ? "" : "Press Button";
 
-    void Awake()
+    void OnEnable()
     {
-        if (lightRenderer != null)
-        {
-            _matInstance = lightRenderer.material;
-            SetLightColor(offColor);
-        }
+        ResetVisual();
     }
 
     public void Interact() => Press();
@@ -44,14 +41,13 @@ public class SimpleButton : MonoBehaviour, IInteractable
 
         pressed = true;
 
-        // Play sound
-        if (audioSource != null && pressSound != null)
+        if (audioSource && pressSound)
         {
             audioSource.pitch = Random.Range(1f - pitchVariation, 1f + pitchVariation);
             audioSource.PlayOneShot(pressSound);
         }
 
-        SetLightColor(onColor);
+        ApplyColor(onColor);
 
         if (door != null)
             door.ButtonPressed(this);
@@ -63,22 +59,29 @@ public class SimpleButton : MonoBehaviour, IInteractable
     public void ResetVisual()
     {
         pressed = false;
-        SetLightColor(offColor);
+        ApplyColor(offColor);
     }
 
     public void ResetButton() => ResetVisual();
 
-    public void SetLightColor(Color c)
+    void ApplyColor(Color c)
     {
-        if (_matInstance == null) return;
+        if (lightRenderer == null)
+            lightRenderer = GetComponentInChildren<Renderer>();
 
-        if (_matInstance.HasProperty("_Color"))
-            _matInstance.color = c;
+        if (lightRenderer == null) return;
 
-        if (useEmission && _matInstance.HasProperty(emissionProperty))
-        {
-            _matInstance.EnableKeyword("_EMISSION");
-            _matInstance.SetColor(emissionProperty, c);
-        }
+        if (mpb == null)
+            mpb = new MaterialPropertyBlock();
+
+        lightRenderer.GetPropertyBlock(mpb);
+
+        mpb.SetColor("_BaseColor", c);
+        mpb.SetColor("_Color", c);
+
+        if (useEmission)
+            mpb.SetColor("_EmissionColor", c * emissionIntensity);
+
+        lightRenderer.SetPropertyBlock(mpb);
     }
 }
