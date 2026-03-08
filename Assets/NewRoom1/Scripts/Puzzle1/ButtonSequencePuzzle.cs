@@ -1,12 +1,15 @@
 using UnityEngine;
+using System.Collections;
 
 public class ButtonSequencePuzzle : MonoBehaviour
 {
     [Header("All 5 buttons in the puzzle (for resetting)")]
-    public SimpleButton[] allButtons;     // MUST be size 5
+    public SimpleButton[] allButtons;
 
     [Header("Correct order (size 5): C -> E -> A -> B -> D")]
-    public SimpleButton[] correctOrder;   // MUST be size 5
+    public SimpleButton[] correctOrder;
+
+    public float wrongDelay = 1f;
 
     SimpleButton[] entered = new SimpleButton[5];
     int step = 0;
@@ -17,21 +20,19 @@ public class ButtonSequencePuzzle : MonoBehaviour
         if (solved) return;
         if (btn == null) return;
 
-        // Hard validation: if you didn’t set arrays correctly, you’ll see it instantly.
         if (!IsSetupValid())
         {
-            Debug.LogError("ButtonSequencePuzzle setup invalid. Fix Inspector arrays (allButtons=5, correctOrder=5, no nulls).");
+            Debug.LogError("ButtonSequencePuzzle setup invalid. Fix Inspector arrays.");
             return;
         }
 
-        // record what player pressed (1..5)
         entered[step] = btn;
         step++;
 
-        // only check AFTER 5 presses
         if (step < 5) return;
 
         bool correct = true;
+
         for (int i = 0; i < 5; i++)
         {
             if (entered[i] != correctOrder[i])
@@ -45,11 +46,10 @@ public class ButtonSequencePuzzle : MonoBehaviour
         {
             solved = true;
             Debug.Log("Solved! (Later: open door here)");
-            // leave green
         }
         else
         {
-            ResetAllInstant();
+            StartCoroutine(WrongSequence());
         }
     }
 
@@ -66,13 +66,22 @@ public class ButtonSequencePuzzle : MonoBehaviour
         return true;
     }
 
+    IEnumerator WrongSequence()
+    {
+        // turn all buttons red
+        for (int i = 0; i < 5; i++)
+            allButtons[i].SetLightColor(Color.red);
+
+        yield return new WaitForSeconds(wrongDelay);
+
+        ResetAllInstant();
+    }
+
     void ResetAllInstant()
     {
-        // reset visuals + allow pressing again
         for (int i = 0; i < 5; i++)
             allButtons[i].ResetButton();
 
-        // reset attempt
         for (int i = 0; i < 5; i++)
             entered[i] = null;
 

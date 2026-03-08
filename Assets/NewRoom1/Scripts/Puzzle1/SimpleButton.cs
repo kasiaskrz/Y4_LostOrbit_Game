@@ -18,6 +18,11 @@ public class SimpleButton : MonoBehaviour, IInteractable
     public bool useEmission = false;
     public string emissionProperty = "_EmissionColor";
 
+    [Header("Sound")]
+    public AudioSource audioSource;
+    public AudioClip pressSound;
+    [Range(0.8f, 1.2f)] public float pitchVariation = 0.05f;
+
     Material _matInstance;
 
     public string PromptText => pressed ? "" : "Press Button";
@@ -38,6 +43,14 @@ public class SimpleButton : MonoBehaviour, IInteractable
         if (pressed) return;
 
         pressed = true;
+
+        // Play sound
+        if (audioSource != null && pressSound != null)
+        {
+            audioSource.pitch = Random.Range(1f - pitchVariation, 1f + pitchVariation);
+            audioSource.PlayOneShot(pressSound);
+        }
+
         SetLightColor(onColor);
 
         if (door != null)
@@ -55,7 +68,7 @@ public class SimpleButton : MonoBehaviour, IInteractable
 
     public void ResetButton() => ResetVisual();
 
-    void SetLightColor(Color c)
+    public void SetLightColor(Color c)
     {
         if (_matInstance == null) return;
 
