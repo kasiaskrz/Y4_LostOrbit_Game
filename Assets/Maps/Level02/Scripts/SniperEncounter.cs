@@ -125,7 +125,22 @@ public class SniperEncounter : MonoBehaviour
         if (laserLine == null || player == null || sniperOrigin == null) return;
 
         Vector3 start = sniperOrigin.position;
-        Vector3 end = player.position + playerAimOffset;
+        Vector3 target = player.position + playerAimOffset;
+        Vector3 dir = (target - start).normalized;
+        float distance = Vector3.Distance(start, target);
+
+        Vector3 end = target;
+
+        if (Physics.Raycast(
+            start,
+            dir,
+            out RaycastHit hit,
+            Mathf.Min(distance, maxDistance),
+            hitMask,
+            QueryTriggerInteraction.Ignore))
+        {
+            end = hit.point;
+        }
 
         laserLine.SetPosition(0, start);
         laserLine.SetPosition(1, end);
@@ -140,7 +155,13 @@ public class SniperEncounter : MonoBehaviour
         Vector3 dir = (target - start).normalized;
         float distance = Vector3.Distance(start, target);
 
-        if (Physics.Raycast(start, dir, out RaycastHit hit, Mathf.Min(distance, maxDistance), hitMask))
+        if (Physics.Raycast(
+            start,
+            dir,
+            out RaycastHit hit,
+            Mathf.Min(distance, maxDistance),
+            hitMask,
+            QueryTriggerInteraction.Ignore))
         {
             if (hit.transform == player || hit.transform.IsChildOf(player))
             {
@@ -162,7 +183,13 @@ public class SniperEncounter : MonoBehaviour
         Vector3 dir = (target - start).normalized;
         float distance = Vector3.Distance(start, target);
 
-        if (Physics.Raycast(start, dir, out RaycastHit hit, Mathf.Min(distance, maxDistance), hitMask))
+        if (Physics.Raycast(
+            start,
+            dir,
+            out RaycastHit hit,
+            Mathf.Min(distance, maxDistance),
+            hitMask,
+            QueryTriggerInteraction.Ignore))
         {
             if (hit.transform == player || hit.transform.IsChildOf(player))
             {
@@ -188,7 +215,6 @@ public class SniperEncounter : MonoBehaviour
     {
         if (player == null) return;
 
-        // Option 1: If your player health script has a method called TakeDamage(int)
         var healthComponent = player.GetComponent("PlayerHealth");
         if (healthComponent != null)
         {
@@ -200,7 +226,6 @@ public class SniperEncounter : MonoBehaviour
             }
         }
 
-        // Option 2: If health script is on a child object
         healthComponent = player.GetComponentInChildren(System.Type.GetType("PlayerHealth"));
         if (healthComponent != null)
         {
