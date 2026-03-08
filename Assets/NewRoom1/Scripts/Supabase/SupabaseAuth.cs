@@ -8,15 +8,10 @@ using UnityEngine.SceneManagement;
 public class SupabaseAuth : MonoBehaviour
 {
     [Header("Supabase Config")]
-    // NOTE: Make sure this URL matches your Supabase project exactly.
     public string supabaseUrl = "https://ywuyfgvtazgysxmnvknv.supabase.co";
-    public string anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dXlmZ3Z0YXpxeXN4bm12bmt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1MzQyMzAsImV4cCI6MjA3ODExMDIzMH0.qOpekOPmKweh29QgtQUCGM-fAXPJZ58R0ccSjMET-rM";
+    public string anonKey = "YOUR_ANON_KEY";
 
-    [Header("Login (fallback if not using UI inputs)")]
-    public string email;
-    public string password;
-
-    [Header("Login UI (optional)")]
+    [Header("Login UI")]
     public TMP_InputField emailInput;
     public TMP_InputField passwordInput;
     public TMP_Text statusText;
@@ -24,7 +19,7 @@ public class SupabaseAuth : MonoBehaviour
     [Header("Scene Flow")]
     public string gameSceneName = "GameScene";
 
-    [Header("Session (auto-filled after login)")]
+    [Header("Session")]
     public string accessToken;
     public string userId;
 
@@ -34,17 +29,10 @@ public class SupabaseAuth : MonoBehaviour
     }
 
     // ---------- LOGIN ----------
-    // Old method still works (uses the inspector email/password fields)
-    public void Login()
-    {
-        StartCoroutine(LoginCoroutine());
-    }
-
-    // Use this from your Login button in the LoginScene UI
     public void LoginFromUI()
     {
-        if (emailInput != null) email = emailInput.text.Trim();
-        if (passwordInput != null) password = passwordInput.text;
+        string email = emailInput.text.Trim();
+        string password = passwordInput.text;
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
@@ -53,18 +41,17 @@ public class SupabaseAuth : MonoBehaviour
         }
 
         if (statusText != null) statusText.text = "Logging in...";
-        StartCoroutine(LoginAndGoCoroutine());
+
+        StartCoroutine(LoginAndGoCoroutine(email, password));
     }
 
-    IEnumerator LoginAndGoCoroutine()
+    IEnumerator LoginAndGoCoroutine(string email, string password)
     {
-        // Run the normal login flow
-        yield return LoginCoroutine();
+        yield return LoginCoroutine(email, password);
 
-        // If login failed, do NOT change scenes
         if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(userId))
         {
-            if (statusText != null) statusText.text = "Login failed. Check details.";
+            if (statusText != null) statusText.text = "Login failed.";
             yield break;
         }
 
@@ -72,7 +59,7 @@ public class SupabaseAuth : MonoBehaviour
         SceneManager.LoadScene(gameSceneName);
     }
 
-    IEnumerator LoginCoroutine()
+    IEnumerator LoginCoroutine(string email, string password)
     {
         string url = $"{supabaseUrl}/auth/v1/token?grant_type=password";
 
@@ -96,6 +83,7 @@ public class SupabaseAuth : MonoBehaviour
         {
             Debug.LogError("Login failed: " + request.error);
             Debug.LogError(request.downloadHandler.text);
+
             if (statusText != null) statusText.text = "Login failed.";
             yield break;
         }
@@ -109,17 +97,11 @@ public class SupabaseAuth : MonoBehaviour
     }
 
     // ---------- SUBMIT RUN ----------
-    public void SubmitTestRun()
-    {
-        // Test run: Level 1, 75.3 seconds
-        SubmitRun(1, 75300);
-    }
-
     public void SubmitRun(int levelNumber, int timeMs)
     {
         if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(userId))
         {
-            Debug.LogError("SubmitRun: Not logged in. Login first.");
+            Debug.Log("Guest mode: run not submitted.");
             return;
         }
 
