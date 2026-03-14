@@ -8,7 +8,7 @@ public class Interactor : MonoBehaviour
     public Camera cam;
     public float interactDistance = 3.5f;
     public LayerMask interactMask = ~0;
-    public QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Ignore;
+    public QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Collide;
 
     [Header("UI")]
     public Image crosshair;
@@ -33,8 +33,12 @@ public class Interactor : MonoBehaviour
         UpdateCrosshair();
         UpdatePrompt();
 
-        if (CurrentInteractable != null && Input.GetKeyDown(KeyCode.E))
+        // Open on key DOWN
+        if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
+
+        if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
+            FindFirstObjectByType<NotePickup>().CloseNote();
     }
 
     void FindInteractable()
@@ -57,7 +61,7 @@ public class Interactor : MonoBehaviour
     {
         if (promptPanel == null) return;
 
-        if (CurrentInteractable != null)
+        if (CurrentInteractable != null && !NotePickup.IsOpen)
         {
             promptPanel.SetActive(true);
             if (promptText != null)

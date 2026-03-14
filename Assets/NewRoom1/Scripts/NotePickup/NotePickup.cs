@@ -1,74 +1,68 @@
 using UnityEngine;
+using TMPro;
 
 public class NotePickup : MonoBehaviour, IInteractable
 {
-    [TextArea(3, 10)]
+    [Header("Interaction")]
+    public string promptText = "Read note";
+    public string PromptText => promptText;
+
+    [Header("Note Content")]
+    [TextArea(5, 10)]
     public string noteContent;
 
     [Header("UI")]
-    public GameObject noteCanvasObject;
+    public GameObject notePanel;
+    public TMP_Text noteText;
 
-    [Header("Auto-disable controller while reading")]
-    public string controllerTypeName = "FPS_PlayerMovement";
+    [Header("Inventory")]
+    public ItemData noteItemData; // assign in Inspector like KeyPickup2
 
-    [Header("Close Keys")]
-    public KeyCode primaryCloseKey = KeyCode.E;
-    public KeyCode secondaryCloseKey = KeyCode.Escape;
-
-    private NoteUI noteUI;
-    private MonoBehaviour controller;
-    private bool reading = false;
-
-    public string PromptText => reading ? "Close Note" : "Read Note";
+    public static bool IsOpen { get; private set; } = false;
+    private static NotePickup currentNote;
 
     void Awake()
     {
-        if (noteCanvasObject != null)
-            noteUI = noteCanvasObject.GetComponent<NoteUI>();
-
-        var player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            foreach (var mb in player.GetComponents<MonoBehaviour>())
-            {
-                if (mb != null && mb.GetType().Name == controllerTypeName)
-                {
-                    controller = mb;
-                    break;
-                }
-            }
-        }
+        IsOpen = false;
     }
 
     public void Interact()
     {
-        if (noteUI == null) return;
-
-        if (reading) { Close(); return; }
-
-        reading = true;
-        noteUI.Toggle(noteContent);
-
-        if (controller != null)
-            controller.enabled = false;
+        if (IsOpen) return;
+        OpenNote();
     }
 
-    void Update()
+    void OpenNote()
     {
-        if (!reading) return;
+        Debug.Log("OpenNote called");
+        notePanel.SetActive(true);
+        notePanel.transform.SetAsLastSibling();
+        noteText.text = noteContent;
 
-        if (Input.GetKeyDown(primaryCloseKey) || Input.GetKeyDown(secondaryCloseKey))
-            Close();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        IsOpen = true;
+        currentNote = this;
     }
 
-    void Close()
+    public void CloseNote()
     {
-        reading = false;
+        Debug.Log("CloseNote called");
+        notePanel.SetActive(false);
 
-        if (noteUI != null)
-            noteUI.Toggle("");
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
-        if (controller != null)
-            controller.enabled = true;
+        IsOpen = false;
+
+        if (noteItemData != null && InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.TryAddItem(noteItemData, 1);
+            PickupNotification.Show(noteItemData.icon, noteItemData.itemName, 1);
+        }
+
+        Destroy(currentNote.gameObject);
+        currentNote = null;
     }
 }

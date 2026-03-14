@@ -12,8 +12,7 @@ public class AccessBoxOpenByTwoSensors : MonoBehaviour, IInteractable
 
     private bool opened = false;
 
-    public string PromptText => opened ? "" : "Open Access Box";
-
+    public string PromptText => opened ? "" : sensorA.isActive && sensorB.isActive ? "Open Access Box" : "Locked - Activate both sensors";
     void Awake()
     {
         if (animator == null)

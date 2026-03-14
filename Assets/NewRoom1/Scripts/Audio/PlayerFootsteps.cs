@@ -17,6 +17,8 @@ public class PlayerFootsteps : MonoBehaviour
 
     void Update()
     {
+        if (NotePickup.IsOpen) return;
+
         if (controller == null) return;
 
         float speed = controller.velocity.magnitude;

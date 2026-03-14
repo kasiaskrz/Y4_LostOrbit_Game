@@ -42,6 +42,7 @@ public class InventorySlotUI : MonoBehaviour,
         if (hasItem)
         {
             iconImage.sprite = item.data.icon;
+            iconImage.preserveAspect = true;  // preserve size
             quantityText.text = item.quantity.ToString();
         }
 
@@ -155,7 +156,7 @@ public class InventorySlotUI : MonoBehaviour,
         InventoryItem fromItem = inv.GetSlot(fromIndex);
         InventoryItem toItem = inv.GetSlot(toIndex);
 
-       
+
         InventoryManager.Instance.SwapSlots(fromIndex, toIndex);
     }
 }

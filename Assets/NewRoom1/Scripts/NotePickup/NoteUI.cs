@@ -3,43 +3,37 @@ using TMPro;
 
 public class NoteUI : MonoBehaviour
 {
-    public GameObject notePanel;   
-    public TMP_Text noteText;      
-
-    private bool isOpen = false;
-
-    void Start()
+    [SerializeField] private GameObject notePanel;
+    [SerializeField] private TextMeshProUGUI noteTextDisplay;
+    
+    private bool isOpen;
+    
+    void Update()
     {
-        if (notePanel != null)
-            notePanel.SetActive(false);
-
-        isOpen = false;
+        if (isOpen && Input.GetKeyDown(KeyCode.E))
+        {
+            CloseNote();
+        }
     }
-
-    public void Toggle(string text)
+    
+    public void ShowNote(string text)
     {
-        isOpen = !isOpen;
-
-        if (notePanel != null)
-            notePanel.SetActive(isOpen);
-
-        if (isOpen)
-        {
-            if (noteText != null)
-                noteText.text = text;
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            if (noteText != null)
-                noteText.text = "";   // clear text when closing
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1f;
-        }
+        noteTextDisplay.text = text;
+        notePanel.SetActive(true);
+        isOpen = true;
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f; // Pause game while reading
+    }
+    
+    public void CloseNote()
+    {
+        notePanel.SetActive(false);
+        isOpen = false;
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
     }
 }
