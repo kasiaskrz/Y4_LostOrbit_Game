@@ -18,7 +18,13 @@ public class NotePickup : MonoBehaviour, IInteractable
     [Header("Inventory")]
     public ItemData noteItemData; // assign in Inspector like KeyPickup2
 
-    public static bool IsOpen { get; private set; } = false;
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    [Header("Overlay")]
+    public GameObject noteOverlay;
+
+    public static bool IsOpen { get; set; } = false;
     private static NotePickup currentNote;
 
     void Awake()
@@ -34,11 +40,13 @@ public class NotePickup : MonoBehaviour, IInteractable
 
     void OpenNote()
     {
-        Debug.Log("OpenNote called");
+        if (audioSource != null)
+            audioSource.Play();
+
         notePanel.SetActive(true);
         notePanel.transform.SetAsLastSibling();
-        noteText.text = noteContent;
-
+        noteText.text = noteItemData.noteContent; // read from ItemData
+        if (noteOverlay != null) noteOverlay.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -61,7 +69,7 @@ public class NotePickup : MonoBehaviour, IInteractable
             InventoryManager.Instance.TryAddItem(noteItemData, 1);
             PickupNotification.Show(noteItemData.icon, noteItemData.itemName, 1);
         }
-
+        if (noteOverlay != null) noteOverlay.SetActive(false);
         Destroy(currentNote.gameObject);
         currentNote = null;
     }

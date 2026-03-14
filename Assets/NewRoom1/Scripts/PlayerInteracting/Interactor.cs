@@ -38,7 +38,13 @@ public class Interactor : MonoBehaviour
             CurrentInteractable.Interact();
 
         if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
-            FindFirstObjectByType<NotePickup>().CloseNote();
+        {
+            NotePickup note = FindFirstObjectByType<NotePickup>();
+            if (note != null)
+                note.CloseNote();
+            else
+                NoteReader.Instance.CloseNote(); // opened from inventory
+        }
     }
 
     void FindInteractable()

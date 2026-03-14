@@ -18,6 +18,11 @@ public class ItemData : ScriptableObject
 
     [Header("Drop Settings")]
     public GameObject worldPrefab; // The prefab dropped/spawned in the world
+
+    [Header("Note Content")]
+    [TextArea(5, 10)]
+    public string noteContent; // only used when itemType == Note
+    
 }
 
 public enum ItemType

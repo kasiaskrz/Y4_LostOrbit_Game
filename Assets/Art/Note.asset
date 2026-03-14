@@ -19,3 +19,6 @@ MonoBehaviour:
   stackable: 1
   maxStack: 99
   worldPrefab: {fileID: 0}
+  noteContent: "Maintenance Log \u2013 Sector 1\n\nNew activation sequence recorded:\nC
+    \u2192 E \u2192 A \u2192 B \u2192 D \n\nReminder:\nDo NOT press nodes out of
+    order or system will reset again.\n\n\u2013 Eng. H. Volkov"

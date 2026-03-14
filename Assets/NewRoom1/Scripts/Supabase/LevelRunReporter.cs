@@ -6,7 +6,7 @@ public class LevelRunReporter : MonoBehaviour
     public int levelNumber = 1;
     public TextMeshProUGUI timerText;
 
-    float startTime;
+    float elapsed;
     bool running;
 
     SupabaseAuth supa;
@@ -24,18 +24,19 @@ public class LevelRunReporter : MonoBehaviour
     void Update()
     {
         if (!running) return;
+        if (NotePickup.IsOpen) return; // truly pause while reading note
 
-        float time = Time.time - startTime;
+        elapsed += Time.deltaTime;
 
-        int minutes = Mathf.FloorToInt(time / 60f);
-        int seconds = Mathf.FloorToInt(time % 60f);
+        int minutes = Mathf.FloorToInt(elapsed / 60f);
+        int seconds = Mathf.FloorToInt(elapsed % 60f);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void StartLevelTimer()
     {
-        startTime = Time.time;
+        elapsed = 0f;
         running = true;
 
         Debug.Log($"Level {levelNumber} timer started.");
@@ -44,10 +45,9 @@ public class LevelRunReporter : MonoBehaviour
     public void StopTimer()
     {
         if (!running) return;
-
         running = false;
 
-        int timeMs = Mathf.RoundToInt((Time.time - startTime) * 1000f);
+        int timeMs = Mathf.RoundToInt(elapsed * 1000f);
 
         Debug.Log($"Level {levelNumber} finished in {timeMs}ms");
 

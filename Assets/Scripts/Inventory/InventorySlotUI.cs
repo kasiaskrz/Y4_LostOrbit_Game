@@ -51,7 +51,8 @@ public class InventorySlotUI : MonoBehaviour,
     }
 
     // ── Right click to drop ──────────────────────────────────────────────
-
+    private float lastClickTime;
+    private const float doubleClickThreshold = 0.3f;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -62,6 +63,19 @@ public class InventorySlotUI : MonoBehaviour,
                 if (playerTransform != null)
                     InventoryManager.Instance.DropSlot(slotIndex, playerTransform);
             }
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (Time.unscaledTime - lastClickTime < doubleClickThreshold)
+            {
+                // Double click detected
+                if (currentItem != null && !currentItem.IsEmpty && currentItem.data.itemType == ItemType.Note)
+                {
+                    NoteReader.Instance.OpenNote(currentItem.data);
+                }
+            }
+            lastClickTime = Time.unscaledTime;
         }
     }
 
@@ -159,4 +173,6 @@ public class InventorySlotUI : MonoBehaviour,
 
         InventoryManager.Instance.SwapSlots(fromIndex, toIndex);
     }
+
+
 }
