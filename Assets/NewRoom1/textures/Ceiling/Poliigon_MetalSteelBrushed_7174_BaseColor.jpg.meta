@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 37e556ae20992284a93b6dc1c48594f1
+guid: de29d7548c3e33345888146620a45681
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5391509736208484568
-    second: silver_metal_background_1_0
+      213: -8099066195902696064
+    second: Poliigon_MetalSteelBrushed_7174_BaseColor_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: silver_metal_background_1_0
+      name: Poliigon_MetalSteelBrushed_7174_BaseColor_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 8000
-        height: 5334
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d844c52a8d72da40800000000000000
-      internalID: 5391509736208484568
+      spriteID: 08578dc94365a9f80800000000000000
+      internalID: -8099066195902696064
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      silver_metal_background_1_0: 5391509736208484568
+      Poliigon_MetalSteelBrushed_7174_BaseColor_0: -8099066195902696064
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
