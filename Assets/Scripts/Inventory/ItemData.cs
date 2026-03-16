@@ -29,5 +29,7 @@ public enum ItemType
 {
     Key,
     Ammo,
-    Note
+    Note,
+
+    Fuse
 }
