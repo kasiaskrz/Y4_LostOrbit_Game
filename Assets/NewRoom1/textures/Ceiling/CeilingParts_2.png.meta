@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 7b5ebd8b9d7fced428da23e3bc9cd151
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5073620809137059774
+    second: CeilingParts_2_0
+  - first:
+      213: -738909404207329684
+    second: CeilingParts_2_1
+  - first:
+      213: 3060670842955577547
+    second: CeilingParts_2_2
+  - first:
+      213: -5168982935090433943
+    second: CeilingParts_2_3
+  - first:
+      213: -5969313455362499851
+    second: CeilingParts_2_4
+  - first:
+      213: 5652632264065274866
+    second: CeilingParts_2_5
+  - first:
+      213: 1928339678917240560
+    second: CeilingParts_2_6
+  - first:
+      213: 4880275667742008458
+    second: CeilingParts_2_7
+  - first:
+      213: -7588698581113342741
+    second: CeilingParts_2_8
+  - first:
+      213: 2030653840783866227
+    second: CeilingParts_2_9
+  - first:
+      213: -3943381700980193603
+    second: CeilingParts_2_10
+  - first:
+      213: -8728046701225648665
+    second: CeilingParts_2_11
+  - first:
+      213: -2025510848455597713
+    second: CeilingParts_2_12
+  - first:
+      213: 6869539943641468190
+    second: CeilingParts_2_13
+  - first:
+      213: -633214059038312437
+    second: CeilingParts_2_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CeilingParts_2_0
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 1707
+        width: 27
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7f4a5ae3f196640800000000000000
+      internalID: 5073620809137059774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_1
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 1445
+        width: 126
+        height: 603
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6ec601dfcddeb5f0800000000000000
+      internalID: -738909404207329684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_2
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 1146
+        width: 42
+        height: 840
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc833c06aefa97a20800000000000000
+      internalID: 3060670842955577547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_3
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 1503
+        width: 38
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 960f0ef28651448b0800000000000000
+      internalID: -5168982935090433943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_4
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 1682
+        width: 53
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa98240a0db82da0800000000000000
+      internalID: -5969313455362499851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_5
+      rect:
+        serializedVersion: 2
+        x: 1377
+        y: 788
+        width: 200
+        height: 1248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f3d581681f227e40800000000000000
+      internalID: 5652632264065274866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_6
+      rect:
+        serializedVersion: 2
+        x: 1615
+        y: 1745
+        width: 29
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f62720a8b6d2ca10800000000000000
+      internalID: 1928339678917240560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_7
+      rect:
+        serializedVersion: 2
+        x: 1711
+        y: 1590
+        width: 26
+        height: 442
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a84aebdecd83ab340800000000000000
+      internalID: 4880275667742008458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_8
+      rect:
+        serializedVersion: 2
+        x: 1889
+        y: 0
+        width: 159
+        height: 2048
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be47a3dd8d68fa690800000000000000
+      internalID: -7588698581113342741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_9
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 1232
+        width: 33
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37974b9c8e45e2c10800000000000000
+      internalID: 2030653840783866227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_10
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 825
+        width: 37
+        height: 440
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db6cc436c3b4649c0800000000000000
+      internalID: -3943381700980193603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_11
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 928
+        width: 39
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eddc66b4cfbfd680800000000000000
+      internalID: -8728046701225648665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_12
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 607
+        width: 39
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f61aa1d6d90f3e3e0800000000000000
+      internalID: -2025510848455597713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_13
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 388
+        width: 103
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1d4b1fae22855f50800000000000000
+      internalID: 6869539943641468190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CeilingParts_2_14
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 105
+        width: 39
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b08fc301b2f5637f0800000000000000
+      internalID: -633214059038312437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CeilingParts_2_0: 5073620809137059774
+      CeilingParts_2_1: -738909404207329684
+      CeilingParts_2_10: -3943381700980193603
+      CeilingParts_2_11: -8728046701225648665
+      CeilingParts_2_12: -2025510848455597713
+      CeilingParts_2_13: 6869539943641468190
+      CeilingParts_2_14: -633214059038312437
+      CeilingParts_2_2: 3060670842955577547
+      CeilingParts_2_3: -5168982935090433943
+      CeilingParts_2_4: -5969313455362499851
+      CeilingParts_2_5: 5652632264065274866
+      CeilingParts_2_6: 1928339678917240560
+      CeilingParts_2_7: 4880275667742008458
+      CeilingParts_2_8: -7588698581113342741
+      CeilingParts_2_9: 2030653840783866227
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

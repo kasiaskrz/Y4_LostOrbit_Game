@@ -29,11 +29,12 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f && !NotePickup.IsOpen) return;
+
         FindInteractable();
         UpdateCrosshair();
         UpdatePrompt();
 
-        // Open on key DOWN
         if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
 
@@ -43,7 +44,7 @@ public class Interactor : MonoBehaviour
             if (note != null)
                 note.CloseNote();
             else
-                NoteReader.Instance.CloseNote(); // opened from inventory
+                NoteReader.Instance.CloseNote();
         }
     }
 

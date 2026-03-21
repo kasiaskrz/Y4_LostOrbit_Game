@@ -66,6 +66,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
+        if (NotePickup.IsOpen) return; // block only when note is open
         if (Input.GetKeyDown(toggleKey))
             ToggleInventory();
     }

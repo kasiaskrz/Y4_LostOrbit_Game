@@ -36,6 +36,8 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        if (NotePickup.IsOpen) return; // block pause menu when note is open
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (helpPanel != null && helpPanel.activeSelf)

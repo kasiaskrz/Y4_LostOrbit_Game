@@ -45,10 +45,13 @@ public class NotePickup : MonoBehaviour, IInteractable
 
         notePanel.SetActive(true);
         notePanel.transform.SetAsLastSibling();
-        noteText.text = noteItemData.noteContent; // read from ItemData
+        noteText.text = noteItemData.noteContent;
         if (noteOverlay != null) noteOverlay.SetActive(true);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        Time.timeScale = 0f; // pause game
 
         IsOpen = true;
         currentNote = this;
@@ -61,6 +64,8 @@ public class NotePickup : MonoBehaviour, IInteractable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Time.timeScale = 1f; // unpause game
 
         IsOpen = false;
 
