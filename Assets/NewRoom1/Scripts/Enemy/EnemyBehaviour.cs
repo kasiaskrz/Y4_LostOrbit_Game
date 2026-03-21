@@ -162,6 +162,20 @@ public class EnemyBehavior : MonoBehaviour
             health.TakeDamage(Mathf.RoundToInt(damagePerSecond * Time.deltaTime));
     }
 
+    public void Die()
+    {
+        state = State.Idle;
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+            agent.enabled = false;
+        }
+
+        enabled = false; // stops Update() completely
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

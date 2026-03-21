@@ -30,6 +30,6 @@ public enum ItemType
     Key,
     Ammo,
     Note,
-
-    Fuse
+    Fuse,
+    PowerCell
 }

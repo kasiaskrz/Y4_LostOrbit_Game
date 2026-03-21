@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic; // This line is important
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +38,11 @@ public class Inventory : MonoBehaviour
         {
             inventoryText.text += item.name + "\n"; // Display each item
         }
+    }
+
+    internal void AddItem(ItemData powerCellData)
+    {
+        throw new NotImplementedException();
     }
 }
 

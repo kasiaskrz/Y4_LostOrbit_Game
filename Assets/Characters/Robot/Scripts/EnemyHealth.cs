@@ -82,6 +82,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             agent.enabled = false;
         }
 
+        var behavior = GetComponent<EnemyBehavior>();
+        if (behavior) behavior.enabled = false;
+
         if (anim) anim.enabled = false;
 
         if (disableCharacterControllerIfAny)
