@@ -38,7 +38,7 @@ public class ShotgunShooter : MonoBehaviour
             {
                 end = hit.point;
 
-                // Optional damage
+                // Damage anything that implements IDamageable
                 var dmg = hit.collider.GetComponentInParent<IDamageable>();
                 if (dmg != null) dmg.TakeDamage(damagePerPellet);
             }
