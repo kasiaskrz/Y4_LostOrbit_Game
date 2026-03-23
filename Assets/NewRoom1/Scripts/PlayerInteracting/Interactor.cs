@@ -16,8 +16,8 @@ public class Interactor : MonoBehaviour
     public Color highlightColor = Color.green;
 
     [Header("Interaction Prompt")]
-    public GameObject promptPanel;         // parent panel GameObject
-    public TextMeshProUGUI promptText;     // the text component
+    public GameObject promptPanel;
+    public TextMeshProUGUI promptText;
 
     public static IInteractable CurrentInteractable { get; private set; }
 
@@ -29,13 +29,13 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale == 0f && !NotePickup.IsOpen) return;
+        if (Time.timeScale == 0f && !NotePickup.IsOpen && !WirePuzzle.IsOpen) return;
 
         FindInteractable();
         UpdateCrosshair();
         UpdatePrompt();
 
-        if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && CurrentInteractable != null)
+        if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && !WirePuzzle.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
 
         if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
@@ -45,6 +45,14 @@ public class Interactor : MonoBehaviour
                 note.CloseNote();
             else
                 NoteReader.Instance.CloseNote();
+        }
+
+        // close wire puzzle with Escape
+        if (Input.GetKeyDown(KeyCode.Escape) && WirePuzzle.IsOpen)
+        {
+            WirePuzzle puzzle = FindFirstObjectByType<WirePuzzle>();
+            if (puzzle != null)
+                puzzle.puzzlePanel.SetActive(false);
         }
     }
 
@@ -68,7 +76,7 @@ public class Interactor : MonoBehaviour
     {
         if (promptPanel == null) return;
 
-        if (CurrentInteractable != null && !NotePickup.IsOpen)
+        if (CurrentInteractable != null && !NotePickup.IsOpen && !WirePuzzle.IsOpen)
         {
             promptPanel.SetActive(true);
             if (promptText != null)
