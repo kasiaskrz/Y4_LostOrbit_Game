@@ -36,9 +36,9 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (NotePickup.IsOpen) return; // block pause menu when note is open
-        if (WirePuzzle.IsOpen) return; // block pause menu when wire puzzle is open
-
+        if (NotePickup.IsOpen) return;
+        if (WirePuzzle.IsOpen) return;
+        if (LevelComplete.IsOpen) return; // block pause menu when level complete is open
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

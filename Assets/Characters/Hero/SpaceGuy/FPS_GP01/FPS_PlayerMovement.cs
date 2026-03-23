@@ -68,7 +68,7 @@ public class FPS_PlayerMovement : MonoBehaviour
     void Update()
     {
         // Stop all input when inventory is open (timeScale = 0) or note is open
-        if (Time.timeScale == 0f || NotePickup.IsOpen) return;
+        if (Time.timeScale == 0f || NotePickup.IsOpen || LevelComplete.IsOpen) return;
         Look();
         Move();
         Headbob();

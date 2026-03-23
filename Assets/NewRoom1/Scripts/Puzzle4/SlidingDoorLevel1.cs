@@ -36,12 +36,14 @@ public class SlidingDoorLevel1 : MonoBehaviour, IInteractable
         isUnlocked = true;
     }
 
-    // Called by Interactor when player presses E
     public void Interact()
     {
         if (!isUnlocked || opened) return;
-
         opened = true;
+
+        // disable door collider when opened
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
 
         if (!soundPlayed && audioSource != null && openSound != null)
         {
