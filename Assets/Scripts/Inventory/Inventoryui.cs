@@ -67,6 +67,8 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         if (NotePickup.IsOpen) return; // block only when note is open
+        if (WirePuzzle.IsOpen) return; // block inventory when wire puzzle is open
+
         if (Input.GetKeyDown(toggleKey))
             ToggleInventory();
     }

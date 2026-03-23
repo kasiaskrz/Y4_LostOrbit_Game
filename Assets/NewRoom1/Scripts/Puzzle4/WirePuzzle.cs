@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class WirePuzzle : MonoBehaviour
@@ -61,9 +62,12 @@ public class WirePuzzle : MonoBehaviour
 
     void GenerateSolution()
     {
+        for (int i = 0; i < pairCount; i++) ;
+
+
         for (int i = 0; i < pairCount; i++)
         {
-            solution[i] = -1; // default to no match
+            solution[i] = -1;
             for (int j = 0; j < pairCount; j++)
             {
                 if (rightNodes[j] != null && leftNodes[i] != null)
@@ -76,6 +80,7 @@ public class WirePuzzle : MonoBehaviour
                 }
             }
 
+
             if (solution[i] == -1)
                 Debug.LogWarning($"LeftNode{i} has no matching color on the right side!");
         }
@@ -83,7 +88,11 @@ public class WirePuzzle : MonoBehaviour
 
     void ResetPuzzle()
     {
-        InitArrays();
+        connections = new int[pairCount];
+        for (int i = 0; i < pairCount; i++)
+            connections[i] = -1;
+
+        drawnLines = new WireLine[pairCount];
         selectedLeft = -1;
         solved = false;
 
@@ -92,8 +101,6 @@ public class WirePuzzle : MonoBehaviour
 
         foreach (var l in drawnLines)
             if (l != null) Destroy(l.gameObject);
-
-        drawnLines = new WireLine[pairCount];
     }
 
     public void OnLeftNodeClicked(int index)
@@ -179,11 +186,18 @@ public class WirePuzzle : MonoBehaviour
 
         solved = true;
         Debug.Log("Wire puzzle solved!");
-        Invoke(nameof(TriggerSolved), 0.5f);
+        StartCoroutine(SolvedDelay());
+    }
+
+    IEnumerator SolvedDelay()
+    {
+        yield return new WaitForSecondsRealtime(0.5f); // realtime ignores timeScale
+        TriggerSolved();
     }
 
     void TriggerSolved()
     {
+        Debug.Log("TriggerSolved called!");
         puzzlePanel.SetActive(false);
         OnSolved?.Invoke();
     }

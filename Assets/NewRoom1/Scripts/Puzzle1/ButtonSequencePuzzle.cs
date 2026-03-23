@@ -45,7 +45,6 @@ public class ButtonSequencePuzzle : MonoBehaviour
         if (correct)
         {
             solved = true;
-            Debug.Log("Solved! (Later: open door here)");
         }
         else
         {

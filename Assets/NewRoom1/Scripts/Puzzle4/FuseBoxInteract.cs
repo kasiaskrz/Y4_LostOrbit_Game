@@ -5,6 +5,12 @@ public class FuseBoxInteract : MonoBehaviour, IInteractable
     public WirePuzzle wirePuzzle;
     // public DoorController door;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip solvedSound;
+    public SlidingDoorLevel1 door;
+
+
     private bool puzzleSolved = false;
 
     public string PromptText => puzzleSolved ? "" : "Open Fuse Box";
@@ -40,7 +46,10 @@ public class FuseBoxInteract : MonoBehaviour, IInteractable
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Debug.Log("Puzzle solved! Door would open here.");
-        // door.Open();
+        if (audioSource != null && solvedSound != null)
+            audioSource.PlayOneShot(solvedSound);
+
+        if (door != null)
+            door.Unlock();
     }
 }
