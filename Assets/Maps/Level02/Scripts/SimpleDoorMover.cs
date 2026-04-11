@@ -3,14 +3,53 @@ using System.Collections;
 
 public class SimpleDoorMover : MonoBehaviour
 {
+    [Header("Movement")]
     public Transform targetPosition;
     public float moveSpeed = 3f;
 
+    [Header("Screen Shake")]
+    public float shakeDuration = 0.4f;
+    public float shakeMagnitude = 0.22f;
+    public bool shakeOnImpact = true;
+
+    [Header("Audio")]
+    public bool playAudioOnStart = true;   // plays when door starts moving
+    public bool playAudioOnImpact = false; // plays when door reaches end
+
     private bool isMoving = false;
+    private bool hasActivated = false;
+
+    private CameraShake cameraShake;
+    private AudioSource doorAudio;
+
+    void Start()
+    {
+        doorAudio = GetComponent<AudioSource>();
+
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            cameraShake = cam.GetComponent<CameraShake>();
+        }
+        else
+        {
+            Debug.LogWarning("SimpleDoorMover: No camera with MainCamera tag found in scene.");
+        }
+    }
 
     public void MoveDoor()
     {
-        if (isMoving || targetPosition == null) return;
+        if (isMoving || hasActivated || targetPosition == null)
+            return;
+
+        hasActivated = true;
+
+        if (playAudioOnStart && doorAudio != null)
+        {
+            doorAudio.pitch = Random.Range(0.95f, 1.05f);
+            doorAudio.Play();
+        }
+
         StartCoroutine(MoveToTarget());
     }
 
@@ -30,6 +69,18 @@ public class SimpleDoorMover : MonoBehaviour
         }
 
         transform.position = targetPosition.position;
+
+        if (playAudioOnImpact && doorAudio != null)
+        {
+            doorAudio.pitch = Random.Range(0.95f, 1.05f);
+            doorAudio.Play();
+        }
+
+        if (shakeOnImpact && cameraShake != null)
+        {
+            cameraShake.Shake(shakeDuration, shakeMagnitude);
+        }
+
         isMoving = false;
     }
 }

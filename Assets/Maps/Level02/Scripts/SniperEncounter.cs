@@ -25,6 +25,14 @@ public class SniperEncounter : MonoBehaviour
     [Header("Laser")]
     public bool showLaserOnlyWhenActive = true;
 
+    [Header("Audio")]
+    public AudioSource chargeAudio;
+    public AudioSource shotAudio;
+
+    [Header("Screen Shake")]
+    public float hitShakeDuration = 0.15f;
+    public float hitShakeMagnitude = 0.08f;
+
     [Header("State")]
     public bool encounterStarted = false;
     public bool introShotDone = false;
@@ -32,6 +40,7 @@ public class SniperEncounter : MonoBehaviour
 
     private Coroutine attackRoutine;
     private MonoBehaviour playerHealthScript;
+    private CameraShake cameraShake;
 
     private void Start()
     {
@@ -53,6 +62,12 @@ public class SniperEncounter : MonoBehaviour
         if (player != null)
         {
             playerHealthScript = player.GetComponent<MonoBehaviour>();
+        }
+
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            cameraShake = cam.GetComponent<CameraShake>();
         }
     }
 
@@ -97,6 +112,11 @@ public class SniperEncounter : MonoBehaviour
         {
             laserLine.enabled = false;
         }
+
+        if (chargeAudio != null && chargeAudio.isPlaying)
+        {
+            chargeAudio.Stop();
+        }
     }
 
     private IEnumerator AttackLoop()
@@ -105,18 +125,40 @@ public class SniperEncounter : MonoBehaviour
 
         if (!introShotDone)
         {
+            PlayShotSound();
             FireShot(warningShotDamage, true);
             introShotDone = true;
         }
 
         while (!encounterDisabled)
         {
+            if (chargeAudio != null)
+            {
+                chargeAudio.pitch = Random.Range(0.95f, 1.05f);
+                chargeAudio.Play();
+            }
+
             yield return new WaitForSeconds(timeBetweenShots);
+
+            if (chargeAudio != null && chargeAudio.isPlaying)
+            {
+                chargeAudio.Stop();
+            }
 
             if (IsPlayerExposed())
             {
+                PlayShotSound();
                 FireShot(normalShotDamage, false);
             }
+        }
+    }
+
+    private void PlayShotSound()
+    {
+        if (shotAudio != null)
+        {
+            shotAudio.pitch = Random.Range(0.95f, 1.05f);
+            shotAudio.Play();
         }
     }
 
@@ -194,6 +236,11 @@ public class SniperEncounter : MonoBehaviour
             if (hit.transform == player || hit.transform.IsChildOf(player))
             {
                 ApplyDamageToPlayer(damage);
+
+                if (cameraShake != null)
+                {
+                    cameraShake.Shake(hitShakeDuration, hitShakeMagnitude);
+                }
 
                 if (isWarningShot)
                 {
