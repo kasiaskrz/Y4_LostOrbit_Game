@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 058ea6ead8eb7c34db6aaa3d29e081e4
+guid: 2edddba0c0834fc40b6cbb5467e9c7e0
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Button
-    second: {fileID: 2100000, guid: e2e41d921c4667c4781ec6ef9c38cccd, type: 2}
+      name: Barricade
+    second: {fileID: 2100000, guid: 0658461ad0100a5409bc274b380b8f6b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
