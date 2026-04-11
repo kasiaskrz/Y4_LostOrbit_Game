@@ -20652,13 +20652,97 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7377385338288389855, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.0081918
+      objectReference: {fileID: 0}
+    - target: {fileID: -7377385338288389855, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: -7377385338288389855, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
+      objectReference: {fileID: 0}
+    - target: {fileID: -6028728253787450086, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.008192
+      objectReference: {fileID: 0}
+    - target: {fileID: -6028728253787450086, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: -6028728253787450086, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
+      objectReference: {fileID: 0}
     - target: {fileID: -6026004772984408981, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
       propertyPath: m_Name
       value: Door_laz_02
       objectReference: {fileID: 0}
+    - target: {fileID: -3636894154042799844, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.008192
+      objectReference: {fileID: 0}
+    - target: {fileID: -3636894154042799844, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: -3636894154042799844, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
+      objectReference: {fileID: 0}
+    - target: {fileID: -3243602521655207705, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.008192
+      objectReference: {fileID: 0}
+    - target: {fileID: -3243602521655207705, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: -3243602521655207705, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
       propertyPath: m_Name
       value: Hallway_lazeralley_part2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771266950956608360, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.008192
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771266950956608360, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771266950956608360, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210647716464462443, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.008192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210647716464462443, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210647716464462443, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
+      objectReference: {fileID: 0}
+    - target: {fileID: 4637328704721096328, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.008192
+      objectReference: {fileID: 0}
+    - target: {fileID: 4637328704721096328, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1.9175
+      objectReference: {fileID: 0}
+    - target: {fileID: 4637328704721096328, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5094
       objectReference: {fileID: 0}
     - target: {fileID: 9158743094094176133, guid: 3068c4501325ce14187e1e1ceab8c31e, type: 3}
       propertyPath: m_Name
