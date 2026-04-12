@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8349757416212513623}
   - component: {fileID: 3849461971728277872}
   - component: {fileID: 7551963945439628295}
-  - component: {fileID: 1229355040591388181}
   - component: {fileID: 7402230489194870029}
   m_Layer: 0
   m_Name: Enemy
@@ -116,21 +115,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1229355040591388181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274036344862732173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35170b6f915d571479bb6933215a5d3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRunAway
-  player: {fileID: 0}
-  speed: 3
-  detectionRange: 10
 --- !u!54 &7402230489194870029
 Rigidbody:
   m_ObjectHideFlags: 0
