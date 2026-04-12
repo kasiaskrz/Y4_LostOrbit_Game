@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 5846ed72761942c4a8aa4c5c5a7c40ff
+guid: d8fdee7e24c683841b2f67e0b8d27d4c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: wall_connector_blastdoor
-    second: {fileID: 2100000, guid: 5d59ddad09f8e5f448a9feb172ce27fb, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
