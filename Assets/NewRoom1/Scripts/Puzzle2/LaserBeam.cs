@@ -95,7 +95,7 @@ public class LaserBeam : MonoBehaviour
             {
                 hitLight.enabled = true;
                 hitLight.transform.position = bestHit.point;
-                hitLight.color = (sensorHitThisFrame != null) ? Color.green : Color.red;
+                hitLight.color = (sensorHitThisFrame != null) ? Color.green : Color.yellow;
             }
         }
         else

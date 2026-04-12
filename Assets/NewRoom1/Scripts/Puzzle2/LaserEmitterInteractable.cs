@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LaserEmitterInteractable : MonoBehaviour
+public class LaserEmitterInteractable : MonoBehaviour, IInteractable
 {
     public Transform pivot;                 // AntennaHead
     public float rotateSpeed = 80f;
@@ -10,6 +10,12 @@ public class LaserEmitterInteractable : MonoBehaviour
     public KeyCode rotateRightKey = KeyCode.Y;
 
     public Camera cam;
+
+    // prompt text for Interactor
+    public string PromptText => "[T/Y] Rotate";
+
+    // required by IInteractable
+    public void Interact() { }
 
     void Start()
     {

@@ -81,7 +81,10 @@ public class Interactor : MonoBehaviour
         {
             promptPanel.SetActive(true);
             if (promptText != null)
-                promptText.text = $"[E] {CurrentInteractable.PromptText}";
+                if (CurrentInteractable is LaserEmitterInteractable)
+                    promptText.text = CurrentInteractable.PromptText;
+                else
+                    promptText.text = $"[E] {CurrentInteractable.PromptText}";
         }
         else
         {
