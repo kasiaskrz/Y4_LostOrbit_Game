@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class LaserGate : MonoBehaviour
 {
-    public GameObject laserObject;
+    public GameObject[] laserObjects;
 
     public void DisableLaser()
     {
-        if (laserObject != null)
+        if (laserObjects == null || laserObjects.Length == 0) return;
+
+        for (int i = 0; i < laserObjects.Length; i++)
         {
-            laserObject.SetActive(false);
+            if (laserObjects[i] != null)
+            {
+                laserObjects[i].SetActive(false);
+            }
         }
     }
 }
