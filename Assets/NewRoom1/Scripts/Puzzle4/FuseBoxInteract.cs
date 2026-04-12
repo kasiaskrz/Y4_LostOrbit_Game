@@ -3,20 +3,29 @@ using UnityEngine;
 public class FuseBoxInteract : MonoBehaviour, IInteractable
 {
     public WirePuzzle wirePuzzle;
-    // public DoorController door;
 
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip solvedSound;
     public SlidingDoorLevel1 door;
 
-
     private bool puzzleSolved = false;
+    private Generator _generator;
 
-    public string PromptText => puzzleSolved ? "" : "Open Fuse Box";
+    public string PromptText
+    {
+        get
+        {
+            if (puzzleSolved) return "";
+            if (_generator != null && _generator.isPowered) return "Open Fuse Box";
+            return "Locked - need power";
+        }
+    }
 
     void Start()
     {
+        _generator = FindFirstObjectByType<Generator>();
+
         if (wirePuzzle != null)
         {
             wirePuzzle.OnSolved += HandleSolved;
@@ -28,8 +37,7 @@ public class FuseBoxInteract : MonoBehaviour, IInteractable
     {
         if (puzzleSolved) return;
 
-        Generator gen = FindFirstObjectByType<Generator>();
-        if (gen == null || !gen.isPowered)
+        if (_generator == null || !_generator.isPowered)
         {
             Debug.Log("Generator not powered yet.");
             return;

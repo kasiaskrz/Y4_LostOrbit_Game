@@ -63,7 +63,8 @@ public class Interactor : MonoBehaviour
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask, triggerInteraction))
-            CurrentInteractable = hit.collider.GetComponent<IInteractable>();
+            CurrentInteractable = hit.collider.GetComponent<IInteractable>()
+                   ?? hit.collider.GetComponentInParent<IInteractable>();
     }
 
     void UpdateCrosshair()
