@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 74fb47056d02c2241b7caf87440077b5
+guid: 5846ed72761942c4a8aa4c5c5a7c40ff
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: blast_door
-    second: {fileID: 2100000, guid: fb737449c2a08b24aaa1eb910d4c320f, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
