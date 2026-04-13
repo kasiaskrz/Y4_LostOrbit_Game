@@ -78,7 +78,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         if (agent)
         {
-            agent.isStopped = true;
+            if (agent.isOnNavMesh)
+                agent.isStopped = true;
             agent.enabled = false;
         }
 

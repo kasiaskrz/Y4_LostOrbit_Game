@@ -21,6 +21,12 @@ EditorBuildSettings:
     path: Assets/MainHall.unity
     guid: 46f6ae824ce38ed4cb3a7138c531652e
   - enabled: 1
+    path: Assets/NewRoom1/Room01.unity
+    guid: 02104dec793851b438dd5eb7cbc3c916
+  - enabled: 1
+    path: Assets/Maps/Level02/LVL02_Sniperalley.unity
+    guid: 401bbab638a86104b8c2cc764685f800
+  - enabled: 1
     path: Assets/SC003.unity
     guid: 23bcfbda284975d4d8f776a80554681a
   - enabled: 1
@@ -32,9 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SC005.unity
     guid: c2d4bd1461fde3e4385939e9521c7d3b
-  - enabled: 1
-    path: Assets/NewRoom1/Room01.unity
-    guid: 02104dec793851b438dd5eb7cbc3c916
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

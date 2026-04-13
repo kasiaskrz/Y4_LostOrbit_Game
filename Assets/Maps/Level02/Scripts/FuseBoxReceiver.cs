@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FuseBoxReceiver : MonoBehaviour
+public class FuseBoxReceiver : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public float interactDistance = 2.5f;
@@ -18,12 +18,20 @@ public class FuseBoxReceiver : MonoBehaviour
     [Header("State")]
     public bool fuseInserted = false;
 
+    // ADD THIS (dynamic text)
+    public string PromptText =>
+        (insertedFuseVisual != null && !insertedFuseVisual.activeSelf)
+        ? "Insert Fuse"
+        : "";
+
+    // ADD THIS (required for detection)
+    public void Interact() { }
+
     private void Awake()
     {
         if (playerCamera == null)
             playerCamera = Camera.main;
 
-        // Make sure the inserted fuse starts hidden
         if (insertedFuseVisual != null)
             insertedFuseVisual.SetActive(false);
     }
@@ -64,7 +72,6 @@ public class FuseBoxReceiver : MonoBehaviour
 
         fuseInserted = true;
 
-        // Unhide the fuse object already placed in the fuse box
         if (insertedFuseVisual != null)
             insertedFuseVisual.SetActive(true);
 

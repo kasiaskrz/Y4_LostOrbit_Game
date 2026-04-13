@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ElevatorButtonTest : MonoBehaviour
+public class ElevatorButtonTest : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public float interactDistance = 2.5f;
@@ -13,6 +13,16 @@ public class ElevatorButtonTest : MonoBehaviour
 
     [Header("Bridge")]
     public BridgeController bridgeController;
+
+    public string PromptText =>
+        (fuseObject != null && fuseObject.activeSelf)
+        ? "Activate Elevator"
+        : "No Power";
+
+    public void Interact()
+    {
+
+    }
 
     private void Awake()
     {

@@ -19,6 +19,7 @@ public class Interactor : MonoBehaviour
     public GameObject promptPanel;
     public TextMeshProUGUI promptText;
 
+
     public static IInteractable CurrentInteractable { get; private set; }
 
     void Awake()
@@ -35,9 +36,11 @@ public class Interactor : MonoBehaviour
         UpdateCrosshair();
         UpdatePrompt();
 
+        // Interact
         if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && !WirePuzzle.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
 
+        // Close note with Escape
         if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
         {
             NotePickup note = FindFirstObjectByType<NotePickup>();
@@ -47,7 +50,7 @@ public class Interactor : MonoBehaviour
                 NoteReader.Instance.CloseNote();
         }
 
-        // close wire puzzle with Escape
+        // Close wire puzzle with Escape
         if (Input.GetKeyDown(KeyCode.Escape) && WirePuzzle.IsOpen)
         {
             WirePuzzle puzzle = FindFirstObjectByType<WirePuzzle>();
@@ -63,8 +66,7 @@ public class Interactor : MonoBehaviour
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask, triggerInteraction))
-            CurrentInteractable = hit.collider.GetComponent<IInteractable>()
-                   ?? hit.collider.GetComponentInParent<IInteractable>();
+            CurrentInteractable = hit.collider.GetComponentInParent<IInteractable>();
     }
 
     void UpdateCrosshair()
@@ -81,14 +83,20 @@ public class Interactor : MonoBehaviour
         {
             promptPanel.SetActive(true);
             if (promptText != null)
-                if (CurrentInteractable is LaserEmitterInteractable)
-                    promptText.text = CurrentInteractable.PromptText;
-                else
-                    promptText.text = $"[E] {CurrentInteractable.PromptText}";
+                promptText.text = (CurrentInteractable is LaserEmitterInteractable)
+                    ? CurrentInteractable.PromptText
+                    : $"[E] {CurrentInteractable.PromptText}";
         }
         else
         {
             promptPanel.SetActive(false);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (cam == null) return;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(cam.transform.position, cam.transform.forward * interactDistance);
     }
 }

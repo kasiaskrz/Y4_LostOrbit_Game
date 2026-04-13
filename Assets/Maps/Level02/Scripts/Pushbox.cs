@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PushBox : MonoBehaviour
+public class PushBox : MonoBehaviour, IInteractable
 {
     [Header("Rail Setup")]
     public Transform targetPosition;
@@ -17,6 +17,15 @@ public class PushBox : MonoBehaviour
     private float railLength;
 
     private AudioSource pushAudio;
+
+    // ADD THIS
+    public string PromptText => "Hold to Push";
+
+    // ADD THIS
+    public void Interact()
+    {
+        // Not used (you already handle input in Update)
+    }
 
     void Start()
     {

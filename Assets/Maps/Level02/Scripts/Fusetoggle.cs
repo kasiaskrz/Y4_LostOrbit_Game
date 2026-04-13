@@ -20,6 +20,7 @@ public class FuseToggle : MonoBehaviour
     [Range(0f, 10f)] public float takeVolume = 1f;
     [Range(0f, 10f)] public float placeVolume = 1f;
 
+
     private void Awake()
     {
         if (playerCamera == null)
