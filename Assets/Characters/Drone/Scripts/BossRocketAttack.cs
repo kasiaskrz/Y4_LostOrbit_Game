@@ -8,17 +8,13 @@ public class BossRocketAttack : MonoBehaviour
     public Transform firePoint;
     public GameObject rocketPrefab;
     public AudioSource audioSource;
+    public AudioClip warningSound;
+    public AudioClip launchSound;
 
     [Header("Timing")]
     public float minCooldown = 7f;
     public float maxCooldown = 8f;
     public float preFireDelay = 0.75f;
-
-    [Header("Audio")]
-    public AudioClip warningSound;
-
-    [Header("State")]
-    public bool canAttack = true;
 
     private float cooldownTimer;
     private bool isFiring = false;
@@ -30,7 +26,7 @@ public class BossRocketAttack : MonoBehaviour
 
     private void Update()
     {
-        if (!canAttack || player == null || firePoint == null || rocketPrefab == null)
+        if (player == null || firePoint == null || rocketPrefab == null)
             return;
 
         if (isFiring)
@@ -40,46 +36,42 @@ public class BossRocketAttack : MonoBehaviour
 
         if (cooldownTimer <= 0f)
         {
-            StartCoroutine(FireRocketRoutine());
+            StartCoroutine(FireRoutine());
             cooldownTimer = Random.Range(minCooldown, maxCooldown);
         }
     }
 
-    private IEnumerator FireRocketRoutine()
+    private IEnumerator FireRoutine()
     {
         isFiring = true;
 
-        // Store player position (VERY IMPORTANT for dodge mechanic)
-        Vector3 targetPosition = player.position;
+        Vector3 lockedTargetPos = player.position - new Vector3(0f, 1.0f, 0f);
 
-        // Play warning sound
         if (audioSource != null && warningSound != null)
         {
             audioSource.PlayOneShot(warningSound);
         }
 
-        // Wait before firing (gives player time to react)
         yield return new WaitForSeconds(preFireDelay);
 
-        // Spawn rocket
-        GameObject rocket = Instantiate(
-            rocketPrefab,
-            firePoint.position,
-            firePoint.rotation
-        );
+        Vector3 spawnPos = firePoint.position + firePoint.forward * 0.75f;
 
-        // Pass target position to rocket
-        RocketProjectile proj = rocket.GetComponent<RocketProjectile>();
-        if (proj != null)
+        GameObject rocket = Instantiate(rocketPrefab, spawnPos, firePoint.rotation);
+
+        RocketProjectile projectile = rocket.GetComponent<RocketProjectile>();
+        if (projectile != null)
         {
-            proj.SetTarget(targetPosition);
+            projectile.SetTarget(lockedTargetPos);
+
+            Collider[] bossColliders = GetComponentsInChildren<Collider>();
+            projectile.SetOwnerColliders(bossColliders);
+        }
+
+        if (audioSource != null && launchSound != null)
+        {
+            audioSource.PlayOneShot(launchSound);
         }
 
         isFiring = false;
-    }
-
-    public void SetCanAttack(bool value)
-    {
-        canAttack = value;
     }
 }

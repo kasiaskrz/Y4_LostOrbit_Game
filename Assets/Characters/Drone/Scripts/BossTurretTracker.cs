@@ -8,49 +8,27 @@ public class BossTurretTracker : MonoBehaviour
 
     [Header("Tracking")]
     public float rotationSpeed = 6f;
+    public bool trackPlayer = true;
 
-    [Header("Offset")]
-    public Vector3 rotationOffsetEuler;
-
-    [Header("Clamp")]
-    public bool useClamp = true;
-    public float maxAngleFromForward = 80f;
+    [Header("Fixed Offset")]
+    public Vector3 rotationOffsetEuler = new Vector3(0f, -90f, 0f);
 
     private void LateUpdate()
     {
-        if (player == null || turretBone == null)
+        if (!trackPlayer || player == null || turretBone == null)
             return;
 
         Vector3 direction = player.position - turretBone.position;
-        if (direction.sqrMagnitude < 0.001f)
+
+        if (direction.sqrMagnitude <= 0.0001f)
             return;
 
-        // Raw look rotation
-        Quaternion lookRot = Quaternion.LookRotation(direction.normalized, Vector3.up);
-        lookRot *= Quaternion.Euler(rotationOffsetEuler);
-
-        if (useClamp)
-        {
-            // Clamp based on angle from forward
-            float angle = Vector3.Angle(transform.forward, direction);
-
-            if (angle > maxAngleFromForward)
-            {
-                Vector3 clampedDir = Vector3.RotateTowards(
-                    transform.forward,
-                    direction.normalized,
-                    Mathf.Deg2Rad * maxAngleFromForward,
-                    0f
-                );
-
-                lookRot = Quaternion.LookRotation(clampedDir, Vector3.up);
-                lookRot *= Quaternion.Euler(rotationOffsetEuler);
-            }
-        }
+        Quaternion lookRotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
+        lookRotation *= Quaternion.Euler(rotationOffsetEuler);
 
         turretBone.rotation = Quaternion.Slerp(
             turretBone.rotation,
-            lookRot,
+            lookRotation,
             rotationSpeed * Time.deltaTime
         );
     }

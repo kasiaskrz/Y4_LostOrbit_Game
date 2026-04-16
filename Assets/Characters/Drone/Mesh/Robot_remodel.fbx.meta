@@ -3,7 +3,32 @@ guid: 0746fea144f96cd428ea125d941376c9
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drone_body
+    second: {fileID: 2100000, guid: 8b49a22c6bd116649bd9f1949bf5c5eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drone_head
+    second: {fileID: 2100000, guid: b899d254552033042be03a3bdc6bceec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drone_thruster
+    second: {fileID: 2100000, guid: 0a309bf2ac613fe4f91a83ac0688b895, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drone_weapon
+    second: {fileID: 2100000, guid: e3f371d9ef0acc84e8bd9eb5e342967d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Engine_Drone
+    second: {fileID: 2100000, guid: dafab95509071dc48bbc74038947652c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -20,6 +20,9 @@ public class BossCore : MonoBehaviour, IDamageableBoss
     [Header("Optional - disable on death")]
     public MonoBehaviour[] disableOnDeath;
 
+    [Header("Death")]
+    public BossDeathBreakup deathBreakup;
+
     [Header("Debug")]
     public int currentCycle = 1;
     public bool shieldActive = false;
@@ -187,7 +190,13 @@ public class BossCore : MonoBehaviour, IDamageableBoss
             }
         }
 
-        Debug.Log("Boss dead");
-        gameObject.SetActive(false);
+        if (deathBreakup != null)
+        {
+            deathBreakup.PlayDeath();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
