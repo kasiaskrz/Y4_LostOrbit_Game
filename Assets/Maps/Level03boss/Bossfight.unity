@@ -334,11 +334,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e5e6f85b3a0f4940b6dcc51ad48d73a, type: 3}
   m_PrefabInstance: {fileID: 38557906}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &38557908 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4846364113180206434, guid: 9e5e6f85b3a0f4940b6dcc51ad48d73a, type: 3}
-  m_PrefabInstance: {fileID: 38557906}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &38557909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,15 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dfc13fd3eb9ac4f8f1ebf33e8e6cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerNode
-  cellBone: {fileID: 38557908}
-  loweredY: -0.02604
-  raisedY: 0.0154
-  moveSpeed: 2
-  boss: {fileID: 0}
-  isActive: 0
-  isCompleted: 0
-  moveUp: 0
-  moveDown: 0
 --- !u!65 &38557912
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -780,11 +766,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e5e6f85b3a0f4940b6dcc51ad48d73a, type: 3}
   m_PrefabInstance: {fileID: 110300610}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &110300612 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4846364113180206434, guid: 9e5e6f85b3a0f4940b6dcc51ad48d73a, type: 3}
-  m_PrefabInstance: {fileID: 110300610}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &110300613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,15 +778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dfc13fd3eb9ac4f8f1ebf33e8e6cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerNode
-  cellBone: {fileID: 110300612}
-  loweredY: -0.02604
-  raisedY: 0.0154
-  moveSpeed: 2
-  boss: {fileID: 0}
-  isActive: 0
-  isCompleted: 0
-  moveUp: 0
-  moveDown: 0
 --- !u!65 &110300616
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3000,11 +2972,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e5e6f85b3a0f4940b6dcc51ad48d73a, type: 3}
   m_PrefabInstance: {fileID: 651691688}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &651691690 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4846364113180206434, guid: 9e5e6f85b3a0f4940b6dcc51ad48d73a, type: 3}
-  m_PrefabInstance: {fileID: 651691688}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &651691691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3017,15 +2984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dfc13fd3eb9ac4f8f1ebf33e8e6cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerNode
-  cellBone: {fileID: 651691690}
-  loweredY: -0.02604
-  raisedY: 0.0154
-  moveSpeed: 2
-  boss: {fileID: 0}
-  isActive: 0
-  isCompleted: 0
-  moveUp: 0
-  moveDown: 0
 --- !u!65 &651691694
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3260,6 +3218,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!4 &864309069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 691448086428380154, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
+  m_PrefabInstance: {fileID: 1067916371063474164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &875226243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8260,6 +8223,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!4 &1725139500 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8141338017203129057, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
+  m_PrefabInstance: {fileID: 1067916371063474164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1733941907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10578,6 +10546,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4281285289705209868, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.19
+      objectReference: {fileID: 0}
     - target: {fileID: 6353106248641827600, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -10599,6 +10571,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1092241601970218251, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1067916371063474167}
+    - targetCorrespondingSourceObject: {fileID: 1092241601970218251, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1067916371063474169}
+    - targetCorrespondingSourceObject: {fileID: 1092241601970218251, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1067916371063474172}
   m_SourcePrefab: {fileID: 100100000, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
 --- !u!1 &1067916371063474165 stripped
 GameObject:
@@ -10617,7 +10595,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -10662,7 +10640,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -10752,6 +10730,45 @@ MonoBehaviour:
   tiltAmount: 10
   tiltSmoothSpeed: 4
   drawDebug: 1
+--- !u!114 &1067916371063474169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067916371063474165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eac5a406b0c0f744a9466f40923692b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossTurretTracker
+  player: {fileID: 1954385858}
+  turretBone: {fileID: 1725139500}
+  rotationSpeed: 6
+  rotationOffsetEuler: {x: 0, y: -90, z: 0}
+  useClamp: 1
+  maxAngleFromForward: 80
+--- !u!114 &1067916371063474172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067916371063474165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9c4c7c98127924099a61861d6fd588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossRocketAttack
+  player: {fileID: 1954385858}
+  firePoint: {fileID: 864309069}
+  rocketPrefab: {fileID: 1361918339873633549, guid: a9e102215f6686746a7852705f776c45, type: 3}
+  audioSource: {fileID: 1067916371063474166}
+  minCooldown: 7
+  maxCooldown: 8
+  preFireDelay: 0.75
+  warningSound: {fileID: 0}
+  canAttack: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
