@@ -4,8 +4,8 @@ public class MovableBox : MonoBehaviour
 {
     public enum BoxMode
     {
-        SingleOffset,   // tutorial / simple box
-        MultiTarget     // puzzle box with multiple goal spots
+        SingleOffset,
+        MultiTarget
     }
 
     [Header("Mode")]
@@ -19,11 +19,11 @@ public class MovableBox : MonoBehaviour
     public Vector3 targetOffset = new Vector3(-2f, 0f, -2f);
 
     [Header("Multi Target Mode")]
-    public Transform[] goalSpots;      // assign 3 spots for SC002 puzzle
-    public GameObject keyObject;       // key to enable at final goal (optional)
+    public Transform[] goalSpots;
+    public GameObject keyObject;
 
-    [HideInInspector] public bool hasBeenMovedOnce = false;   // for tutorial + text
-    [HideInInspector] public bool movementFinished = false;   // true after final position
+    [HideInInspector] public bool hasBeenMovedOnce = false;
+    [HideInInspector] public bool movementFinished = false;
 
     private Transform player;
     private Vector3 startPos;
@@ -35,21 +35,17 @@ public class MovableBox : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         startPos = transform.position;
-
-        // pre-compute single target
         targetOffset.y = 0;
         singleTargetPos = startPos + targetOffset;
 
         if (keyObject != null)
-            keyObject.SetActive(false); // key hidden at start
+            keyObject.SetActive(false);
     }
 
     void Update()
     {
-        if (movementFinished || player == null)
-            return;
+        if (movementFinished || player == null) return;
 
-        // Press E near box to activate
         if (!activated &&
             Vector3.Distance(player.position, transform.position) < interactRange &&
             Input.GetKeyDown(KeyCode.E))
@@ -58,20 +54,15 @@ public class MovableBox : MonoBehaviour
         }
 
         if (activated)
-        {
             MoveBox();
-        }
     }
 
     public void Activate()
     {
-        // first time ever interacting
         if (!hasBeenMovedOnce)
             hasBeenMovedOnce = true;
 
-        if (movementFinished)
-            return;
-
+        if (movementFinished) return;
         activated = true;
     }
 
@@ -83,7 +74,7 @@ public class MovableBox : MonoBehaviour
         {
             targetPos = singleTargetPos;
         }
-        else // MultiTarget
+        else
         {
             if (goalSpots == null || goalSpots.Length == 0)
             {
@@ -91,21 +82,14 @@ public class MovableBox : MonoBehaviour
                 activated = false;
                 return;
             }
-
-            Transform t = goalSpots[currentTargetIndex];
-            targetPos = t.position;
+            targetPos = goalSpots[currentTargetIndex].position;
         }
 
-        // keep original Y
         targetPos.y = startPos.y;
 
         transform.position = Vector3.MoveTowards(
-            transform.position,
-            targetPos,
-            moveSpeed * Time.deltaTime
-        );
+            transform.position, targetPos, moveSpeed * Time.deltaTime);
 
-        // reached current target
         if (Vector3.Distance(transform.position, targetPos) < 0.05f)
         {
             activated = false;
@@ -113,13 +97,11 @@ public class MovableBox : MonoBehaviour
             if (mode == BoxMode.SingleOffset)
             {
                 movementFinished = true;
-                NotifyTutorialCrateMoved();
+                Debug.Log("Box moved to target!");
             }
-            else // MultiTarget
+            else
             {
                 currentTargetIndex++;
-
-                // final goal reached
                 if (currentTargetIndex >= goalSpots.Length)
                 {
                     movementFinished = true;
@@ -130,13 +112,5 @@ public class MovableBox : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void NotifyTutorialCrateMoved()
-    {
-        // only used in the tutorial room – safe no-op elsewhere
-        var tutorial = UnityEngine.Object.FindFirstObjectByType<TutorialManager>();
-        if (tutorial != null)
-            tutorial.NotifyCrateMoved();
     }
 }

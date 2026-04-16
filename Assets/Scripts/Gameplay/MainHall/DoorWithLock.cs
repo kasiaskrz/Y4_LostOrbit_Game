@@ -9,7 +9,7 @@ public class DoorWithLock : MonoBehaviour
     public TeleportOnTrigger teleporter;
 
     [Header("Inventory")]
-    public ItemData keyItemData; // drag your Key ItemData asset here
+    public ItemData keyItemData;
 
     private void Start()
     {
@@ -23,10 +23,10 @@ public class DoorWithLock : MonoBehaviour
 
         doorRenderer.material.color = lockedColor;
 
-        // Automatically unlock if key was collected earlier
-        if (GameProgress.Instance != null && GameProgress.Instance.keyCollected)
+        // Auto unlock if both rooms already complete (e.g. returning from a room)
+        if (GameProgress.Instance != null && GameProgress.Instance.CanAccessSC005)
         {
-            Debug.Log("Key already collected - unlocking door automatically");
+            Debug.Log("Both rooms complete - auto unlocking SC005 door.");
             UnlockDoor();
         }
     }
@@ -37,7 +37,6 @@ public class DoorWithLock : MonoBehaviour
 
         doorRenderer.material.color = unlockedColor;
 
-        // Remove key from inventory when door is unlocked
         if (keyItemData != null && InventoryManager.Instance != null)
             InventoryManager.Instance.TryRemoveItem(keyItemData, 1);
 

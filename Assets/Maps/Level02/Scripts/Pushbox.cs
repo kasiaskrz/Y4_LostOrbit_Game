@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PushBox : MonoBehaviour
+public class PushBox : MonoBehaviour, IInteractable
 {
     public Transform targetPosition;
     public float moveSpeed = 2f;
@@ -10,12 +10,13 @@ public class PushBox : MonoBehaviour
     private bool playerInRange = false;
     private bool isMoving = false;
 
+    public string PromptText => "Push box";
+    public void Interact() { }
+
     void Update()
     {
         if (playerInRange && !isMoving && Input.GetKeyDown(interactKey))
-        {
             StartCoroutine(MoveBox());
-        }
     }
 
     IEnumerator MoveBox()
@@ -29,7 +30,6 @@ public class PushBox : MonoBehaviour
                 targetPosition.position,
                 moveSpeed * Time.deltaTime
             );
-
             yield return null;
         }
 
@@ -37,15 +37,6 @@ public class PushBox : MonoBehaviour
         isMoving = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            playerInRange = true;
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            playerInRange = false;
-    }
+    void OnTriggerEnter(Collider other) { if (other.CompareTag("Player")) playerInRange = true; }
+    void OnTriggerExit(Collider other) { if (other.CompareTag("Player")) playerInRange = false; }
 }

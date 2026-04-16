@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FuseBox : MonoBehaviour
+public class FuseBox : MonoBehaviour, IInteractable
 {
     public enum FuseBoxType
     {
@@ -31,6 +31,12 @@ public class FuseBox : MonoBehaviour
     public bool hasFuseInside = true;
     public bool alreadyUsed = false;
 
+    public string PromptText => boxType == FuseBoxType.SourceBox
+        ? (hasFuseInside ? "Take fuse" : "Empty")
+        : (hasFuseInside ? "Fuse already inserted" : "Insert fuse");
+
+    public void Interact() { }
+
     private void Awake()
     {
         if (playerCamera == null)
@@ -59,87 +65,40 @@ public class FuseBox : MonoBehaviour
             if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
             {
                 if (boxType == FuseBoxType.SourceBox)
-                {
                     TakeFuse();
-                }
                 else if (boxType == FuseBoxType.TargetBox)
-                {
                     InsertFuse();
-                }
             }
         }
     }
 
     private void TakeFuse()
     {
-        if (alreadyUsed || !hasFuseInside)
-        {
-            Debug.Log("This fuse box is empty.");
-            return;
-        }
-
-        if (InventoryManager.Instance == null)
-        {
-            Debug.LogWarning("InventoryManager not found.");
-            return;
-        }
-
-        if (fuseItemData == null)
-        {
-            Debug.LogWarning("Fuse ItemData is missing.");
-            return;
-        }
+        if (alreadyUsed || !hasFuseInside) { Debug.Log("This fuse box is empty."); return; }
+        if (InventoryManager.Instance == null) { Debug.LogWarning("InventoryManager not found."); return; }
+        if (fuseItemData == null) { Debug.LogWarning("Fuse ItemData is missing."); return; }
 
         bool added = InventoryManager.Instance.TryAddItem(fuseItemData, 1, true);
-
-        if (!added)
-        {
-            Debug.Log("Inventory full.");
-            return;
-        }
+        if (!added) { Debug.Log("Inventory full."); return; }
 
         hasFuseInside = false;
         alreadyUsed = true;
-
-        if (fuseVisual != null)
-            fuseVisual.SetActive(false);
-
+        if (fuseVisual != null) fuseVisual.SetActive(false);
         Debug.Log("Fuse taken.");
     }
 
     private void InsertFuse()
     {
-        if (hasFuseInside)
-        {
-            Debug.Log("Fuse already inserted here.");
-            return;
-        }
-
-        if (InventoryManager.Instance == null)
-        {
-            Debug.LogWarning("InventoryManager not found.");
-            return;
-        }
+        if (hasFuseInside) { Debug.Log("Fuse already inserted here."); return; }
+        if (InventoryManager.Instance == null) { Debug.LogWarning("InventoryManager not found."); return; }
 
         bool removed = InventoryManager.Instance.RemoveItemByName(requiredItemName, 1);
-
-        if (!removed)
-        {
-            Debug.Log("You need a fuse.");
-            return;
-        }
+        if (!removed) { Debug.Log("You need a fuse."); return; }
 
         hasFuseInside = true;
         alreadyUsed = true;
-
-        if (fuseVisual != null)
-            fuseVisual.SetActive(true);
-
+        if (fuseVisual != null) fuseVisual.SetActive(true);
         Debug.Log("Fuse inserted.");
-
-        if (connectedBridge != null)
-        {
-            connectedBridge.ActivateBridge();
-        }
+        if (connectedBridge != null) connectedBridge.ActivateBridge();
     }
 }

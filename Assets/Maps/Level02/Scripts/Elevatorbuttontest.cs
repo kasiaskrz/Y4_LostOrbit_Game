@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ElevatorButtonTest : MonoBehaviour
+public class ElevatorButtonTest : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public float interactDistance = 2.5f;
@@ -14,6 +14,9 @@ public class ElevatorButtonTest : MonoBehaviour
     [Header("Bridge")]
     public BridgeController bridgeController;
 
+    public string PromptText => "Call elevator";
+    public void Interact() { }
+
     private void Awake()
     {
         if (playerCamera == null)
@@ -23,9 +26,7 @@ public class ElevatorButtonTest : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(interactKey))
-        {
             TryInteract();
-        }
     }
 
     private void TryInteract()
@@ -35,30 +36,14 @@ public class ElevatorButtonTest : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
         {
             if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
-            {
                 PressButton();
-            }
         }
     }
 
     private void PressButton()
     {
-        if (fuseObject == null)
-        {
-            Debug.LogWarning("Fuse object not assigned.");
-            return;
-        }
-
-        if (!fuseObject.activeSelf)
-        {
-            Debug.Log("Elevator has no fuse.");
-            return;
-        }
-
-        if (bridgeController != null)
-        {
-            bridgeController.ActivateBridge();
-            Debug.Log("Elevator activated.");
-        }
+        if (fuseObject == null) { Debug.LogWarning("Fuse object not assigned."); return; }
+        if (!fuseObject.activeSelf) { Debug.Log("Elevator has no fuse."); return; }
+        if (bridgeController != null) { bridgeController.ActivateBridge(); Debug.Log("Elevator activated."); }
     }
 }

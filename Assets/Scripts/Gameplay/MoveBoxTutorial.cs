@@ -16,19 +16,17 @@ public class MoveBoxTutorial : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         startPos = transform.position;
-
         targetOffset.y = 0;
         targetPos = startPos + targetOffset;
     }
 
     void Update()
     {
-        if (!activated && !hasBeenMoved && Vector3.Distance(player.position, transform.position) < interactRange)
+        if (!activated && !hasBeenMoved &&
+            Vector3.Distance(player.position, transform.position) < interactRange)
         {
             if (Input.GetKeyDown(KeyCode.E))
-            {
                 activated = true;
-            }
         }
 
         if (activated)
@@ -39,11 +37,7 @@ public class MoveBoxTutorial : MonoBehaviour
             {
                 activated = false;
                 hasBeenMoved = true;
-
-                // ⭐ Notify the tutorial manager
-                var tutorial = Object.FindFirstObjectByType<TutorialManager>();
-                if (tutorial != null)
-                    tutorial.NotifyCrateMoved();
+                Debug.Log("Tutorial box moved!");
             }
         }
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FuseToggle : MonoBehaviour
+public class FuseToggle : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public float interactDistance = 2.5f;
@@ -11,6 +11,9 @@ public class FuseToggle : MonoBehaviour
     [Header("Fuse Visual")]
     public GameObject fuseObject;
 
+    public string PromptText => "Toggle fuse";
+    public void Interact() { }
+
     private void Awake()
     {
         if (playerCamera == null)
@@ -20,9 +23,7 @@ public class FuseToggle : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(interactKey))
-        {
             TryInteract();
-        }
     }
 
     private void TryInteract()
@@ -32,18 +33,14 @@ public class FuseToggle : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
         {
             if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
-            {
                 ToggleFuse();
-            }
         }
     }
 
     private void ToggleFuse()
     {
         if (fuseObject == null) return;
-
         fuseObject.SetActive(!fuseObject.activeSelf);
-
         Debug.Log("Fuse toggled.");
     }
 }

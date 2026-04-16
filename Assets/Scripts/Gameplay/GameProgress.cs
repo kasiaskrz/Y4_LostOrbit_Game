@@ -4,9 +4,13 @@ public class GameProgress : MonoBehaviour
 {
     public static GameProgress Instance { get; private set; }
 
-    // Add more flags later if you want more puzzles
     public bool boxPuzzleSolved = false;
     public bool keyCollected = false;
+    public bool sc002Complete = false;
+    public bool sc003Complete = false;
+
+    // SC005 only unlocks when both rooms are done
+    public bool CanAccessSC005 => sc002Complete && sc003Complete;
 
     private void Awake()
     {

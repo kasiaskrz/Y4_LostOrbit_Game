@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FuseBoxReceiver : MonoBehaviour
+public class FuseBoxReceiver : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public float interactDistance = 2.5f;
@@ -18,12 +18,14 @@ public class FuseBoxReceiver : MonoBehaviour
     [Header("State")]
     public bool fuseInserted = false;
 
+    public string PromptText => fuseInserted ? "Fuse already inserted" : "Insert fuse";
+    public void Interact() { }
+
     private void Awake()
     {
         if (playerCamera == null)
             playerCamera = Camera.main;
 
-        // Make sure the inserted fuse starts hidden
         if (insertedFuseVisual != null)
             insertedFuseVisual.SetActive(false);
     }
@@ -39,38 +41,21 @@ public class FuseBoxReceiver : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
             {
                 if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
-                {
                     TryInsertFuse();
-                }
             }
         }
     }
 
     private void TryInsertFuse()
     {
-        if (InventoryManager.Instance == null)
-        {
-            Debug.LogWarning("InventoryManager not found.");
-            return;
-        }
+        if (InventoryManager.Instance == null) { Debug.LogWarning("InventoryManager not found."); return; }
 
         bool removed = InventoryManager.Instance.RemoveItemByName(requiredItemName, 1);
-
-        if (!removed)
-        {
-            Debug.Log("You need a fuse.");
-            return;
-        }
+        if (!removed) { Debug.Log("You need a fuse."); return; }
 
         fuseInserted = true;
-
-        // Unhide the fuse object already placed in the fuse box
-        if (insertedFuseVisual != null)
-            insertedFuseVisual.SetActive(true);
-
+        if (insertedFuseVisual != null) insertedFuseVisual.SetActive(true);
         Debug.Log("Fuse inserted.");
-
-        if (bridgeController != null)
-            bridgeController.ActivateBridge();
+        if (bridgeController != null) bridgeController.ActivateBridge();
     }
 }
