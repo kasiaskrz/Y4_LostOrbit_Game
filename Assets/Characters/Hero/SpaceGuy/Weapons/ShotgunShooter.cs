@@ -38,9 +38,18 @@ public class ShotgunShooter : MonoBehaviour
             {
                 end = hit.point;
 
-                // Damage anything that implements IDamageable
-                var dmg = hit.collider.GetComponentInParent<IDamageable>();
-                if (dmg != null) dmg.TakeDamage(damagePerPellet);
+                // Damage boss system
+                var bossDmg = hit.collider.GetComponentInParent<IDamageableBoss>();
+                if (bossDmg != null)
+                {
+                    bossDmg.TakeDamage(Mathf.RoundToInt(damagePerPellet));
+                }
+                else
+                {
+                    // Damage anything that implements IDamageable
+                    var dmg = hit.collider.GetComponentInParent<IDamageable>();
+                    if (dmg != null) dmg.TakeDamage(damagePerPellet);
+                }
             }
 
             if (tracerPrefab && Random.value <= tracerChance)

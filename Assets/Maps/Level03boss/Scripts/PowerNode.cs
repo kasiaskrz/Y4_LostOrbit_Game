@@ -1,41 +1,33 @@
 using UnityEngine;
 
-public class PowerNode : MonoBehaviour, IDamageable
+public class PowerNode : MonoBehaviour, IDamageableBoss
 {
     [Header("Cell Bone")]
     public Transform cellBone;
 
     [Header("Positions")]
-    public float loweredY = -0.02604f; // CLOSED
-    public float raisedY = 0.0154f;    // OPEN
+    public float loweredY = -0.02604f;
+    public float raisedY = 0.0154f;
 
     [Header("Movement")]
     public float moveSpeed = 2f;
 
-    private BossController boss;
+    private BossCore boss;
 
     private bool isActive = false;
     private bool isCompleted = false;
     private bool moveUp = false;
     private bool moveDown = false;
 
-    void Start()
+    private void Start()
     {
-        // FORCE correct starting position
-        if (cellBone != null)
-        {
-            Vector3 pos = cellBone.localPosition;
-            pos.y = loweredY;
-            cellBone.localPosition = pos;
-        }
-
-        isActive = false;
-        isCompleted = false;
+        SetInactiveState();
     }
 
-    void Update()
+    private void Update()
     {
-        if (cellBone == null) return;
+        if (cellBone == null)
+            return;
 
         Vector3 pos = cellBone.localPosition;
 
@@ -66,40 +58,48 @@ public class PowerNode : MonoBehaviour, IDamageable
         }
     }
 
-    public void ActivateNode(BossController bossController)
+    public void ActivateNode(BossCore owningBoss)
     {
-        if (isCompleted) return;
-
-        boss = bossController;
+        boss = owningBoss;
         isActive = true;
+        isCompleted = false;
 
         moveUp = true;
         moveDown = false;
+
+        gameObject.SetActive(true);
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int damage)
     {
-        if (!isActive) return;
-        if (isCompleted) return;
+        if (!isActive)
+            return;
+
+        if (isCompleted)
+            return;
 
         CompleteNode();
     }
+
     public void SetInactiveState()
-{
-    isActive = false;
-    isCompleted = false;
-
-    moveUp = false;
-    moveDown = false;
-
-    if (cellBone != null)
     {
-        Vector3 pos = cellBone.localPosition;
-        pos.y = loweredY;
-        cellBone.localPosition = pos;
+        isActive = false;
+        isCompleted = false;
+
+        moveUp = false;
+        moveDown = false;
+
+        if (cellBone != null)
+        {
+            Vector3 pos = cellBone.localPosition;
+            pos.y = loweredY;
+            cellBone.localPosition = pos;
+        }
+
+        gameObject.SetActive(false);
     }
-}
-    void CompleteNode()
+
+    private void CompleteNode()
     {
         isActive = false;
         isCompleted = true;
@@ -109,7 +109,7 @@ public class PowerNode : MonoBehaviour, IDamageable
 
         if (boss != null)
         {
-            boss.DisableShield();
+            boss.NotifyNodeDestroyed(this);
         }
 
         Debug.Log(name + " completed");
