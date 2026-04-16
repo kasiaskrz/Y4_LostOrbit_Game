@@ -15,7 +15,10 @@ public static class Loader
         SC002,
         SC003,
         SC005,
-        LoadingScene
+        LoadingScene,
+        MainMenu,
+        LoginMenu,
+        Room01
     }
 
 
