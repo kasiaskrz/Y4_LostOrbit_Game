@@ -80,7 +80,7 @@ public class EnemyBrain : MonoBehaviour
         if (dist > detectRange)
         {
             state = State.Idle;
-            agent.isStopped = true;
+            SetAgentStopped(true);
             SetCover(false);
             currentCover = null;
             return;
@@ -133,7 +133,7 @@ public class EnemyBrain : MonoBehaviour
                 anim.SetTrigger("EnterCover");
                 SetCover(true);
 
-                agent.isStopped = false;
+                SetAgentStopped(false);
                 agent.stoppingDistance = coverArriveDistance;
                 agent.SetDestination(currentCover.position);
                 return;
@@ -141,10 +141,10 @@ public class EnemyBrain : MonoBehaviour
         }
 
         // Otherwise chase normally
-        agent.isStopped = false;
+        SetAgentStopped(false);
         agent.stoppingDistance = 1.8f;
 
-        if (Time.time >= nextRepath)
+        if (Time.time >= nextRepath && agent.isOnNavMesh)
         {
             nextRepath = Time.time + repathRate;
             agent.SetDestination(player.position);
@@ -160,9 +160,9 @@ public class EnemyBrain : MonoBehaviour
             return;
         }
 
-        agent.isStopped = false;
+        SetAgentStopped(false);
 
-        if (Time.time >= nextRepath)
+        if (Time.time >= nextRepath && agent.isOnNavMesh)
         {
             nextRepath = Time.time + repathRate;
             agent.SetDestination(currentCover.position);
@@ -171,7 +171,7 @@ public class EnemyBrain : MonoBehaviour
         // Arrived
         if (!agent.pathPending && agent.remainingDistance <= coverArriveDistance + 0.15f)
         {
-            agent.isStopped = true;
+            SetAgentStopped(true);
             state = State.InCover;
 
             // schedule first popout
@@ -188,7 +188,7 @@ public class EnemyBrain : MonoBehaviour
             return;
         }
 
-        agent.isStopped = true;
+        SetAgentStopped(true);
         FacePlayer();
 
         // Popout & shoot
@@ -230,7 +230,7 @@ public class EnemyBrain : MonoBehaviour
 
         if (NavMesh.SamplePosition(target, out NavMeshHit hit, 6f, NavMesh.AllAreas))
         {
-            agent.isStopped = false;
+            SetAgentStopped(false);
             agent.stoppingDistance = 0f;
             agent.SetDestination(hit.position);
             state = State.Reposition;
@@ -247,7 +247,7 @@ public class EnemyBrain : MonoBehaviour
         SetCover(false);
         currentCover = null;
 
-        agent.isStopped = false;
+        SetAgentStopped(false);
         agent.stoppingDistance = 1.8f;
         state = State.Chase;
     }
@@ -255,6 +255,13 @@ public class EnemyBrain : MonoBehaviour
     void SetCover(bool value)
     {
         anim.SetBool("InCover", value);
+    }
+
+    // Safe wrapper — prevents "agent not on NavMesh" errors
+    void SetAgentStopped(bool stopped)
+    {
+        if (agent != null && agent.isOnNavMesh)
+            agent.isStopped = stopped;
     }
 
     Transform FindBestCoverPoint()

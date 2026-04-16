@@ -23,7 +23,6 @@ public class DoorsUnlockedButtons : MonoBehaviour
 
     void Start()
     {
-        // Use LOCAL position (important if door has parent)
         closedLocalPos = transform.localPosition;
         openLocalPos = closedLocalPos + openOffset;
     }

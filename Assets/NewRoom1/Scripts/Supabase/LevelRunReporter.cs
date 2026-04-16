@@ -6,9 +6,8 @@ public class LevelRunReporter : MonoBehaviour
     public int levelNumber = 1;
     public TextMeshProUGUI timerText;
 
-    float elapsed;
-    bool running;
-
+    public float elapsed;
+    public bool running; 
     SupabaseAuth supa;
 
     void Awake()

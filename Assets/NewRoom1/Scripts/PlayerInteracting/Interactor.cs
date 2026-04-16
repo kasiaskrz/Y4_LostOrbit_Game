@@ -16,8 +16,9 @@ public class Interactor : MonoBehaviour
     public Color highlightColor = Color.green;
 
     [Header("Interaction Prompt")]
-    public GameObject promptPanel;         // parent panel GameObject
-    public TextMeshProUGUI promptText;     // the text component
+    public GameObject promptPanel;
+    public TextMeshProUGUI promptText;
+
 
     public static IInteractable CurrentInteractable { get; private set; }
 
@@ -29,15 +30,17 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale == 0f && !NotePickup.IsOpen) return;
+        if (Time.timeScale == 0f && !NotePickup.IsOpen && !WirePuzzle.IsOpen) return;
 
         FindInteractable();
         UpdateCrosshair();
         UpdatePrompt();
 
-        if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && CurrentInteractable != null)
+        // Interact
+        if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && !WirePuzzle.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
 
+        // Close note with Escape
         if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
         {
             NotePickup note = FindFirstObjectByType<NotePickup>();
@@ -45,6 +48,14 @@ public class Interactor : MonoBehaviour
                 note.CloseNote();
             else
                 NoteReader.Instance.CloseNote();
+        }
+
+        // Close wire puzzle with Escape
+        if (Input.GetKeyDown(KeyCode.Escape) && WirePuzzle.IsOpen)
+        {
+            WirePuzzle puzzle = FindFirstObjectByType<WirePuzzle>();
+            if (puzzle != null)
+                puzzle.puzzlePanel.SetActive(false);
         }
     }
 
@@ -55,7 +66,7 @@ public class Interactor : MonoBehaviour
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask, triggerInteraction))
-            CurrentInteractable = hit.collider.GetComponent<IInteractable>();
+            CurrentInteractable = hit.collider.GetComponentInParent<IInteractable>();
     }
 
     void UpdateCrosshair()
@@ -68,15 +79,24 @@ public class Interactor : MonoBehaviour
     {
         if (promptPanel == null) return;
 
-        if (CurrentInteractable != null && !NotePickup.IsOpen)
+        if (CurrentInteractable != null && !NotePickup.IsOpen && !WirePuzzle.IsOpen)
         {
             promptPanel.SetActive(true);
             if (promptText != null)
-                promptText.text = $"[E] {CurrentInteractable.PromptText}";
+                promptText.text = (CurrentInteractable is LaserEmitterInteractable)
+                    ? CurrentInteractable.PromptText
+                    : $"[E] {CurrentInteractable.PromptText}";
         }
         else
         {
             promptPanel.SetActive(false);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (cam == null) return;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(cam.transform.position, cam.transform.forward * interactDistance);
     }
 }

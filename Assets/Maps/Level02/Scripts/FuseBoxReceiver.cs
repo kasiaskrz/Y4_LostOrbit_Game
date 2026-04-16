@@ -18,7 +18,13 @@ public class FuseBoxReceiver : MonoBehaviour, IInteractable
     [Header("State")]
     public bool fuseInserted = false;
 
-    public string PromptText => fuseInserted ? "Fuse already inserted" : "Insert fuse";
+    // ADD THIS (dynamic text)
+    public string PromptText =>
+        (insertedFuseVisual != null && !insertedFuseVisual.activeSelf)
+        ? "Insert Fuse"
+        : "";
+
+    // ADD THIS (required for detection)
     public void Interact() { }
 
     private void Awake()
@@ -41,21 +47,37 @@ public class FuseBoxReceiver : MonoBehaviour, IInteractable
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
             {
                 if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
+                {
                     TryInsertFuse();
+                }
             }
         }
     }
 
     private void TryInsertFuse()
     {
-        if (InventoryManager.Instance == null) { Debug.LogWarning("InventoryManager not found."); return; }
+        if (InventoryManager.Instance == null)
+        {
+            Debug.LogWarning("InventoryManager not found.");
+            return;
+        }
 
         bool removed = InventoryManager.Instance.RemoveItemByName(requiredItemName, 1);
-        if (!removed) { Debug.Log("You need a fuse."); return; }
+
+        if (!removed)
+        {
+            Debug.Log("You need a fuse.");
+            return;
+        }
 
         fuseInserted = true;
-        if (insertedFuseVisual != null) insertedFuseVisual.SetActive(true);
+
+        if (insertedFuseVisual != null)
+            insertedFuseVisual.SetActive(true);
+
         Debug.Log("Fuse inserted.");
-        if (bridgeController != null) bridgeController.ActivateBridge();
+
+        if (bridgeController != null)
+            bridgeController.ActivateBridge();
     }
 }

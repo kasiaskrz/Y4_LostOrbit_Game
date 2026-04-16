@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class FuseBox : MonoBehaviour, IInteractable
 {
+    public void Interact() { }
+    public string PromptText =>
+        (boxType == FuseBoxType.SourceBox && fuseVisual != null && fuseVisual.activeSelf)
+        ? "Pick up a Fuse"
+        : "";
+
     public enum FuseBoxType
     {
         SourceBox,

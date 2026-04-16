@@ -3,12 +3,17 @@ guid: 204b7a86466e2a1438a796e407928eca
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: holesCeiling
+    second: {fileID: 2100000, guid: 7ee742b5e3388a8469fe7f2447cdfdea, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

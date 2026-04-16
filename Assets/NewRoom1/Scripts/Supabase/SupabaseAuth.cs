@@ -51,12 +51,11 @@ public class SupabaseAuth : MonoBehaviour
 
         if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(userId))
         {
-            if (statusText != null) statusText.text = "Login failed.";
             yield break;
         }
 
         if (statusText != null) statusText.text = "Success!";
-        SceneManager.LoadScene(gameSceneName);
+        Loader.Load(Loader.Scene.Room01);
     }
 
     IEnumerator LoginCoroutine(string email, string password)
@@ -84,7 +83,10 @@ public class SupabaseAuth : MonoBehaviour
             Debug.LogError("Login failed: " + request.error);
             Debug.LogError(request.downloadHandler.text);
 
-            if (statusText != null) statusText.text = "Login failed.";
+            if (statusText != null)
+            {
+                statusText.text = "Invalid email or password. Please try again.";
+            }
             yield break;
         }
 

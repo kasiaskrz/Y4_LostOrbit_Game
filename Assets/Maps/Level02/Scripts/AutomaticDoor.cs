@@ -15,9 +15,18 @@ public class AutomaticDoor : MonoBehaviour
     public float moveSpeed = 2f;
     public bool closeWhenPlayerLeaves = true;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+
     private Vector3 closedPosition;
     private Vector3 openPosition;
+
     private bool isOpen = false;
+
+    // 🔑 Prevent sound spam
+    private bool wasOpen = false;
 
     private void Start()
     {
@@ -49,6 +58,18 @@ public class AutomaticDoor : MonoBehaviour
             target,
             moveSpeed * Time.deltaTime
         );
+
+        // 🎧 Play sounds only when state changes
+        if (isOpen && !wasOpen)
+        {
+            PlaySound(openSound);
+        }
+        else if (!isOpen && wasOpen)
+        {
+            PlaySound(closeSound);
+        }
+
+        wasOpen = isOpen;
     }
 
     public void OpenDoor()
@@ -60,5 +81,13 @@ public class AutomaticDoor : MonoBehaviour
     {
         if (closeWhenPlayerLeaves)
             isOpen = false;
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

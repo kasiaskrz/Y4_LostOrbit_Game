@@ -14,8 +14,15 @@ public class ElevatorButtonTest : MonoBehaviour, IInteractable
     [Header("Bridge")]
     public BridgeController bridgeController;
 
-    public string PromptText => "Call elevator";
-    public void Interact() { }
+    public string PromptText =>
+        (fuseObject != null && fuseObject.activeSelf)
+        ? "Activate Elevator"
+        : "No Power";
+
+    public void Interact()
+    {
+
+    }
 
     private void Awake()
     {
@@ -26,7 +33,9 @@ public class ElevatorButtonTest : MonoBehaviour, IInteractable
     private void Update()
     {
         if (Input.GetKeyDown(interactKey))
+        {
             TryInteract();
+        }
     }
 
     private void TryInteract()
@@ -36,14 +45,30 @@ public class ElevatorButtonTest : MonoBehaviour, IInteractable
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
         {
             if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
+            {
                 PressButton();
+            }
         }
     }
 
     private void PressButton()
     {
-        if (fuseObject == null) { Debug.LogWarning("Fuse object not assigned."); return; }
-        if (!fuseObject.activeSelf) { Debug.Log("Elevator has no fuse."); return; }
-        if (bridgeController != null) { bridgeController.ActivateBridge(); Debug.Log("Elevator activated."); }
+        if (fuseObject == null)
+        {
+            Debug.LogWarning("Fuse object not assigned.");
+            return;
+        }
+
+        if (!fuseObject.activeSelf)
+        {
+            Debug.Log("Elevator has no fuse.");
+            return;
+        }
+
+        if (bridgeController != null)
+        {
+            bridgeController.ActivateBridge();
+            Debug.Log("Elevator activated.");
+        }
     }
 }
