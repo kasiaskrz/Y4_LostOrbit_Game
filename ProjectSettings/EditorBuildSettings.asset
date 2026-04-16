@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 8f4ee2d8fd3001d42aa60e52a58ee74c
   - enabled: 1
-    path: Assets/MainHall.unity
+    path: Assets/Tutorial Rooms/MainHall.unity
     guid: 46f6ae824ce38ed4cb3a7138c531652e
   - enabled: 1
     path: Assets/NewRoom1/Room01.unity
@@ -30,13 +30,13 @@ EditorBuildSettings:
     path: Assets/Maps/Level03boss/Bossfight.unity
     guid: 3151e16ccd349984490a892886725cf3
   - enabled: 1
-    path: Assets/SC003.unity
+    path: Assets/Tutorial Rooms/SC003.unity
     guid: 23bcfbda284975d4d8f776a80554681a
   - enabled: 1
-    path: Assets/SC001.unity
+    path: Assets/Tutorial Rooms/SC001.unity
     guid: 59f8d8d40ae7ee14d82c2bb558e02b18
   - enabled: 1
-    path: Assets/SC002.unity
+    path: Assets/Tutorial Rooms/SC002.unity
     guid: c9fb5e29db88b4b4c830a42a84f8e323
   - enabled: 1
     path: Assets/SC005.unity

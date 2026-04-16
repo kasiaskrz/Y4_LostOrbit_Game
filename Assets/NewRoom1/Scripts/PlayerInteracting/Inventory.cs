@@ -24,6 +24,8 @@ public class Inventory : MonoBehaviour
 
     public void ToggleInventory()
     {
+        if (LevelComplete.IsOpen) return; // block when level complete
+
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         if (inventoryPanel.activeSelf)
         {
