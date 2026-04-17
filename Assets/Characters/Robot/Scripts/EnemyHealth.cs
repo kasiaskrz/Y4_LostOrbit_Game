@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public bool disableRootColliderOnDeath = true;
 
     bool dead;
+public bool IsDead => dead;
 
     Animator anim;
     NavMeshAgent agent;
