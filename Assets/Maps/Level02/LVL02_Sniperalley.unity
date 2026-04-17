@@ -8714,7 +8714,7 @@ GameObject:
   - component: {fileID: 621176398}
   - component: {fileID: 621176397}
   - component: {fileID: 621176396}
-  - component: {fileID: 621176400}
+  - component: {fileID: 621176401}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -8814,7 +8814,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &621176400
+--- !u!114 &621176401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8823,12 +8823,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 621176395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deea91fcb890a6743ba3d83ec6cc8c77, type: 3}
+  m_Script: {fileID: 11500000, guid: 309520f3a0b61d14a9a1b6d0784a717f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossFightTrigger
-  bossSceneName: BossFight
-  playerTag: Player
-  triggerOnce: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ExitTrigger
 --- !u!1001 &622922020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18085,7 +18082,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 01 Completed!
+  m_text: Level 02 Completed!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22883,6 +22880,56 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4459320253895228637, guid: 22e7a5348e7150f4d80b51a79fa0eb62, type: 3}
+--- !u!1 &1729897112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1729897114}
+  - component: {fileID: 1729897113}
+  m_Layer: 0
+  m_Name: LevelComplete
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1729897113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729897112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd74f2e2f0014c4e94d105a65739626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelComplete
+  levelCompletePanel: {fileID: 599041841}
+  continueButton: {fileID: 1121626677}
+  timeText: {fileID: 632567467}
+  levelText: {fileID: 249574460}
+  fadeImage: {fileID: 1234264517}
+  fadeDuration: 0.5
+--- !u!4 &1729897114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729897112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -81.32, y: 6.84, z: -16.26}
+  m_LocalScale: {x: 4.63, y: 6.02, z: 0.79}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &1730522440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 506862030329297439, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
@@ -28681,3 +28728,4 @@ SceneRoots:
   - {fileID: 935319033}
   - {fileID: 307197533}
   - {fileID: 621176399}
+  - {fileID: 1729897114}
