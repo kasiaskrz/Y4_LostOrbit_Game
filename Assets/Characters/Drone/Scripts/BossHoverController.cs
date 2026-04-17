@@ -24,6 +24,11 @@ public class BossHoverController : MonoBehaviour
     public float shieldMoveSpeed = 4f;
     public float shieldArrivalDistance = 0.4f;
 
+    [Header("Shield Freeze")]
+    public bool freezeWhileShielded = true;
+    public bool keepFacingWhileFrozen = false;
+    public Transform frozenLookTarget;
+
     [Header("Debug")]
     public bool drawGizmos = true;
 
@@ -32,6 +37,9 @@ public class BossHoverController : MonoBehaviour
 
     private bool movingToShieldNode = false;
     private Transform currentShieldNode;
+
+    private bool isShielded = false;
+    private Vector3 frozenPosition;
 
     private void Start()
     {
@@ -48,6 +56,12 @@ public class BossHoverController : MonoBehaviour
 
     private void Update()
     {
+        if (isShielded && freezeWhileShielded)
+        {
+            HandleFrozenShieldState();
+            return;
+        }
+
         if (movingToShieldNode && allowShieldNodeMovement && currentShieldNode != null)
         {
             HandleShieldNodeMovement();
@@ -55,6 +69,16 @@ public class BossHoverController : MonoBehaviour
         else
         {
             HandleNormalHoverMovement();
+        }
+    }
+
+    private void HandleFrozenShieldState()
+    {
+        transform.position = frozenPosition;
+
+        if (keepFacingWhileFrozen && frozenLookTarget != null)
+        {
+            RotateTowards(frozenLookTarget.position);
         }
     }
 
@@ -100,7 +124,7 @@ public class BossHoverController : MonoBehaviour
         float dist = Vector3.Distance(transform.position, currentShieldNode.position);
         if (dist <= shieldArrivalDistance)
         {
-            // Stay at node until released.
+            // Stay at node until released or frozen.
         }
     }
 
@@ -158,6 +182,32 @@ public class BossHoverController : MonoBehaviour
         PickNewHoverTarget();
     }
 
+    public void SetShielded(bool shielded)
+    {
+        isShielded = shielded;
+
+        if (isShielded)
+        {
+            frozenPosition = transform.position;
+        }
+        else
+        {
+            PickNewHoverTarget();
+        }
+    }
+
+    public void FreezeNow()
+    {
+        isShielded = true;
+        frozenPosition = transform.position;
+    }
+
+    public void Unfreeze()
+    {
+        isShielded = false;
+        PickNewHoverTarget();
+    }
+
     public void ForcePickNewHoverTarget()
     {
         PickNewHoverTarget();
@@ -166,6 +216,11 @@ public class BossHoverController : MonoBehaviour
     public bool IsMovingToShieldNode()
     {
         return movingToShieldNode;
+    }
+
+    public bool IsShielded()
+    {
+        return isShielded;
     }
 
     private void OnDrawGizmosSelected()
@@ -189,6 +244,12 @@ public class BossHoverController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, currentShieldNode.position);
             Gizmos.DrawSphere(currentShieldNode.position, 0.25f);
+        }
+
+        if (isShielded)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(frozenPosition, 0.35f);
         }
     }
 }

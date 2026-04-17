@@ -16,8 +16,14 @@ public class BossRocketAttack : MonoBehaviour
     public float maxCooldown = 8f;
     public float preFireDelay = 0.75f;
 
+    [Header("Shield Behaviour")]
+    public bool disableWhileShielded = true;
+    public bool resetCooldownWhenShieldEnds = true;
+
     private float cooldownTimer;
     private bool isFiring = false;
+    private bool isShielded = false;
+    private Coroutine fireRoutineCoroutine;
 
     private void Start()
     {
@@ -29,6 +35,9 @@ public class BossRocketAttack : MonoBehaviour
         if (player == null || firePoint == null || rocketPrefab == null)
             return;
 
+        if (disableWhileShielded && isShielded)
+            return;
+
         if (isFiring)
             return;
 
@@ -36,7 +45,7 @@ public class BossRocketAttack : MonoBehaviour
 
         if (cooldownTimer <= 0f)
         {
-            StartCoroutine(FireRoutine());
+            fireRoutineCoroutine = StartCoroutine(FireRoutine());
             cooldownTimer = Random.Range(minCooldown, maxCooldown);
         }
     }
@@ -53,6 +62,13 @@ public class BossRocketAttack : MonoBehaviour
         }
 
         yield return new WaitForSeconds(preFireDelay);
+
+        if (disableWhileShielded && isShielded)
+        {
+            isFiring = false;
+            fireRoutineCoroutine = null;
+            yield break;
+        }
 
         Vector3 spawnPos = firePoint.position + firePoint.forward * 0.75f;
 
@@ -73,5 +89,44 @@ public class BossRocketAttack : MonoBehaviour
         }
 
         isFiring = false;
+        fireRoutineCoroutine = null;
+    }
+
+    public void SetShielded(bool shielded)
+    {
+        isShielded = shielded;
+
+        if (isShielded)
+        {
+            if (fireRoutineCoroutine != null)
+            {
+                StopCoroutine(fireRoutineCoroutine);
+                fireRoutineCoroutine = null;
+            }
+
+            isFiring = false;
+        }
+        else
+        {
+            if (resetCooldownWhenShieldEnds)
+            {
+                cooldownTimer = Random.Range(minCooldown, maxCooldown);
+            }
+        }
+    }
+
+    public void DisableRockets()
+    {
+        SetShielded(true);
+    }
+
+    public void EnableRockets()
+    {
+        SetShielded(false);
+    }
+
+    public bool IsShielded()
+    {
+        return isShielded;
     }
 }
