@@ -98,7 +98,7 @@ ModelImporter:
       takeName: Shotgun|Shotgun|Weap_Shotgun_Reloading_end
       internalID: 7719047369351862431
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -156,7 +156,7 @@ ModelImporter:
       takeName: Shotgun|Shotgun|Weap_Shotgun_Reloading_start
       internalID: -7189730475318480618
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

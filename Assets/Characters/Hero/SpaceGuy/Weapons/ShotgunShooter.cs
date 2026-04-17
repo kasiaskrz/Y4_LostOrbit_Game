@@ -21,9 +21,33 @@ public class ShotgunShooter : MonoBehaviour
     [Range(0f, 1f)] public float tracerChance = 0.8f;
     public float tracerMuzzleForwardOffset = 0.05f;
 
+    [Header("Ammo")]
+    public int magSize = 6;
+    public int currentAmmo = 6;
+    public int reserveAmmo = 24;
+    public bool useAmmo = true;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip fireClip;
+    public AudioClip emptyClip;
+    public AudioClip reloadStartClip;
+    public AudioClip reloadInsertClip;
+    public AudioClip reloadEndClip;
+
+    [Header("Audio Pitch")]
+    public float minPitch = 0.98f;
+    public float maxPitch = 1.02f;
+
     public void FireOnce()
     {
         if (!muzzle) return;
+
+        if (useAmmo && currentAmmo <= 0)
+        {
+            PlayEmptySound();
+            return;
+        }
 
         Transform aimSource = null;
 
@@ -34,6 +58,11 @@ public class ShotgunShooter : MonoBehaviour
             aimSource = aimTransform;
         else
             return;
+
+        if (useAmmo)
+            currentAmmo--;
+
+        PlayFireSound();
 
         Vector3 tracerStart = muzzle.position + muzzle.forward * tracerMuzzleForwardOffset;
 
@@ -76,6 +105,60 @@ public class ShotgunShooter : MonoBehaviour
         return (forward +
                 aimSource.right * r.x +
                 aimSource.up * r.y).normalized;
+    }
+
+    void PlayClip(AudioClip clip)
+    {
+        if (audioSource == null || clip == null) return;
+
+        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        audioSource.PlayOneShot(clip);
+        audioSource.pitch = 1f;
+    }
+
+    public void PlayFireSound()
+    {
+        PlayClip(fireClip);
+    }
+
+    public void PlayEmptySound()
+    {
+        PlayClip(emptyClip);
+    }
+
+    public void PlayReloadStartSound()
+    {
+        PlayClip(reloadStartClip);
+    }
+
+    public void PlayReloadInsertSound()
+    {
+        PlayClip(reloadInsertClip);
+    }
+
+    public void PlayReloadEndSound()
+    {
+        PlayClip(reloadEndClip);
+    }
+
+    public void InsertOneShell()
+    {
+        if (!useAmmo) return;
+        if (reserveAmmo <= 0) return;
+        if (currentAmmo >= magSize) return;
+
+        currentAmmo++;
+        reserveAmmo--;
+    }
+
+    public bool IsMagazineFull()
+    {
+        return currentAmmo >= magSize;
+    }
+
+    public bool HasReserveAmmo()
+    {
+        return reserveAmmo > 0;
     }
 }
 
