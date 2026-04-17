@@ -1306,6 +1306,26 @@ CharacterController:
   m_CorrespondingSourceObject: {fileID: 621010053398872971, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
   m_PrefabInstance: {fileID: 1473362302}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &255102476 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 506862030329297439, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+  m_PrefabInstance: {fileID: 1473362302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &255102477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255102465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07ad32c5b483b04f8a588092d7bbb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplosionKnockback
+  horizontalDamp: 2.5
+  verticalDamp: 1.8
+  stopThreshold: 0.15
 --- !u!1 &262447811
 GameObject:
   m_ObjectHideFlags: 0
@@ -7210,6 +7230,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3486273859795174987, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: explosionKnockback
+      value: 
+      objectReference: {fileID: 255102477}
     - target: {fileID: 6170991296996076264, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -7235,6 +7259,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6170991296996076264, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 255102466}
+    - targetCorrespondingSourceObject: {fileID: 6170991296996076264, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 255102477}
   m_SourcePrefab: {fileID: 100100000, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
 --- !u!1001 &1476399138
 PrefabInstance:
@@ -10959,7 +10986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9c4c7c98127924099a61861d6fd588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossRocketAttack
-  player: {fileID: 0}
+  player: {fileID: 255102476}
   firePoint: {fileID: 823323638}
   rocketPrefab: {fileID: 9091616692830068143, guid: 704747cb8b0957f49acc8077fa12880e, type: 3}
   audioSource: {fileID: 0}
@@ -10980,7 +11007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eac5a406b0c0f744a9466f40923692b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossTurretTracker
-  player: {fileID: 0}
+  player: {fileID: 255102476}
   turretBone: {fileID: 1688987634}
   rotationSpeed: 6
   trackPlayer: 1
