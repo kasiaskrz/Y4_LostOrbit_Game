@@ -30714,8 +30714,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1883785, y: 1, z: 1}
-  m_Center: {x: 0.09418893, y: 0, z: 0}
+  m_Size: {x: 1.6258433, y: 1, z: 1}
+  m_Center: {x: 0.31292042, y: 0, z: 0}
 --- !u!23 &2074824695
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30801,7 +30801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushBox
   targetPosition: {fileID: 1133763952}
-  pushSpeed: 2
+  pushSpeed: 4
   interactKey: 101
   verticalAxis: Vertical
 --- !u!64 &2074824700
