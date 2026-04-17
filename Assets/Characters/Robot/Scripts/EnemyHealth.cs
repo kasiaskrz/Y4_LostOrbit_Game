@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,8 +16,19 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [Tooltip("If your enemy has a root collider (capsule), it will be disabled on death.")]
     public bool disableRootColliderOnDeath = true;
 
+    [Header("Drops")]
+    public GameObject ammoPickupPrefab;
+    public GameObject healthPickupPrefab;
+    [Range(0f, 1f)] public float healthDropChance = 0.2f;
+    public Vector3 dropOffset = new Vector3(0f, 0.2f, 0f);
+
+    [Header("Drop Pop")]
+    public float minDropPopForce = 1.2f;
+    public float maxDropPopForce = 2.0f;
+    public Vector2 dropSpreadRange = new Vector2(0.4f, 0.4f);
+
     bool dead;
-public bool IsDead => dead;
+    public bool IsDead => dead;
 
     Animator anim;
     NavMeshAgent agent;
@@ -42,17 +54,14 @@ public bool IsDead => dead;
 
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        // Start animated, ragdoll OFF
         SetRagdoll(false);
     }
 
-    // Allows your shotgun code to call IDamageable directly.
     public void TakeDamage(float amount)
     {
         ApplyDamage(amount, Vector3.zero, Vector3.zero);
     }
 
-    // Use this when you want hit reaction force + proper ragdoll impulse.
     public void ApplyDamage(float amount, Vector3 hitPoint, Vector3 hitDir)
     {
         if (dead) return;
@@ -62,7 +71,6 @@ public bool IsDead => dead;
             Die(hitPoint, hitDir);
     }
 
-    // Handy for interact kills / debugging
     public void KillInstantly()
     {
         Vector3 hitPoint = transform.position + Vector3.up * 1.0f;
@@ -74,7 +82,6 @@ public bool IsDead => dead;
     {
         dead = true;
 
-        // Stop AI + movement
         if (ai) ai.enabled = false;
 
         if (agent)
@@ -95,13 +102,11 @@ public bool IsDead => dead;
             if (cc) cc.enabled = false;
         }
 
-        // Enable ragdoll
         SetRagdoll(true);
 
         if (disableRootColliderOnDeath && rootCollider)
             rootCollider.enabled = false;
 
-        // Add hit force
         if (hitDir != Vector3.zero)
         {
             Rigidbody rb = FindClosestRigidbody(hitPoint);
@@ -109,22 +114,110 @@ public bool IsDead => dead;
                 rb.AddForce(hitDir.normalized * hitForce, ForceMode.Impulse);
         }
 
-        // Notify wave system (once)
         if (tracker) tracker.ReportDeath();
+
+        StartCoroutine(DropLootDelayed());
 
         Destroy(gameObject, destroyAfterSeconds);
     }
 
+    IEnumerator DropLootDelayed()
+    {
+        yield return new WaitForSeconds(0.35f);
+
+        Vector3 spawnCenter = transform.position + dropOffset;
+
+        if (ammoPickupPrefab != null)
+        {
+            SpawnDrop(ammoPickupPrefab, spawnCenter);
+        }
+
+        if (healthPickupPrefab != null && Random.value <= healthDropChance)
+        {
+            SpawnDrop(healthPickupPrefab, spawnCenter);
+        }
+    }
+
+    void SpawnDrop(GameObject prefab, Vector3 spawnCenter)
+    {
+        Vector3 randomOffset = new Vector3(
+            Random.Range(-dropSpreadRange.x, dropSpreadRange.x),
+            0f,
+            Random.Range(-dropSpreadRange.y, dropSpreadRange.y)
+        );
+
+        Vector3 spawnPos = spawnCenter + randomOffset;
+        spawnPos = GetGroundedSpawnPosition(prefab, spawnPos);
+
+        Quaternion spawnRot = Quaternion.Euler(0f, prefab.transform.eulerAngles.y, 0f);
+        GameObject drop = Instantiate(prefab, spawnPos, spawnRot);
+
+        Rigidbody rb = drop.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+            Vector3 popDir = new Vector3(
+                Random.Range(-0.2f, 0.2f),
+                Random.Range(0.9f, 1.1f),
+                Random.Range(-0.2f, 0.2f)
+            ).normalized;
+
+            float popForce = Random.Range(minDropPopForce, maxDropPopForce);
+            rb.AddForce(popDir * popForce, ForceMode.Impulse);
+        }
+
+        StartCoroutine(SettleDrop(drop));
+    }
+
+    IEnumerator SettleDrop(GameObject drop)
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        if (drop == null) yield break;
+
+        Rigidbody rb = drop.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            Vector3 euler = drop.transform.eulerAngles;
+            drop.transform.rotation = Quaternion.Euler(0f, euler.y, 0f);
+        }
+    }
+
+    Vector3 GetGroundedSpawnPosition(GameObject prefab, Vector3 testPos)
+    {
+        Vector3 rayStart = testPos + Vector3.up * 3f;
+
+        if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 10f, ~0, QueryTriggerInteraction.Ignore))
+        {
+            float yOffset = 0.1f;
+
+            Collider prefabCollider = prefab.GetComponentInChildren<Collider>();
+            if (prefabCollider != null)
+            {
+                yOffset = prefabCollider.bounds.extents.y;
+            }
+
+            return new Vector3(testPos.x, hit.point.y + yOffset, testPos.z);
+        }
+
+        return testPos;
+    }
+
     void SetRagdoll(bool enabled)
     {
-        // When ragdoll is OFF: kinematic bodies, colliders OFF (so they don't mess with nav/aim)
-        // When ragdoll is ON : non-kinematic, colliders ON
         for (int i = 0; i < ragdollBodies.Length; i++)
         {
             Rigidbody rb = ragdollBodies[i];
             if (!rb) continue;
 
-            // Skip a potential rigidbody on the root object
             if (rb.gameObject == gameObject) continue;
 
             rb.isKinematic = !enabled;
@@ -137,7 +230,6 @@ public bool IsDead => dead;
             Collider col = ragdollColliders[i];
             if (!col) continue;
 
-            // Skip root collider here (handled separately)
             if (col.gameObject == gameObject) continue;
 
             col.enabled = enabled;

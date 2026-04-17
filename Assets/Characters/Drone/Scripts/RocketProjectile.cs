@@ -57,6 +57,10 @@ public class RocketProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Ignore owner collision just in case
+        if (IsOwnerCollider(collision.collider))
+            return;
+
         Explode();
     }
 
@@ -66,35 +70,32 @@ public class RocketProjectile : MonoBehaviour
 
         for (int i = 0; i < hits.Length; i++)
         {
-            float distance = Vector3.Distance(transform.position, hits[i].ClosestPoint(transform.position));
+            Collider hit = hits[i];
+
+            // Skip owner completely
+            if (IsOwnerCollider(hit))
+                continue;
+
+            float distance = Vector3.Distance(transform.position, hit.ClosestPoint(transform.position));
             float t = 1f - Mathf.Clamp01(distance / explosionRadius);
 
             int damage = Mathf.RoundToInt(Mathf.Lerp(minDamage, maxDamage, t));
             float knockbackForce = Mathf.Lerp(minKnockbackForce, maxKnockbackForce, t);
 
-            PlayerHealth playerHealth = hits[i].GetComponentInParent<PlayerHealth>();
+            PlayerHealth playerHealth = hit.GetComponentInParent<PlayerHealth>();
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
             }
 
-            Rigidbody rb = hits[i].GetComponentInParent<Rigidbody>();
-            if (rb != null && !rb.isKinematic)
-            {
-                Vector3 dir = (hits[i].transform.position - transform.position).normalized;
-                rb.AddForce(dir * knockbackForce, ForceMode.Impulse);
-            }
-
-            PlayerExplosionKnockback knockback = hits[i].GetComponentInParent<PlayerExplosionKnockback>();
+            PlayerExplosionKnockback knockback = hit.GetComponentInParent<PlayerExplosionKnockback>();
             if (knockback != null)
             {
-                Vector3 dir = hits[i].transform.position - transform.position;
+                Vector3 dir = hit.transform.position - transform.position;
                 dir.y = 0f;
 
                 if (dir.sqrMagnitude < 0.01f)
-                {
                     dir = -transform.forward;
-                }
 
                 dir.Normalize();
 
@@ -106,6 +107,26 @@ public class RocketProjectile : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private bool IsOwnerCollider(Collider other)
+    {
+        if (ownerColliders == null || other == null)
+            return false;
+
+        for (int i = 0; i < ownerColliders.Length; i++)
+        {
+            if (ownerColliders[i] == null)
+                continue;
+
+            if (other == ownerColliders[i])
+                return true;
+
+            if (other.transform.IsChildOf(ownerColliders[i].transform) || ownerColliders[i].transform.IsChildOf(other.transform))
+                return true;
+        }
+
+        return false;
     }
 
     private void OnDrawGizmosSelected()

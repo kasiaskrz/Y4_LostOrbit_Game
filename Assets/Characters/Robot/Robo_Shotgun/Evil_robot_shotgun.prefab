@@ -72,15 +72,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1106,6 +1106,13 @@ MonoBehaviour:
   hitForce: 6
   disableCharacterControllerIfAny: 1
   disableRootColliderOnDeath: 1
+  ammoPickupPrefab: {fileID: 2172874739975864943, guid: a597dfb07d9bc9c40b93eba1c97b6e32, type: 3}
+  healthPickupPrefab: {fileID: 6345333170667456609, guid: 3bb95ddf31f0c2e4dbb013e4dcd0fe8f, type: 3}
+  healthDropChance: 0.2
+  dropOffset: {x: 0, y: 0.5, z: 0}
+  minDropPopForce: 2.5
+  maxDropPopForce: 4
+  dropSpreadRange: {x: 0.4, y: 0.4}
 --- !u!114 &8044978578283479576
 MonoBehaviour:
   m_ObjectHideFlags: 0
