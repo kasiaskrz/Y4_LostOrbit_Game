@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotgunShooter
   cam: {fileID: 1917745383849023462}
+  aimTransform: {fileID: 0}
   muzzle: {fileID: 5204274275957725900}
   tracerPrefab: {fileID: 9158382082500895871, guid: 35c80ee68e7788443885e9ddc7aeccb3, type: 3}
   pellets: 10
@@ -736,6 +737,7 @@ MonoBehaviour:
   shooter: {fileID: 6606319381855073737}
   magSize: 6
   ammoInMag: 6
+  ammoItemData: {fileID: 0}
   inspectKey: 102
   interactKey: 101
   reloadKey: 114
@@ -2383,7 +2385,7 @@ Transform:
   m_GameObject: {fileID: 6170991296996076264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -20.61, y: -0.30001, z: 31.85}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2429,6 +2431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FPS_PlayerMovement
   cameraPivot: {fileID: 5039932201412172105}
   playerCamera: {fileID: 1917745383849023462}
+  explosionKnockback: {fileID: 0}
   sensitivity: 2
   yClamp: 85
   lookSmooth: 12

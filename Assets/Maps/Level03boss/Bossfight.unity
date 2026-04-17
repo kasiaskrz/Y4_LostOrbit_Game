@@ -3135,6 +3135,37 @@ MonoBehaviour:
   loweredY: -0.02604
   raisedY: 0.0154
   moveSpeed: 2
+--- !u!1 &670379990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 670379991}
+  m_Layer: 0
+  m_Name: Hoverpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &670379991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670379990}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.10582, y: 5.88705, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &744675969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8605953061066292145, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
@@ -10467,6 +10498,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1092241601970218251, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1067916371063474174}
+    - targetCorrespondingSourceObject: {fileID: 1092241601970218251, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1067916371063474175}
   m_SourcePrefab: {fileID: 100100000, guid: 624ff1f3e535df64da8c5bfd46e3a3f5, type: 3}
 --- !u!1 &1067916371063474165 stripped
 GameObject:
@@ -10687,6 +10721,33 @@ MonoBehaviour:
   rotationSpeed: 6
   trackPlayer: 1
   rotationOffsetEuler: {x: 0, y: -90, z: 0}
+--- !u!114 &1067916371063474175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067916371063474165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cc84ad28503e94aa68ee712c3f51b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHoverController
+  hoverCenter: {fileID: 670379991}
+  roamRadius: 12
+  moveSpeed: 3
+  arrivalDistance: 0.5
+  repathDelay: 2
+  hoverHeight: 1
+  bobAmount: 0.35
+  bobSpeed: 1.5
+  faceMovementDirection: 1
+  rotationSpeed: 4
+  yawOffset: 0
+  allowShieldNodeMovement: 1
+  shieldMoveSpeed: 4
+  shieldArrivalDistance: 0.4
+  drawGizmos: 1
 --- !u!1001 &4826302708415135319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10772,3 +10833,4 @@ SceneRoots:
   - {fileID: 4826302708415135319}
   - {fileID: 467655864}
   - {fileID: 1685634634}
+  - {fileID: 670379991}
