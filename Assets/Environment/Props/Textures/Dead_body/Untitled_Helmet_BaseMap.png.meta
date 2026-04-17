@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 7cc47bdbbc110af4b9f04eb4d026a930
+guid: e29383e37f1effa4caf95d111337f0b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6938836888705727300
-    second: Chest_armour_Normal_0
+      213: -967359593995416968
+    second: Untitled_Helmet_BaseMap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
-    sRGBTexture: 0
+    enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -55,9 +55,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 1
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chest_armour_Normal_0
+      name: Untitled_Helmet_BaseMap_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb4815efc9c44bf90800000000000000
-      internalID: -6938836888705727300
+      spriteID: 87a46d5139f3392f0800000000000000
+      internalID: -967359593995416968
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Chest_armour_Normal_0: -6938836888705727300
+      Untitled_Helmet_BaseMap_0: -967359593995416968
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
