@@ -27,7 +27,7 @@ public class Barricade : MonoBehaviour
     {
         if (!isRising) return;
 
-        // ▶️ Start looping sound ONCE
+        // Start looping sound ONCE
         if (!hasStartedAudio && audioSource != null && movingLoopSound != null)
         {
             audioSource.clip = movingLoopSound;
@@ -43,7 +43,7 @@ public class Barricade : MonoBehaviour
             moveSpeed * Time.deltaTime
         );
 
-        // ⛔ Stop when finished
+        // Stop when finished
         if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
         {
             isRising = false;
