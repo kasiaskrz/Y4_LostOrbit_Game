@@ -18,7 +18,8 @@ public static class Loader
         LoadingScene,
         MainMenu,
         LoginMenu,
-        Room01
+        Room01,
+        WaveMode
     }
 
 

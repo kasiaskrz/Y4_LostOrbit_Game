@@ -6,6 +6,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button loginButton;
     [SerializeField] private Button guestButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Button waveModeButton;
 
     private void Awake()
     {
@@ -17,6 +18,11 @@ public class MainMenuUI : MonoBehaviour
         guestButton.onClick.AddListener(() =>
         {
             Loader.Load(Loader.Scene.Room01);
+        });
+
+        waveModeButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.WaveMode);
         });
 
         quitButton.onClick.AddListener(() =>

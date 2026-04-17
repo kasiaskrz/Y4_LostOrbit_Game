@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/SC005.unity
     guid: c2d4bd1461fde3e4385939e9521c7d3b
+  - enabled: 1
+    path: Assets/WaveMode/WaveMode.unity
+    guid: 6e75d932e3e5c904887be8fcd6f31fe3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
