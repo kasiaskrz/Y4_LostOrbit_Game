@@ -1,27 +1,59 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
-    public int currentHealth = 100;
+    public int currentHealth;
 
-    public System.Action<int, int> OnHealthChanged;
+    public Action<int, int> OnHealthChanged;
 
-    void Start()
+    private void Awake()
     {
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(int damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - dmg, 0, maxHealth);
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     public void Heal(int amount)
     {
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player died.");
+
+        PlayerAmmo ammo = GetComponent<PlayerAmmo>();
+        Inventory inventory = GetComponent<Inventory>();
+
+        if (GameSaveManager.Instance != null && GameSaveManager.Instance.hasCheckpoint)
+        {
+            GameSaveManager.Instance.RespawnPlayer(
+                gameObject,
+                this,
+                ammo,
+                inventory
+            );
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
