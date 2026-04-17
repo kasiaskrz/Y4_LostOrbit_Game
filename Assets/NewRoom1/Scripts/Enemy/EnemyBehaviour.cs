@@ -19,10 +19,6 @@ public class EnemyBehavior : MonoBehaviour
     public float chaseSpeed = 4f;
     public float idleSpeed = 0f;
 
-    [Header("Damage")]
-    public float damagePerSecond = 10f;
-    public float damageRange = 1.5f;
-
     [Header("Repath")]
     public float repathRate = 0.25f;
 
@@ -111,8 +107,7 @@ public class EnemyBehavior : MonoBehaviour
         }
 
         float dist = Vector3.Distance(transform.position, player.position);
-        if (dist <= damageRange)
-            DamagePlayer();
+
 
         if (!CanSeePlayer() && dist > visionRange)
             EnterReturn();
@@ -155,12 +150,6 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    void DamagePlayer()
-    {
-        var health = player.GetComponent<PlayerHealth>();
-        if (health != null)
-            health.TakeDamage(Mathf.RoundToInt(damagePerSecond * Time.deltaTime));
-    }
 
     public void Die()
     {
@@ -188,7 +177,5 @@ public class EnemyBehavior : MonoBehaviour
         Gizmos.DrawRay(transform.position, leftDir * visionRange);
         Gizmos.DrawRay(transform.position, rightDir * visionRange);
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, damageRange);
     }
 }
