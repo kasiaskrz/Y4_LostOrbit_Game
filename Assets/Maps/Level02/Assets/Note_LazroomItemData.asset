@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50df21f331d8aee47a3af460debcf37c, type: 3}
+  m_Name: Note_LazroomItemData
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Security Note
+  description: 
+  icon: {fileID: -307918464287534466, guid: 28c605d0a0f2d2c499c8841ce2c72039, type: 3}
+  itemType: 2
+  stackable: 1
+  maxStack: 99
+  worldPrefab: {fileID: 0}
+  noteContent: "Hey Leon,\n\nThe Security systems acting up again,\nIf the laser
+    gates are back up, head into the security office and input this sequence in,
+    from left to right, Dont worry about getting it wrong, the security bots should
+    activate if they detect it wrong wrong, and will head to the room to help.\n\n    
+    5,1,4,  "

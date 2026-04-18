@@ -3,6 +3,102 @@
   "WorkspaceRootPath": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Gatescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\Gatescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\buttonscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\buttonscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Shoothint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\Shoothint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\ShootableButton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\ShootableButton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\NoteReader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Inventory\\NoteReader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\InventorySlotUI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Inventory\\InventorySlotUI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\NotePickup\\NotePickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\NewRoom1\\Scripts\\NotePickup\\NotePickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\Inventorymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Inventory\\Inventorymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Characters\\Common\\Scripts\\InstantPickupItem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Characters\\Common\\Scripts\\InstantPickupItem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\SniperEncounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\SniperEncounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Findbuttonhint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\Findbuttonhint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\AreaPopupTrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\AreaPopupTrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Pushbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\Pushbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc002keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\ButtonLookHint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Maps\\Level02\\Scripts\\ButtonLookHint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\SC001DoorLock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\SC001DoorLock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc001exit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc001exit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\GameProgress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Gameplay\\GameProgress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc003keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc003guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc002guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\FinishTrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Gameplay\\FinishTrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\Teleport\\SceneTransitionManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Gameplay\\Teleport\\SceneTransitionManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,32 +107,12 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\GameProgress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Gameplay\\GameProgress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\SC002Complete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\SC002Complete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Mainhallguide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Mainhallguide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc002guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc003guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc003keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Sc002keypickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,45 +127,271 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "EndOfTutorialDoor.cs",
-              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
-              "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
-              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
-              "RelativeToolTip": "Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAswDQAAAABAAAAAAAAAA==",
+              "Title": "buttonscript.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\buttonscript.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\buttonscript.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\buttonscript.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\buttonscript.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAADwv2sAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T19:26:13.797Z",
+              "WhenOpened": "2026-04-18T03:10:54.92Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DoorWithLock.cs",
-              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
-              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAiwDQAAAAFAAAAAAAAAA==",
+              "Title": "Gatescript.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Gatescript.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\Gatescript.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Gatescript.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\Gatescript.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T19:22:23.092Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameProgress.cs",
-              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\GameProgress.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Gameplay\\GameProgress.cs",
-              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\GameProgress.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Gameplay\\GameProgress.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T19:21:18.14Z",
+              "WhenOpened": "2026-04-18T03:10:11.658Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "NoteReader.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\NoteReader.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Inventory\\NoteReader.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\NoteReader.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Inventory\\NoteReader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T02:34:43.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InventorySlotUI.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\InventorySlotUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Inventory\\InventorySlotUI.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\InventorySlotUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Inventory\\InventorySlotUI.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAADwv7EAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T02:30:10.337Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NotePickup.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\NotePickup\\NotePickup.cs",
+              "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\NotePickup\\NotePickup.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\NotePickup\\NotePickup.cs",
+              "RelativeToolTip": "Assets\\NewRoom1\\Scripts\\NotePickup\\NotePickup.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAcwEgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:55:23.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Inventorymanager.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\Inventorymanager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Inventory\\Inventorymanager.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Inventory\\Inventorymanager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Inventory\\Inventorymanager.cs",
+              "ViewState": "AgIAALsAAAAAAAAAAADwv+oAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:50:23.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "InstantPickupItem.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Characters\\Common\\Scripts\\InstantPickupItem.cs",
+              "RelativeDocumentMoniker": "Assets\\Characters\\Common\\Scripts\\InstantPickupItem.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Characters\\Common\\Scripts\\InstantPickupItem.cs",
+              "RelativeToolTip": "Assets\\Characters\\Common\\Scripts\\InstantPickupItem.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAADwvzAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:45:32.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SniperEncounter.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\SniperEncounter.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\SniperEncounter.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\SniperEncounter.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\SniperEncounter.cs",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAqwDYBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:35:36.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Findbuttonhint.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Findbuttonhint.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\Findbuttonhint.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Findbuttonhint.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\Findbuttonhint.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAqwDwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:27:50.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Shoothint.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Shoothint.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\Shoothint.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Shoothint.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\Shoothint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvywAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:23:28.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AreaPopupTrigger.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\AreaPopupTrigger.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\AreaPopupTrigger.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\AreaPopupTrigger.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\AreaPopupTrigger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:17:34.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Interactor.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "RelativeToolTip": "Assets\\NewRoom1\\Scripts\\PlayerInteracting\\Interactor.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAqwEAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T00:54:25.501Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ShootableButton.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\ShootableButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\ShootableButton.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\ShootableButton.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\ShootableButton.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAADwvzgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T00:50:22.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ButtonLookHint.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\ButtonLookHint.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\ButtonLookHint.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\ButtonLookHint.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\ButtonLookHint.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAqwEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T00:45:47.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Pushbox.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Pushbox.cs",
+              "RelativeDocumentMoniker": "Assets\\Maps\\Level02\\Scripts\\Pushbox.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Maps\\Level02\\Scripts\\Pushbox.cs",
+              "RelativeToolTip": "Assets\\Maps\\Level02\\Scripts\\Pushbox.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAqwIcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T00:32:38.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Sc001exit.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc001exit.cs",
+              "RelativeDocumentMoniker": "Assets\\Sc001exit.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc001exit.cs",
+              "RelativeToolTip": "Assets\\Sc001exit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T23:46:28.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "SC001DoorLock.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\SC001DoorLock.cs",
+              "RelativeDocumentMoniker": "Assets\\SC001DoorLock.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\SC001DoorLock.cs",
+              "RelativeToolTip": "Assets\\SC001DoorLock.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwEIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T22:22:10.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "FinishTrigger.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\FinishTrigger.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Gameplay\\FinishTrigger.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\FinishTrigger.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Gameplay\\FinishTrigger.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAswFgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T20:46:50.333Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "SceneTransitionManager.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\Teleport\\SceneTransitionManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Gameplay\\Teleport\\SceneTransitionManager.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\Teleport\\SceneTransitionManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Gameplay\\Teleport\\SceneTransitionManager.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAswFgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T20:28:22.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DoorWithLock.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Gameplay\\MainHall\\DoorWithLock.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAiwDUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T19:22:23.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "GameProgress.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\GameProgress.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Gameplay\\GameProgress.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Scripts\\Gameplay\\GameProgress.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Gameplay\\GameProgress.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T19:21:18.14Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
               "Title": "Mainhallguide.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Mainhallguide.cs",
               "RelativeDocumentMoniker": "Assets\\Mainhallguide.cs",
@@ -97,25 +399,23 @@
               "RelativeToolTip": "Assets\\Mainhallguide.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T19:14:14.06Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T19:14:14.06Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 21,
               "Title": "Sc002guide.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002guide.cs",
               "RelativeDocumentMoniker": "Assets\\Sc002guide.cs",
               "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002guide.cs",
               "RelativeToolTip": "Assets\\Sc002guide.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAswI4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T19:13:01.313Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T19:13:01.313Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 19,
               "Title": "Sc003keypickup.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003keypickup.cs",
               "RelativeDocumentMoniker": "Assets\\Sc003keypickup.cs",
@@ -127,7 +427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "Sc002keypickup.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc002keypickup.cs",
               "RelativeDocumentMoniker": "Assets\\Sc002keypickup.cs",
@@ -139,20 +439,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 20,
               "Title": "Sc003guide.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003guide.cs",
               "RelativeDocumentMoniker": "Assets\\Sc003guide.cs",
               "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\Sc003guide.cs",
               "RelativeToolTip": "Assets\\Sc003guide.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAswJUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T11:28:19.672Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T11:28:19.672Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 25,
+              "Title": "EndOfTutorialDoor.cs",
+              "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
+              "RelativeDocumentMoniker": "Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
+              "ToolTip": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
+              "RelativeToolTip": "Assets\\NewRoom1\\Scripts\\EndOfTutorialDoor.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAswDQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T19:26:13.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
               "Title": "SC002Complete.cs",
               "DocumentMoniker": "C:\\Users\\Saule\\OneDrive - Atlantic TU\\Desktop\\game\\Y4_LostOrbit_Game\\Assets\\SC002Complete.cs",
               "RelativeDocumentMoniker": "Assets\\SC002Complete.cs",
@@ -160,8 +471,7 @@
               "RelativeToolTip": "Assets\\SC002Complete.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T11:28:05.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T11:28:05.685Z"
             }
           ]
         }

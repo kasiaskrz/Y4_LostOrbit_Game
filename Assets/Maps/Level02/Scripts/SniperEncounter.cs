@@ -33,6 +33,10 @@ public class SniperEncounter : MonoBehaviour
     public float hitShakeDuration = 0.15f;
     public float hitShakeMagnitude = 0.08f;
 
+    [Header("Guidance")]
+    public GameObject coverPopup; // assign "Get to cover" popup panel in Inspector
+    public float coverPopupDuration = 4f; // how long to show it before hiding
+
     [Header("State")]
     public bool encounterStarted = false;
     public bool introShotDone = false;
@@ -96,7 +100,21 @@ public class SniperEncounter : MonoBehaviour
             laserLine.enabled = true;
         }
 
+        // Show cover popup at the start of the encounter
+        if (coverPopup != null)
+        {
+            coverPopup.SetActive(true);
+            StartCoroutine(HideCoverPopup());
+        }
+
         attackRoutine = StartCoroutine(AttackLoop());
+    }
+
+    private IEnumerator HideCoverPopup()
+    {
+        yield return new WaitForSeconds(coverPopupDuration);
+        if (coverPopup != null)
+            coverPopup.SetActive(false);
     }
 
     public void DisableEncounter()
@@ -117,6 +135,10 @@ public class SniperEncounter : MonoBehaviour
         {
             chargeAudio.Stop();
         }
+
+        // Hide cover popup when encounter ends
+        if (coverPopup != null)
+            coverPopup.SetActive(false);
     }
 
     private IEnumerator AttackLoop()
