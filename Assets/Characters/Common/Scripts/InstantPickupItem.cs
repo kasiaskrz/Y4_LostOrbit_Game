@@ -13,9 +13,14 @@ public class InstantPickupItem : MonoBehaviour
     public AmmoVisualType ammoType;
     public int ammoAmount = 10;
     [Header("Inventory")]
-    public ItemData ammoItemData; // assign the Ammo ItemData asset in Inspector
+    public ItemData ammoItemData;
     [Header("FX")]
     public GameObject pickupEffect;
+    [Header("Audio")]
+    public AudioClip pickupSound;
+    [Range(0f, 1f)]
+    public float volume = 1f;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
@@ -33,13 +38,16 @@ public class InstantPickupItem : MonoBehaviour
             if (ammo != null)
                 ammo.AddAmmo(ammoType, ammoAmount);
 
-            // Also add to inventory so it shows in hotbar/grid
             if (ammoItemData != null && InventoryManager.Instance != null)
                 InventoryManager.Instance.TryAddItem(ammoItemData, ammoAmount);
         }
         // Spawn effect (optional)
         if (pickupEffect != null)
             Instantiate(pickupEffect, transform.position, Quaternion.identity);
+        // Play sound
+        if (pickupSound != null)
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position, volume);
+
         Destroy(gameObject);
     }
 }
