@@ -138,7 +138,10 @@ MonoBehaviour:
   healAmount: 25
   ammoType: 2
   ammoAmount: 5
+  ammoItemData: {fileID: 0}
   pickupEffect: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: abf9313a8e765c04f946995d0138b41a, type: 3}
+  volume: 0.5
 --- !u!114 &6756845642204849679
 MonoBehaviour:
   m_ObjectHideFlags: 0

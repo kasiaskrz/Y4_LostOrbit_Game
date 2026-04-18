@@ -18,6 +18,8 @@ public class PauseMenu : MonoBehaviour
     public Button helpBackButton;
 
     private bool isPaused = false;
+    public static bool EscConsumed = false;
+
 
     void Start()
     {
@@ -38,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        if (EscConsumed) { EscConsumed = false; return; } 
         if (NotePickup.IsOpen) return;
         if (WirePuzzle.IsOpen) return;
         if (LevelComplete.IsOpen) return;
