@@ -140,6 +140,7 @@ public class GameSaveManager : MonoBehaviour
 
         LoadInventoryIntoExistingScript(inventory);
 
+        hasCheckpoint = false; // after one respawn, next death goes to LoseScene
         Debug.Log("Respawned from latest checkpoint.");
     }
 }

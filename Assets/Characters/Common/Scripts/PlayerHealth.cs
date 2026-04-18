@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log("Player died.");
+        Debug.Log("hasCheckpoint = " + (GameSaveManager.Instance != null ? GameSaveManager.Instance.hasCheckpoint.ToString() : "no instance"));
 
         PlayerAmmo ammo = GetComponent<PlayerAmmo>();
         Inventory inventory = GetComponent<Inventory>();
@@ -54,7 +55,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Debug.Log("Going to LoseScene");
+            PlayerPrefs.SetString("LastScene", SceneManager.GetActiveScene().name);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("LoseScene");
         }
     }
 }

@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/WaveMode/WaveMode.unity
     guid: 6e75d932e3e5c904887be8fcd6f31fe3
+  - enabled: 1
+    path: Assets/Scenes/LoseScene.unity
+    guid: e89817021f335104c8712381fb6de4bd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
