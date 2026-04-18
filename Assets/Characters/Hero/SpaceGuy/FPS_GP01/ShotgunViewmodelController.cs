@@ -46,6 +46,7 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     public float shellInsertPoint = 0.6f;
 
     private bool busy;
+    private bool inventoryReady = false;
     private Coroutine reloadCo;
 
     // === UI Provider ===
@@ -53,6 +54,14 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     public int MaxAmmo => magSize;
     public bool IsReloading => busy;
     public AmmoVisualType AmmoType => AmmoVisualType.ShotgunShell;
+
+    IEnumerator Start()
+    {
+        // Wait two frames for InventoryManager to finish giving starting items
+        yield return null;
+        yield return null;
+        inventoryReady = true;
+    }
 
     void Update()
     {
@@ -99,6 +108,8 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     void TryReload()
     {
+        if (!inventoryReady) return;
+
         int missing = magSize - ammoInMag;
         if (missing <= 0) return;
 
