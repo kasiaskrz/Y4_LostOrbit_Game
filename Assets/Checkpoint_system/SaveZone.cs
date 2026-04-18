@@ -1,8 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class SaveZone : MonoBehaviour
 {
     public bool saveOnlyOnce = true;
+
+    [Header("Guidance")]
+    public GameObject savingPopup; // assign "Saving game..." panel in Inspector
+    public float popupDuration = 2f;
+
     private bool hasSaved = false;
 
     private void OnTriggerEnter(Collider other)
@@ -30,5 +36,16 @@ public class SaveZone : MonoBehaviour
 
         hasSaved = true;
         Debug.Log("Save zone triggered.");
+
+        // Show saving popup
+        if (savingPopup != null)
+            StartCoroutine(ShowSavingPopup());
+    }
+
+    private IEnumerator ShowSavingPopup()
+    {
+        savingPopup.SetActive(true);
+        yield return new WaitForSeconds(popupDuration);
+        savingPopup.SetActive(false);
     }
 }
