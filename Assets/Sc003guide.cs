@@ -2,10 +2,6 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// Place on an empty GameObject in SC003.
-/// Guides the player through: push box → collect key → exit unlocks.
-/// </summary>
 public class SC003Guide : MonoBehaviour
 {
     [Header("UI")]
@@ -13,12 +9,19 @@ public class SC003Guide : MonoBehaviour
     public CanvasGroup hintCanvasGroup;
 
     [Header("References")]
-    [Tooltip("The movable box in SC003.")]
     public MovableBox movableBox;
+    public Camera playerCamera;
+    [Tooltip("Assign the exit door collider object.")]
+    public GameObject exitDoor;
 
-    [Header("Fade")]
+    [Header("Settings")]
+    public float welcomeDuration = 5f;
+    public float raycastDistance = 3f;
     public float fadeSpeed = 3f;
 
+    private bool welcomeShown = false;
+    private bool boxPushed = false;
+    private bool keyCollectedFlag = false;
     private Coroutine currentCoroutine;
 
     private void Start()
@@ -26,45 +29,97 @@ public class SC003Guide : MonoBehaviour
         if (hintCanvasGroup != null)
             hintCanvasGroup.alpha = 0f;
 
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+
         StartCoroutine(RunGuide());
+    }
+
+    private void Update()
+    {
+        if (keyCollectedFlag) return;
+
+        // Show press E when looking at box (before box is pushed)
+        if (welcomeShown && !boxPushed)
+        {
+            if (IsLookingAt(movableBox != null ? movableBox.gameObject : null))
+            {
+                SetText("Press [E] to push the box.", true);
+                return;
+            }
+        }
+
+        // Show locked message when looking at exit door (before key collected)
+        if (boxPushed && exitDoor != null)
+        {
+            if (IsLookingAt(exitDoor))
+            {
+                SetText("You need the key before you can leave!", true);
+                return;
+            }
+        }
+
+        // Nothing to show — fade out
+        if (welcomeShown && hintCanvasGroup != null && hintCanvasGroup.alpha > 0f)
+        {
+            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+            currentCoroutine = StartCoroutine(FadeTo(0f));
+        }
+    }
+
+    private void SetText(string message, bool show)
+    {
+        if (hintText != null && hintText.text != message)
+        {
+            hintText.text = message;
+            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+        }
+        if (show && hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
+        {
+            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+            currentCoroutine = StartCoroutine(FadeTo(1f));
+        }
+    }
+
+    private bool IsLookingAt(GameObject target)
+    {
+        if (playerCamera == null || target == null) return false;
+
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
+        {
+            return hit.collider.gameObject == target ||
+                   hit.collider.transform.IsChildOf(target.transform);
+        }
+        return false;
     }
 
     private IEnumerator RunGuide()
     {
         yield return new WaitForSeconds(1f);
 
-        // Step 1 — Push the box
-        yield return ShowText("Find the box in this room.\nWalk up to it and press [E] to push it.\nThis will reveal the key.");
-        yield return WaitForCondition(() => movableBox != null && movableBox.movementFinished,
-            "Find the box and press [E] to push it.\nThe key is hidden nearby.");
+        yield return ShowText("Find the box in this room.\nWalk up to it and push it to reveal the key.");
+        yield return new WaitForSeconds(welcomeDuration);
+        yield return FadeTo(0f);
 
-        // Step 2 — Collect key
-        yield return CrossfadeTo("The key has appeared!\nFind it and walk over it to collect it.\nThe exit will unlock once you have it.");
-        yield return WaitForCondition(() => GameProgress.Instance != null && GameProgress.Instance.sc003Complete,
-            "Find the key and walk over it\nto collect it and unlock the exit.");
+        welcomeShown = true;
 
-        // Step 3 — Exit
-        yield return CrossfadeTo("Key collected! The exit is now unlocked.\nHead back to the Main Hall.");
+        yield return new WaitUntil(() => movableBox == null || movableBox.movementFinished);
+        boxPushed = true;
+
+        if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+        yield return ShowText("The key has appeared!\nCollect it.");
+        yield return new WaitForSeconds(5f);
+        yield return FadeTo(0f);
     }
 
-    private IEnumerator WaitForCondition(System.Func<bool> condition, string reminder)
+    public void ShowLockedExitMessage() { } // Now handled by Update raycast
+
+    public void OnKeyCollected()
     {
-        float idleTimer = 0f;
-
-        while (!condition())
-        {
-            if (Time.timeScale > 0f)
-                idleTimer += Time.deltaTime;
-
-            if (idleTimer >= 10f)
-            {
-                idleTimer = 0f;
-                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-                currentCoroutine = StartCoroutine(FlashReminder(reminder));
-            }
-
-            yield return null;
-        }
+        keyCollectedFlag = true;
+        StopAllCoroutines();
+        StartCoroutine(ShowThenFade("Key collected!\nHead back to the Main Hall.", 5f));
     }
 
     private IEnumerator ShowText(string message)
@@ -73,19 +128,12 @@ public class SC003Guide : MonoBehaviour
         yield return FadeTo(1f);
     }
 
-    private IEnumerator CrossfadeTo(string message)
+    private IEnumerator ShowThenFade(string message, float duration)
     {
-        yield return FadeTo(0f);
-        yield return new WaitForSeconds(0.2f);
         if (hintText != null) hintText.text = message;
         yield return FadeTo(1f);
-    }
-
-    private IEnumerator FlashReminder(string message)
-    {
+        yield return new WaitForSeconds(duration);
         yield return FadeTo(0f);
-        if (hintText != null) hintText.text = message;
-        yield return FadeTo(1f);
     }
 
     private IEnumerator FadeTo(float target)

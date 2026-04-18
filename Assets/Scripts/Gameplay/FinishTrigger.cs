@@ -16,11 +16,15 @@ public class FinishTrigger : MonoBehaviour
     public string sceneToLoad = "MainHall";
 
     [Tooltip("Spawn ID in the destination scene.")]
-    public string targetSpawnID = "Door1";
+    public string targetSpawnID = "Door2";
 
     [Header("Unlock Condition")]
-    [Tooltip("Which room this door belongs to. Determines which flag to check.")]
     public RoomID roomID = RoomID.SC002;
+
+    [Header("UI")]
+    [Tooltip("Assign the room guide to show locked message.")]
+    public SC002Guide sc002Guide;
+    public SC003Guide sc003Guide;
 
     void Start()
     {
@@ -30,31 +34,35 @@ public class FinishTrigger : MonoBehaviour
         ColorUtility.TryParseHtmlString(lockedHex, out lockedColor);
         ColorUtility.TryParseHtmlString(unlockedHex, out unlockedColor);
 
-        // Auto unlock if already complete
         if (IsRoomComplete())
         {
-            Debug.Log("Door auto-unlocked on start.");
             EnableFinishZone();
         }
         else
         {
-            col.isTrigger = false;
+            col.isTrigger = true; // Keep as trigger so we can detect attempts
             if (rend != null) rend.material.color = lockedColor;
-            Debug.Log("Door starts locked.");
         }
     }
 
     public void EnableFinishZone()
     {
-        Debug.Log("EnableFinishZone() called.");
-        col.isTrigger = true;
         if (rend != null) rend.material.color = unlockedColor;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        if (!IsRoomComplete()) return;
+
+        if (!IsRoomComplete())
+        {
+            // Show locked message
+            if (roomID == RoomID.SC002 && sc002Guide != null)
+                sc002Guide.ShowLockedExitMessage();
+            else if (roomID == RoomID.SC003 && sc003Guide != null)
+                sc003Guide.ShowLockedExitMessage();
+            return;
+        }
 
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.TransitionToScene(sceneToLoad, targetSpawnID);
@@ -65,7 +73,6 @@ public class FinishTrigger : MonoBehaviour
     private bool IsRoomComplete()
     {
         if (GameProgress.Instance == null) return false;
-
         switch (roomID)
         {
             case RoomID.SC002: return GameProgress.Instance.sc002Complete;

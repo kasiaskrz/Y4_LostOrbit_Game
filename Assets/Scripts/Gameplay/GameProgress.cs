@@ -8,8 +8,11 @@ public class GameProgress : MonoBehaviour
     public bool keyCollected = false;
     public bool sc002Complete = false;
     public bool sc003Complete = false;
+    public bool tutorialComplete = false;
 
-    // SC005 only unlocks when both rooms are done
+    // 0 = no keys, 1 = one key, 2 = both keys
+    public int keysCollected = 0;
+
     public bool CanAccessSC005 => sc002Complete && sc003Complete;
 
     private void Awake()

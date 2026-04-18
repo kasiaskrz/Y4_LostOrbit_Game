@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SC002KeyPickup : MonoBehaviour
 {
-    [Tooltip("Assign the RoomUIManager in SC002.")]
-    public RoomUIManager roomUIManager;
+    [Tooltip("Assign the SC002Guide in SC002.")]
+    public SC002Guide roomGuide;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,17 +15,15 @@ public class SC002KeyPickup : MonoBehaviour
         {
             GameProgress.Instance.keyCollected = true;
             GameProgress.Instance.sc002Complete = true;
+            GameProgress.Instance.keysCollected++;
         }
 
-        if (roomUIManager != null)
-            roomUIManager.RoomCompleted();
+        if (roomGuide != null)
+            roomGuide.OnKeyCollected();
 
-        // Unlock the exit door
-        FinishTrigger finishTrigger = FindFirstObjectByType<FinishTrigger>();
-        if (finishTrigger != null)
-            finishTrigger.EnableFinishZone();
-        else
-            Debug.LogWarning("SC002KeyPickup: No FinishTrigger found in scene.");
+        // Unlock finish door in this scene
+        FinishTrigger door = FindFirstObjectByType<FinishTrigger>();
+        if (door != null) door.EnableFinishZone();
 
         gameObject.SetActive(false);
     }

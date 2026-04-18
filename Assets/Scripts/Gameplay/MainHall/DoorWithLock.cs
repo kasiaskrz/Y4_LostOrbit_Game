@@ -11,39 +11,44 @@ public class DoorWithLock : MonoBehaviour
     [Header("Inventory")]
     public ItemData keyItemData;
 
+    [Header("UI Popup")]
+    [Tooltip("Assign MainHallGuide to show locked message when player tries to enter.")]
+    public MainHallGuide mainHallGuide;
+
+    private bool isUnlocked = false;
+
     private void Start()
     {
-        Debug.Log("DOOR-LOCK SCRIPT INITIALIZED");
-
         if (teleporter != null)
-        {
-            Debug.Log("Disabling teleporter at start");
             teleporter.enabled = false;
-        }
 
         doorRenderer.material.color = lockedColor;
 
-        // Auto unlock if both rooms already complete (e.g. returning from a room)
         if (GameProgress.Instance != null && GameProgress.Instance.CanAccessSC005)
         {
-            Debug.Log("Both rooms complete - auto unlocking SC005 door.");
             UnlockDoor();
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+        if (isUnlocked) return;
+
+        // Player tried to enter but door is locked
+        if (mainHallGuide != null)
+            mainHallGuide.ShowLockedDoorMessage();
+    }
+
     public void UnlockDoor()
     {
-        Debug.Log("UNLOCKDOOR() CALLED");
-
+        isUnlocked = true;
         doorRenderer.material.color = unlockedColor;
 
         if (keyItemData != null && InventoryManager.Instance != null)
             InventoryManager.Instance.TryRemoveItem(keyItemData, 1);
 
         if (teleporter != null)
-        {
-            Debug.Log("Enabling teleporter now");
             teleporter.enabled = true;
-        }
     }
 }
