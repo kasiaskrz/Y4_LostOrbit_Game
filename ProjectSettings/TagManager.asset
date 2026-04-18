@@ -8,6 +8,8 @@ TagManager:
   - CoverPoint
   - PushBox
   - Enemy
+  - Music
+  - SFX
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Panels")]
     public GameObject pausePanel;
     public GameObject helpPanel;
+    public GameObject optionsPanel;
     public GameObject menuContainer;
 
     [Header("Buttons")]
@@ -26,9 +27,10 @@ public class PauseMenu : MonoBehaviour
 
         pausePanel.SetActive(false);
         helpPanel.SetActive(false);
+        if (optionsPanel) optionsPanel.SetActive(false);
 
         if (resumeButton) resumeButton.onClick.AddListener(Resume);
-        if (optionsButton) optionsButton.onClick.AddListener(Options);
+        if (optionsButton) optionsButton.onClick.AddListener(OpenOptions);
         if (helpButton) helpButton.onClick.AddListener(OpenHelp);
         if (quitButton) quitButton.onClick.AddListener(QuitGame);
         if (helpBackButton) helpBackButton.onClick.AddListener(CloseHelp);
@@ -38,12 +40,14 @@ public class PauseMenu : MonoBehaviour
     {
         if (NotePickup.IsOpen) return;
         if (WirePuzzle.IsOpen) return;
-        if (LevelComplete.IsOpen) return; // block pause menu when level complete is open
+        if (LevelComplete.IsOpen) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (helpPanel != null && helpPanel.activeSelf)
                 CloseHelp();
+            else if (optionsPanel != null && optionsPanel.activeSelf)
+                CloseOptions();
             else if (isPaused)
                 Resume();
             else
@@ -57,6 +61,7 @@ public class PauseMenu : MonoBehaviour
         pausePanel.SetActive(true);
         menuContainer.SetActive(true);
         helpPanel.SetActive(false);
+        if (optionsPanel) optionsPanel.SetActive(false);
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -67,15 +72,23 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         pausePanel.SetActive(false);
         helpPanel.SetActive(false);
+        if (optionsPanel) optionsPanel.SetActive(false);
         menuContainer.SetActive(true);
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    void Options()
+    void OpenOptions()
     {
-        Debug.Log("[PauseMenu] Options clicked - not implemented yet");
+        menuContainer.SetActive(false);
+        if (optionsPanel) optionsPanel.SetActive(true);
+    }
+
+    void CloseOptions()
+    {
+        if (optionsPanel) optionsPanel.SetActive(false);
+        menuContainer.SetActive(true);
     }
 
     void OpenHelp()
@@ -93,9 +106,7 @@ public class PauseMenu : MonoBehaviour
     void QuitGame()
     {
         Time.timeScale = 1f;
-        Debug.Log("[PauseMenu] Quitting game...");
         Application.Quit();
-
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
