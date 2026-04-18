@@ -85,7 +85,7 @@ public class PauseMenu : MonoBehaviour
         if (optionsPanel) optionsPanel.SetActive(true);
     }
 
-    void CloseOptions()
+    public void CloseOptions()  // changed from private to public
     {
         if (optionsPanel) optionsPanel.SetActive(false);
         menuContainer.SetActive(true);

@@ -49,6 +49,7 @@ public class OptionsUI : MonoBehaviour
 
     private int waitingIndex = -1;
     private bool started = false;
+    private bool mouseWasDown = false;
 
     private Button[] allKeybindButtons;
 
@@ -57,12 +58,16 @@ public class OptionsUI : MonoBehaviour
         KeyCode.G, KeyCode.H, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L,
         KeyCode.M, KeyCode.N, KeyCode.O, KeyCode.P, KeyCode.Q, KeyCode.R,
         KeyCode.S, KeyCode.T, KeyCode.U, KeyCode.V, KeyCode.W, KeyCode.X,
-        KeyCode.Y, KeyCode.Z, KeyCode.Space, KeyCode.LeftShift, KeyCode.RightShift,
-        KeyCode.LeftControl, KeyCode.RightControl, KeyCode.Tab, KeyCode.Return,
-        KeyCode.Backspace, KeyCode.Alpha0, KeyCode.Alpha1, KeyCode.Alpha2,
-        KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6,
-        KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9,
+        KeyCode.Y, KeyCode.Z,
+        KeyCode.Space, KeyCode.LeftShift, KeyCode.RightShift,
+        KeyCode.LeftControl, KeyCode.RightControl,
+        KeyCode.Tab, KeyCode.Backspace,
+        KeyCode.Escape,
+        KeyCode.Alpha0, KeyCode.Alpha1, KeyCode.Alpha2,
+        KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5,
+        KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9,
         KeyCode.F1, KeyCode.F2, KeyCode.F3, KeyCode.F4, KeyCode.F5,
+        KeyCode.F6, KeyCode.F7, KeyCode.F8, KeyCode.F9, KeyCode.F10,
         KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow
     };
 
@@ -76,7 +81,6 @@ public class OptionsUI : MonoBehaviour
         sfxSlider.value = OptionsManager.Instance.sfxVolume;
         RefreshLabels();
 
-        // Clear EventSystem selection so no button appears highlighted/selected on open
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(null);
     }
@@ -91,9 +95,21 @@ public class OptionsUI : MonoBehaviour
             inventoryBtn, pauseBtn, inspectBtn
         };
 
-        masterSlider.onValueChanged.AddListener(v => { OptionsManager.Instance.masterVolume = v; OptionsManager.Instance.ApplyVolume(); OptionsManager.Instance.SaveSettings(); });
-        musicSlider.onValueChanged.AddListener(v => { OptionsManager.Instance.musicVolume = v; OptionsManager.Instance.ApplyVolume(); OptionsManager.Instance.SaveSettings(); });
-        sfxSlider.onValueChanged.AddListener(v => { OptionsManager.Instance.sfxVolume = v; OptionsManager.Instance.ApplyVolume(); OptionsManager.Instance.SaveSettings(); });
+        masterSlider.onValueChanged.AddListener(v => {
+            OptionsManager.Instance.masterVolume = v;
+            OptionsManager.Instance.ApplyVolume();
+            OptionsManager.Instance.SaveSettings();
+        });
+        musicSlider.onValueChanged.AddListener(v => {
+            OptionsManager.Instance.musicVolume = v;
+            OptionsManager.Instance.ApplyVolume();
+            OptionsManager.Instance.SaveSettings();
+        });
+        sfxSlider.onValueChanged.AddListener(v => {
+            OptionsManager.Instance.sfxVolume = v;
+            OptionsManager.Instance.ApplyVolume();
+            OptionsManager.Instance.SaveSettings();
+        });
 
         moveForwardBtn.onClick.AddListener(() => StartRebind(0));
         moveBackBtn.onClick.AddListener(() => StartRebind(1));
@@ -120,7 +136,6 @@ public class OptionsUI : MonoBehaviour
             RefreshLabels();
         }
 
-        // Clear selection after initial setup
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(null);
     }
@@ -129,11 +144,12 @@ public class OptionsUI : MonoBehaviour
     {
         if (waitingIndex >= 0) return;
         waitingIndex = index;
+        mouseWasDown = true;
 
         SetAllButtonsInteractable(false);
 
-        // Clear EventSystem selection so no button stays focused
-        EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
 
         if (pressToRebindPanel != null) pressToRebindPanel.SetActive(true);
         if (pressToRebindText != null) pressToRebindText.text = "Press any key...";
@@ -151,8 +167,18 @@ public class OptionsUI : MonoBehaviour
     {
         if (waitingIndex < 0) return;
 
-        // Wait until mouse button is fully released before accepting keyboard input
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) return;
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        {
+            mouseWasDown = true;
+            return;
+        }
+
+        if (mouseWasDown)
+        {
+            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
+                mouseWasDown = false;
+            return;
+        }
 
         foreach (KeyCode key in allKeys)
         {
@@ -161,7 +187,7 @@ public class OptionsUI : MonoBehaviour
                 if (IsKeyAlreadyUsed(key, waitingIndex))
                 {
                     if (pressToRebindText != null)
-                        pressToRebindText.text = key.ToString() + " already in use!\nPress another key...";
+                        pressToRebindText.text = key.ToString() + " is already in use!\nPress another key...";
                     return;
                 }
 
@@ -169,13 +195,13 @@ public class OptionsUI : MonoBehaviour
                 RefreshLabels();
                 OptionsManager.Instance.SaveSettings();
                 waitingIndex = -1;
+                mouseWasDown = false;
 
                 SetAllButtonsInteractable(true);
 
                 if (pressToRebindPanel != null) pressToRebindPanel.SetActive(false);
                 if (pressToRebindText != null) pressToRebindText.text = "Press any key...";
 
-                // Clear selection after rebind completes
                 if (EventSystem.current != null)
                     EventSystem.current.SetSelectedGameObject(null);
 
@@ -222,17 +248,17 @@ public class OptionsUI : MonoBehaviour
 
     void RefreshLabels()
     {
-        moveForwardLabel.text = OptionsManager.MoveForward.ToString();
-        moveBackLabel.text = OptionsManager.MoveBack.ToString();
-        moveLeftLabel.text = OptionsManager.MoveLeft.ToString();
-        moveRightLabel.text = OptionsManager.MoveRight.ToString();
-        sprintLabel.text = OptionsManager.Sprint.ToString();
-        jumpLabel.text = OptionsManager.Jump.ToString();
-        interactLabel.text = OptionsManager.Interact.ToString();
-        reloadLabel.text = OptionsManager.Reload.ToString();
-        inventoryLabel.text = OptionsManager.Inventory.ToString();
-        pauseLabel.text = OptionsManager.Pause.ToString();
-        inspectLabel.text = OptionsManager.Inspect.ToString();
+        if (moveForwardLabel != null) moveForwardLabel.text = OptionsManager.MoveForward.ToString();
+        if (moveBackLabel != null) moveBackLabel.text = OptionsManager.MoveBack.ToString();
+        if (moveLeftLabel != null) moveLeftLabel.text = OptionsManager.MoveLeft.ToString();
+        if (moveRightLabel != null) moveRightLabel.text = OptionsManager.MoveRight.ToString();
+        if (sprintLabel != null) sprintLabel.text = OptionsManager.Sprint.ToString();
+        if (jumpLabel != null) jumpLabel.text = OptionsManager.Jump.ToString();
+        if (interactLabel != null) interactLabel.text = OptionsManager.Interact.ToString();
+        if (reloadLabel != null) reloadLabel.text = OptionsManager.Reload.ToString();
+        if (inventoryLabel != null) inventoryLabel.text = OptionsManager.Inventory.ToString();
+        if (pauseLabel != null) pauseLabel.text = OptionsManager.Pause.ToString();
+        if (inspectLabel != null) inspectLabel.text = OptionsManager.Inspect.ToString();
     }
 
     void OnReset()
@@ -243,7 +269,6 @@ public class OptionsUI : MonoBehaviour
         sfxSlider.value = 1f;
         RefreshLabels();
 
-        // Clear selection after reset
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(null);
     }
@@ -252,9 +277,6 @@ public class OptionsUI : MonoBehaviour
     {
         gameObject.SetActive(false);
         if (pauseMenu != null)
-        {
-            var mc = pauseMenu.transform.Find("PausePanel/MenuContainer");
-            if (mc != null) mc.gameObject.SetActive(true);
-        }
+            pauseMenu.CloseOptions();
     }
 }
