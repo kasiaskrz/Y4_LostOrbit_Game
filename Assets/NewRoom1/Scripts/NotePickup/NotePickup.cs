@@ -44,6 +44,7 @@ public class NotePickup : MonoBehaviour, IInteractable
         IsOpen = true;
         currentNote = this;
     }
+
     public void CloseNote()
     {
         Debug.Log("CloseNote called");
@@ -62,5 +63,14 @@ public class NotePickup : MonoBehaviour, IInteractable
         if (roomHintPopup != null) roomHintPopup.SetActive(false);
         Destroy(currentNote.gameObject);
         currentNote = null;
+    }
+
+    void Update()
+    {
+        if (IsOpen && Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseNote();
+            PauseMenu.EscConsumed = true;
+        }
     }
 }
