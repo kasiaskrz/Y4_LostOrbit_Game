@@ -148,6 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c5856c48365a74e9fd09a7d3e07a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoseSceneManager
+  deathSound: {fileID: 8300000, guid: 098c274f723346c4c8202e5ac75ea129, type: 3}
+  deathVolume: 1
+  loopSound: {fileID: 8300000, guid: 77bc4a37481821041b0068d560e8880f, type: 3}
+  loopVolume: 0.35
 --- !u!4 &56750439
 Transform:
   m_ObjectHideFlags: 0

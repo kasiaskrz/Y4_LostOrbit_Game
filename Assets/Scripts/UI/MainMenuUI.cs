@@ -8,8 +8,22 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button quitButton;
     [SerializeField] private Button waveModeButton;
 
+    [Header("Music")]
+    public AudioClip menuMusic;
+    [Range(0f, 1f)]
+    public float musicVolume = 1f;
+
     private void Awake()
     {
+        if (menuMusic != null)
+        {
+            AudioSource musicSource = gameObject.AddComponent<AudioSource>();
+            musicSource.clip = menuMusic;
+            musicSource.loop = true;
+            musicSource.volume = musicVolume;
+            musicSource.Play();
+        }
+
         loginButton.onClick.AddListener(() =>
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("LoginMenu");

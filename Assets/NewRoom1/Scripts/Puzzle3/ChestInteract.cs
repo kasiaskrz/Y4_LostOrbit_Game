@@ -14,11 +14,17 @@ public class ChestInteract : MonoBehaviour, IInteractable
     [Header("Required Key")]
     public ItemData keyItemData;
 
+    [Header("Audio")]
+    public AudioClip openSound;
+    [Range(0f, 5f)]
+    public float openVolume = 1f;
+
     private bool opened = false;
 
     public string PromptText =>
         opened ? "" :
         !InventoryManager.Instance.HasItem(keyItemData) ? "Locked - Need Key" : "Open Chest";
+
     void Awake()
     {
         if (anim == null)
@@ -45,23 +51,23 @@ public class ChestInteract : MonoBehaviour, IInteractable
         anim[clipName].speed = 1f;
         anim.Play(clipName);
 
+        if (openSound != null)
+            AudioSource.PlayClipAtPoint(openSound, transform.position, openVolume);
+
         opened = true;
 
         DisableBlockingCollider();
 
-        // 🔥 REMOVE KEY HERE
         InventoryManager.Instance.TryRemoveItem(keyItemData, 1);
 
         Debug.Log("Chest opened!");
     }
 
-    // In ChestInteract.cs
     void DisableBlockingCollider()
     {
         if (blockingCollider != null)
             blockingCollider.enabled = false;
 
-        // Enable the power cell so the player can now interact with it
         if (powerCellCollider != null)
             powerCellCollider.enabled = true;
     }
