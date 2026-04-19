@@ -3,8 +3,15 @@ using UnityEngine;
 public class BossCore : MonoBehaviour, IDamageableBoss
 {
     [Header("Health")]
-    public int healthPerCycle = 50;
-    public int finalHealth = 80;
+    public int healthPerCycle = 70;
+    public int finalHealth = 100;
+
+    [Header("Damage Tuning")]
+    [Tooltip("Multiplies incoming damage before it is applied.")]
+    public float damageMultiplier = 1f;
+
+    [Tooltip("Prevents one huge hit (like a full shotgun blast) from deleting a whole phase.")]
+    public int maxDamagePerHit = 35;
 
     [Header("Shield")]
     public GameObject shieldVisual;
@@ -51,7 +58,10 @@ public class BossCore : MonoBehaviour, IDamageableBoss
         if (shieldActive)
             return;
 
-        currentHealth -= damage;
+        int scaledDamage = Mathf.RoundToInt(damage * damageMultiplier);
+        int finalDamage = Mathf.Clamp(scaledDamage, 0, maxDamagePerHit);
+
+        currentHealth -= finalDamage;
 
         if (currentCycle <= 3)
         {
