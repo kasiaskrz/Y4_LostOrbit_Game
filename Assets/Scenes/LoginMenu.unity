@@ -2790,7 +2790,7 @@ MonoBehaviour:
   emailInput: {fileID: 40008457}
   passwordInput: {fileID: 99935586}
   statusText: {fileID: 1587426741}
-  gameSceneName: Room01
+  gameSceneName: SC001
   accessToken: 
   userId: 
 --- !u!4 &2034030746
