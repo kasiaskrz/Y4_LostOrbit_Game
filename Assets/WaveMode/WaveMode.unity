@@ -618,6 +618,74 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1488018716}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6c23cefd6bd3c4d81652ff0f905e2f, type: 3}
+--- !u!1001 &235716314
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5181003752536837894, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_Name
+      value: DontDestroyOnLoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3296.2769
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3173.4526
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921105978499292102, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+--- !u!114 &235716315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7493544606491434075, guid: 83c1c5f29b4bff04eae17516867fb222, type: 3}
+  m_PrefabInstance: {fileID: 235716314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c73994013be684fadf45487a52c90b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
 --- !u!1 &317429237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c6c23cefd6bd3c4d81652ff0f905e2f, type: 3}
@@ -1467,6 +1535,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1989090909}
     - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: ammoItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: de02f47d8551e834e99bdc7a253bb2bc, type: 2}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: reloadEndClip
       value: 
       objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
@@ -1474,6 +1546,10 @@ PrefabInstance:
       propertyPath: reloadStartClip
       value: 
       objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 235716315}
     - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: reloadInsertClip
       value: 
@@ -5251,3 +5327,4 @@ SceneRoots:
   - {fileID: 1858766579}
   - {fileID: 420115907}
   - {fileID: 692861588}
+  - {fileID: 235716314}
