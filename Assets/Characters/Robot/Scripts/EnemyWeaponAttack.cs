@@ -37,6 +37,7 @@ public class EnemyWeaponAttack : MonoBehaviour
 
     [Header("State")]
     public bool canAttack = true;
+    public bool tutorialLocked = false;
 
     private float attackTimer;
     private bool isAttacking = false;
@@ -59,11 +60,9 @@ public class EnemyWeaponAttack : MonoBehaviour
 
     private void Update()
     {
-        if (!canAttack || player == null || firePoint == null)
-            return;
-
-        if (enemyHealth != null && enemyHealth.IsDead)
-            return;
+        if (tutorialLocked) return;
+        if (!canAttack || player == null || firePoint == null) return;
+        if (enemyHealth != null && enemyHealth.IsDead) return;
 
         attackTimer -= Time.deltaTime;
 
@@ -106,7 +105,6 @@ public class EnemyWeaponAttack : MonoBehaviour
         {
             if (agent != null && agent.isActiveAndEnabled)
                 agent.isStopped = false;
-
             isAttacking = false;
             yield break;
         }
@@ -140,7 +138,6 @@ public class EnemyWeaponAttack : MonoBehaviour
             {
                 if (agent != null && agent.isActiveAndEnabled)
                     agent.isStopped = false;
-
                 isAttacking = false;
                 yield break;
             }
@@ -160,7 +157,6 @@ public class EnemyWeaponAttack : MonoBehaviour
         if (projectile != null)
         {
             projectile.SetTarget(lockedTarget);
-
             Collider[] myColliders = GetComponentsInChildren<Collider>();
             projectile.SetOwnerColliders(myColliders);
         }
@@ -175,14 +171,12 @@ public class EnemyWeaponAttack : MonoBehaviour
 
     private void FacePlayer()
     {
-        if (player == null)
-            return;
+        if (player == null) return;
 
         Vector3 lookPos = player.position - transform.position;
         lookPos.y = 0f;
 
-        if (lookPos.sqrMagnitude < 0.001f)
-            return;
+        if (lookPos.sqrMagnitude < 0.001f) return;
 
         Quaternion targetRot = Quaternion.LookRotation(lookPos.normalized, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, faceSpeed * Time.deltaTime);

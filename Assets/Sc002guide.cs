@@ -2,10 +2,6 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// SC002 guide - welcome message fades after 60 seconds.
-/// "Press E" hint only shows when player is looking at the movable box.
-/// </summary>
 public class SC002Guide : MonoBehaviour
 {
     [Header("UI")]
@@ -21,6 +17,12 @@ public class SC002Guide : MonoBehaviour
     public float raycastDistance = 3f;
     public float fadeSpeed = 3f;
 
+    [Header("Typewriter")]
+    public float typeSpeed = 0.04f;
+    public float linePause = 0.3f;
+    public AudioClip typingSound;
+    public AudioSource audioSource;
+
     private bool welcomeShown = false;
     private bool boxPushed = false;
     private bool keyCollectedFlag = false;
@@ -28,27 +30,25 @@ public class SC002Guide : MonoBehaviour
 
     private void Start()
     {
-        if (hintCanvasGroup != null)
-            hintCanvasGroup.alpha = 0f;
-
-        if (playerCamera == null)
-            playerCamera = Camera.main;
-
+        if (hintCanvasGroup != null) hintCanvasGroup.alpha = 0f;
+        if (playerCamera == null) playerCamera = Camera.main;
         StartCoroutine(RunGuide());
     }
 
     private void Update()
     {
         if (!welcomeShown || boxPushed || keyCollectedFlag) return;
-
-        // Check if player is looking at the movable box
         if (IsLookingAtBox())
         {
+            if (hintText != null && hintText.text != "Press [E] to push the container.")
+            {
+                if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                hintText.text = "Press [E] to push the container.";
+            }
             if (hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
             {
                 if (currentCoroutine != null) StopCoroutine(currentCoroutine);
                 currentCoroutine = StartCoroutine(FadeTo(1f));
-                if (hintText != null) hintText.text = "Press [E] to push the box.";
             }
         }
         else
@@ -64,69 +64,67 @@ public class SC002Guide : MonoBehaviour
     private bool IsLookingAtBox()
     {
         if (playerCamera == null || movableBox == null) return false;
-
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
-        {
-            return hit.collider.gameObject == movableBox.gameObject ||
-                   hit.collider.transform.IsChildOf(movableBox.transform);
-        }
+            return hit.collider.gameObject == movableBox.gameObject || hit.collider.transform.IsChildOf(movableBox.transform);
         return false;
     }
 
     private IEnumerator RunGuide()
     {
         yield return new WaitForSeconds(1f);
-
-        // Step 1 — Entry message only, no instructions yet
-        yield return ShowText("Welcome to the puzzle room.\nFind the box and walk up to it.");
-
-        // Wait for welcome duration then fade out
+        if (GameProgress.Instance != null && GameProgress.Instance.sc002Complete)
+        {
+            int keys = GameProgress.Instance.keysCollected;
+            string[] revisitMsg = keys >= 2
+                ? new string[] { "// SECTOR SC002 — PREVIOUSLY CLEARED", "Both key fragments recovered.", "The final corridor awaits." }
+                : new string[] { "// SECTOR SC002 — PREVIOUSLY CLEARED", "Key fragment already retrieved from this sector.", "Locate the remaining fragment in Sector SC003." };
+            yield return StartCoroutine(ShowLines(revisitMsg, 4f));
+            yield break;
+        }
+        yield return StartCoroutine(ShowLines(new string[] { "// SECTOR SC002 ONLINE", "Locate the container unit in this sector.", "Approach it to reveal further instructions." }, 0f));
         yield return new WaitForSeconds(welcomeDuration);
         yield return FadeTo(0f);
-
         welcomeShown = true;
-
-        // Now Update() shows "Press E" when looking at box
-
-        // Wait for box to be pushed
         yield return new WaitUntil(() => movableBox == null || movableBox.movementFinished);
         boxPushed = true;
-
-        // Step 3 — Key appeared
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        yield return ShowText("The key has appeared!\nCollect the key to unlock the final room.");
-        yield return new WaitForSeconds(5f);
+        yield return StartCoroutine(ShowLines(new string[] { "// ACCESS KEY DETECTED", "Key fragment revealed.", "Retrieve it to proceed." }, 1f));
         yield return FadeTo(0f);
     }
 
-    // Called by FinishTrigger when player tries to leave without key
     public void ShowLockedExitMessage()
     {
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        currentCoroutine = StartCoroutine(ShowThenFade("You need the key before you can leave!\nFind it and collect it first.", 4f));
+        currentCoroutine = StartCoroutine(ShowLines(new string[] { "// EXIT LOCKED", "Key fragment required to leave this sector.", "Locate and retrieve it first." }, 4f));
     }
 
-    // Called by SC002KeyPickup
     public void OnKeyCollected()
     {
         keyCollectedFlag = true;
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        StartCoroutine(ShowThenFade("Key collected!\nHead back to the Main Hall.", 5f));
+        StartCoroutine(ShowLines(new string[] { "// KEY FRAGMENT ACQUIRED", "Return to the Main Hall." }, 5f));
     }
 
-    private IEnumerator ShowText(string message)
+    private IEnumerator ShowLines(string[] lines, float holdDuration)
     {
-        if (hintText != null) hintText.text = message;
-        yield return FadeTo(1f);
+        if (hintText != null) hintText.text = "";
+        if (hintCanvasGroup != null) hintCanvasGroup.alpha = 1f;
+        yield return StartCoroutine(TypeWriterLines(lines));
+        if (holdDuration > 0f) { yield return new WaitForSeconds(holdDuration); yield return FadeTo(0f); }
     }
 
-    private IEnumerator ShowThenFade(string message, float duration)
+    private IEnumerator TypeWriterLines(string[] lines)
     {
-        if (hintText != null) hintText.text = message;
-        yield return FadeTo(1f);
-        yield return new WaitForSeconds(duration);
-        yield return FadeTo(0f);
+        if (hintText == null) yield break;
+        hintText.text = "";
+        if (audioSource != null && typingSound != null) { audioSource.clip = typingSound; audioSource.loop = true; audioSource.Play(); }
+        for (int i = 0; i < lines.Length; i++)
+        {
+            foreach (char c in lines[i]) { hintText.text += c; yield return new WaitForSeconds(typeSpeed); }
+            if (i < lines.Length - 1) { yield return new WaitForSeconds(linePause); hintText.text += "\n"; }
+        }
+        if (audioSource != null) audioSource.Stop();
     }
 
     private IEnumerator FadeTo(float target)
@@ -134,8 +132,7 @@ public class SC002Guide : MonoBehaviour
         if (hintCanvasGroup == null) yield break;
         while (Mathf.Abs(hintCanvasGroup.alpha - target) > 0.01f)
         {
-            hintCanvasGroup.alpha = Mathf.MoveTowards(
-                hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
+            hintCanvasGroup.alpha = Mathf.MoveTowards(hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
             yield return null;
         }
         hintCanvasGroup.alpha = target;
