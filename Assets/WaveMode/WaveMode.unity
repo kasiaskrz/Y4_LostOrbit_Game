@@ -1453,11 +1453,31 @@ PrefabInstance:
     - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: fireClip
       value: 
-      objectReference: {fileID: 8300000, guid: 429a1495f26757f498344c2d7954e402, type: 3}
+      objectReference: {fileID: 8300000, guid: 70799e136cfe7ed419ae3f27d08ae496, type: 3}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: emptyClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
     - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1989090909}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: reloadEndClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: reloadStartClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: reloadInsertClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ad6ab1a88745bc4c83cf272f4b03ee6, type: 3}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: reloadSingleClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b291e260eb6c9074b8c24fe35432ca95, type: 3}
     - target: {fileID: 8246377103028418463, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.2
