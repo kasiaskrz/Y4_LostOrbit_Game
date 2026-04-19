@@ -7,15 +7,8 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     public Animator armsAnimator;
     public Animator gunAnimator;
 
-    [Header("Shooter (optional)")]
+    [Header("Shooter")]
     public ShotgunShooter shooter;
-
-    [Header("Ammo")]
-    public int magSize = 6;
-    public int ammoInMag = 6;
-
-    [Header("Inventory Ammo Item")]
-    public ItemData ammoItemData;
 
     [Header("Input")]
     public KeyCode inspectKey = KeyCode.F;
@@ -51,8 +44,8 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     private Coroutine reloadCo;
 
     // === UI Provider ===
-    public int CurrentAmmo => ammoInMag;
-    public int MaxAmmo => magSize;
+    public int CurrentAmmo => shooter != null ? shooter.GetCurrentAmmo() : 0;
+    public int MaxAmmo => shooter != null ? shooter.GetMagSize() : 0;
     public bool IsReloading => busy;
     public AmmoVisualType AmmoType => AmmoVisualType.ShotgunShell;
 
@@ -61,12 +54,18 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
         yield return null;
         yield return null;
         inventoryReady = true;
+
+        if (shooter == null)
+            shooter = GetComponent<ShotgunShooter>();
     }
 
     void Update()
     {
         if (!armsAnimator) return;
         if (Time.timeScale == 0f) return;
+
+        if (shooter == null)
+            return;
 
         if (!busy && Input.GetMouseButtonDown(0))
             TryFire();
@@ -93,21 +92,17 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     void TryFire()
     {
-        if (ammoInMag <= 0)
+        if (shooter == null)
+            return;
+
+        if (shooter.GetCurrentAmmo() <= 0)
         {
-            if (shooter) shooter.PlayEmptySound();
+            shooter.PlayEmptySound();
             TryReload();
             return;
         }
 
-        ammoInMag--;
-
-        if (shooter)
-        {
-            shooter.currentAmmo = ammoInMag;
-            shooter.FireOnce();
-            ammoInMag = shooter.currentAmmo;
-        }
+        shooter.FireOnce();
 
         TriggerBoth(fireTrigger);
         StartCoroutine(LockFor(fireLockTime));
@@ -116,18 +111,8 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     void TryReload()
     {
         if (!inventoryReady) return;
-
-        int missing = magSize - ammoInMag;
-        if (missing <= 0) return;
-
-        if (ammoItemData != null && InventoryManager.Instance != null)
-        {
-            if (!InventoryManager.Instance.HasItem(ammoItemData, 1))
-            {
-                Debug.Log("[Gun] No ammo in inventory to reload!");
-                return;
-            }
-        }
+        if (shooter == null) return;
+        if (!shooter.CanReload()) return;
 
         busy = true;
 
@@ -139,7 +124,14 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     IEnumerator ReloadRoutine()
     {
-        int shellsNeeded = magSize - ammoInMag;
+        if (shooter == null)
+        {
+            busy = false;
+            reloadCo = null;
+            yield break;
+        }
+
+        int shellsNeeded = shooter.GetMissingShells();
 
         if (shellsNeeded <= 0)
         {
@@ -161,26 +153,21 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
         // ReloadStart = setup only, NO shell inserted here
         SetBoolBoth(reloadSingleBool, false);
         TriggerBoth(reloadStartTrigger);
+
+        if (shooter != null)
+            shooter.PlayReloadStartSound();
+
         yield return new WaitForSeconds(reloadStartTime);
 
         // After ReloadStart, load shells.
         // All middle shells = ReloadRepeat
         // Final shell = Reload
-        while (ammoInMag < magSize)
+        while (shooter != null && shooter.CanReload())
         {
-            shellsNeeded = magSize - ammoInMag;
+            shellsNeeded = shooter.GetMissingShells();
 
             if (shellsNeeded <= 0)
                 break;
-
-            if (ammoItemData != null && InventoryManager.Instance != null)
-            {
-                if (!InventoryManager.Instance.HasItem(ammoItemData, 1))
-                {
-                    Debug.Log("[Gun] Ran out of ammo mid-reload!");
-                    break;
-                }
-            }
 
             // Final shell uses Reload
             if (shellsNeeded == 1)
@@ -191,7 +178,10 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
             // Otherwise use ReloadRepeat
             TriggerBoth(reloadRepeatTrigger);
-            if (shooter) shooter.PlayReloadInsertSound();
+
+            if (shooter != null)
+                shooter.PlayReloadInsertSound();
+
             yield return StartCoroutine(InsertShellDuringClip(reloadRepeatTime));
         }
 
@@ -202,9 +192,13 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     IEnumerator PlayReloadSingle()
     {
+        if (shooter == null)
+            yield break;
+
         SetBoolBoth(reloadSingleBool, true);
         TriggerBoth(reloadSingleFullTrigger);
-        if (shooter) shooter.PlayReloadSingleSound();
+
+        shooter.PlayReloadSingleSound();
 
         yield return StartCoroutine(InsertShellDuringClip(reloadSingleTime));
 
@@ -218,24 +212,13 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
         yield return new WaitForSeconds(t1);
 
-        if (ammoInMag < magSize)
+        if (shooter != null && shooter.CanReload())
         {
-            bool hasAmmo = true;
+            bool inserted = shooter.TryInsertOneShell();
 
-            if (ammoItemData != null && InventoryManager.Instance != null)
+            if (!inserted)
             {
-                hasAmmo = InventoryManager.Instance.HasItem(ammoItemData, 1);
-
-                if (hasAmmo)
-                    InventoryManager.Instance.UseAmmo(ammoItemData, 1);
-            }
-
-            if (hasAmmo)
-            {
-                ammoInMag = Mathf.Clamp(ammoInMag + 1, 0, magSize);
-
-                if (shooter)
-                    shooter.currentAmmo = ammoInMag;
+                Debug.Log("[ShotgunViewmodelController] Could not insert shell. Magazine full or no reserve ammo.");
             }
         }
 
@@ -251,13 +234,13 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     void TriggerBoth(string trig)
     {
-        armsAnimator.SetTrigger(trig);
+        if (armsAnimator) armsAnimator.SetTrigger(trig);
         if (gunAnimator) gunAnimator.SetTrigger(trig);
     }
 
     void SetBoolBoth(string param, bool value)
     {
-        armsAnimator.SetBool(param, value);
+        if (armsAnimator) armsAnimator.SetBool(param, value);
         if (gunAnimator) gunAnimator.SetBool(param, value);
     }
 }

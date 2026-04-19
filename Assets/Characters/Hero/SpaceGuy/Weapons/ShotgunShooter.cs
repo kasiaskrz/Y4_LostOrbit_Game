@@ -8,6 +8,13 @@ public class ShotgunShooter : MonoBehaviour
     public Transform muzzle;
     public ShotTracer tracerPrefab;
 
+    [Header("Inventory Ammo")]
+    [Tooltip("Ammo item in your inventory, e.g. shotgun shells.")]
+    public ItemData ammoItemData;
+
+    [Tooltip("Optional. If left empty, will use InventoryManager.Instance.")]
+    public InventoryManager inventoryManager;
+
     [Header("Shotgun")]
     public int pellets = 10;
     public float range = 60f;
@@ -21,10 +28,9 @@ public class ShotgunShooter : MonoBehaviour
     [Range(0f, 1f)] public float tracerChance = 0.8f;
     public float tracerMuzzleForwardOffset = 0.05f;
 
-    [Header("Ammo")]
+    [Header("Loaded Ammo")]
     public int magSize = 6;
     public int currentAmmo = 6;
-    public int reserveAmmo = 24;
     public bool useAmmo = true;
 
     [Header("Audio")]
@@ -44,6 +50,14 @@ public class ShotgunShooter : MonoBehaviour
     public float emptySoundCooldown = 0.15f;
 
     private float nextEmptySoundTime;
+
+    private void Awake()
+    {
+        if (inventoryManager == null)
+            inventoryManager = InventoryManager.Instance;
+
+        currentAmmo = Mathf.Clamp(currentAmmo, 0, magSize);
+    }
 
     public void FireOnce()
     {
@@ -160,14 +174,25 @@ public class ShotgunShooter : MonoBehaviour
         PlayClip(reloadEndClip);
     }
 
-    public void InsertOneShell()
+    public bool InsertOneShell()
     {
-        if (!useAmmo) return;
-        if (reserveAmmo <= 0) return;
-        if (currentAmmo >= magSize) return;
+        if (!useAmmo) return false;
+        if (currentAmmo >= magSize) return false;
+        if (ammoItemData == null) return false;
+
+        if (inventoryManager == null)
+            inventoryManager = InventoryManager.Instance;
+
+        if (inventoryManager == null) return false;
+        if (!inventoryManager.TryRemoveItem(ammoItemData, 1)) return false;
 
         currentAmmo++;
-        reserveAmmo--;
+        return true;
+    }
+
+    public bool TryInsertOneShell()
+    {
+        return InsertOneShell();
     }
 
     public bool IsMagazineFull()
@@ -177,7 +202,7 @@ public class ShotgunShooter : MonoBehaviour
 
     public bool HasReserveAmmo()
     {
-        return reserveAmmo > 0;
+        return GetReserveAmmo() > 0;
     }
 
     public int GetMissingShells()
@@ -190,8 +215,43 @@ public class ShotgunShooter : MonoBehaviour
     {
         if (!useAmmo) return false;
         if (currentAmmo >= magSize) return false;
-        if (reserveAmmo <= 0) return false;
+        if (GetReserveAmmo() <= 0) return false;
         return true;
+    }
+
+    public int GetReserveAmmo()
+    {
+        if (ammoItemData == null)
+            return 0;
+
+        if (inventoryManager == null)
+            inventoryManager = InventoryManager.Instance;
+
+        if (inventoryManager == null)
+            return 0;
+
+        return inventoryManager.CountItem(ammoItemData);
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public int GetMagSize()
+    {
+        return magSize;
+    }
+
+    public void SetCurrentAmmo(int amount)
+    {
+        currentAmmo = Mathf.Clamp(amount, 0, magSize);
+    }
+
+    public void AddAmmoToMagazine(int amount)
+    {
+        if (!useAmmo || amount <= 0) return;
+        currentAmmo = Mathf.Clamp(currentAmmo + amount, 0, magSize);
     }
 }
 

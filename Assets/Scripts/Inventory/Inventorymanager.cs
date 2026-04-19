@@ -12,7 +12,7 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Starting Items")]
     public ItemData startingAmmo;
-    public int startingAmmoAmount = 5;
+    public int startingAmmoAmount = 6;
 
     public event Action OnInventoryChanged;
 
@@ -49,13 +49,9 @@ public class InventoryManager : MonoBehaviour
         {
             slots[0] = new InventoryItem(startingAmmo, startingAmmoAmount);
             OnInventoryChanged?.Invoke();
-            // No notification for starting items
         }
     }
 
-    // ── Public API ──────────────────────────────────────────────────────────
-
-    /// <summary>Add an item to inventory and show a pickup notification.</summary>
     public bool TryAddItem(ItemData data, int amount = 1, bool showNotification = true)
     {
         if (data == null || amount <= 0) return false;
@@ -91,10 +87,10 @@ public class InventoryManager : MonoBehaviour
         {
             OnInventoryChanged?.Invoke();
 
-            // Show pickup notification
             if (showNotification)
                 PickupNotification.Show(data.icon, data.itemName, amount - remaining);
         }
+
         return addedSome;
     }
 
@@ -110,6 +106,7 @@ public class InventoryManager : MonoBehaviour
                 int remove = Mathf.Min(slots[i].quantity, remaining);
                 slots[i].quantity -= remove;
                 remaining -= remove;
+
                 if (slots[i].quantity <= 0)
                     slots[i] = new InventoryItem(null, 0);
             }
@@ -119,7 +116,6 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
-    /// <summary>Swap two slots by index. Works across hotbar and grid.</summary>
     public void SwapSlots(int indexA, int indexB)
     {
         if (indexA < 0 || indexA >= TotalSlots) return;
@@ -133,46 +129,45 @@ public class InventoryManager : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
-    /// <summary>Call from gun script when firing to deduct ammo.</summary>
     public bool UseAmmo(ItemData ammoData, int amount = 1)
     {
         return TryRemoveItem(ammoData, amount);
     }
 
-    /// <summary> Fuse item test
     public bool RemoveItemByName(string itemName, int amount = 1)
-{
-    if (string.IsNullOrEmpty(itemName) || amount <= 0)
-        return false;
-
-    int remaining = amount;
-
-    for (int i = TotalSlots - 1; i >= 0 && remaining > 0; i--)
     {
-        if (slots[i].data != null &&
-            string.Equals(slots[i].data.itemName, itemName, StringComparison.OrdinalIgnoreCase))
+        if (string.IsNullOrEmpty(itemName) || amount <= 0)
+            return false;
+
+        int remaining = amount;
+
+        for (int i = TotalSlots - 1; i >= 0 && remaining > 0; i--)
         {
-            int remove = Mathf.Min(slots[i].quantity, remaining);
-            slots[i].quantity -= remove;
-            remaining -= remove;
+            if (slots[i].data != null &&
+                string.Equals(slots[i].data.itemName, itemName, StringComparison.OrdinalIgnoreCase))
+            {
+                int remove = Mathf.Min(slots[i].quantity, remaining);
+                slots[i].quantity -= remove;
+                remaining -= remove;
 
-            if (slots[i].quantity <= 0)
-                slots[i] = new InventoryItem(null, 0);
+                if (slots[i].quantity <= 0)
+                    slots[i] = new InventoryItem(null, 0);
+            }
         }
-    }
 
-    if (remaining < amount)
-    {
-        OnInventoryChanged?.Invoke();
-        return true;
-    }
+        if (remaining < amount)
+        {
+            OnInventoryChanged?.Invoke();
+            return true;
+        }
 
-    return false;
-}
+        return false;
+    }
 
     public void DropSlot(int slotIndex, Transform dropOrigin)
     {
         if (slotIndex < 0 || slotIndex >= TotalSlots) return;
+
         InventoryItem item = slots[slotIndex];
         if (item.IsEmpty) return;
 
@@ -200,6 +195,7 @@ public class InventoryManager : MonoBehaviour
         int found = 0;
         foreach (var slot in slots)
             if (slot.data == data) found += slot.quantity;
+
         return found >= amount;
     }
 
@@ -208,12 +204,11 @@ public class InventoryManager : MonoBehaviour
         int total = 0;
         foreach (var slot in slots)
             if (slot.data == data) total += slot.quantity;
+
         return total;
     }
 
     public InventoryItem GetSlot(int index) => slots[index];
-
-    // ── Hotbar Selection ────────────────────────────────────────────────────
 
     public void SelectHotbarSlot(int index)
     {
@@ -231,5 +226,22 @@ public class InventoryManager : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f) SelectHotbarSlot((SelectedHotbarIndex - 1 + hotbarSlots) % hotbarSlots);
         else if (scroll < 0f) SelectHotbarSlot((SelectedHotbarIndex + 1) % hotbarSlots);
+    }
+
+    // ===== ADDED: RESERVE AMMO HELPERS =====
+
+    public int GetReserveAmmo(ItemData ammoData)
+    {
+        return CountItem(ammoData);
+    }
+
+    public bool HasReserveAmmo(ItemData ammoData, int amount = 1)
+    {
+        return HasItem(ammoData, amount);
+    }
+
+    public bool ConsumeReserveAmmo(ItemData ammoData, int amount = 1)
+    {
+        return TryRemoveItem(ammoData, amount);
     }
 }
