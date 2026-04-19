@@ -28289,11 +28289,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   triggerInteraction: 2
-  crosshair: {fileID: 0}
+  crosshair: {fileID: 1045344192}
   idleColor: {r: 1, g: 1, b: 1, a: 1}
   highlightColor: {r: 0, g: 1, b: 0, a: 1}
-  promptPanel: {fileID: 0}
-  promptText: {fileID: 0}
+  promptPanel: {fileID: 464613205}
+  promptText: {fileID: 1508676308}
+  bossAimColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1685103344 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1012403906479996017, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}

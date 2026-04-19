@@ -10178,6 +10178,7 @@ MonoBehaviour:
   highlightColor: {r: 0, g: 1, b: 0, a: 1}
   promptPanel: {fileID: 303143623}
   promptText: {fileID: 1714441314}
+  bossAimColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!143 &835451886 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 621010053398872971, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
@@ -32679,7 +32680,7 @@ Transform:
   m_GameObject: {fileID: 4384455468950479120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.2588191}
-  m_LocalPosition: {x: -85.13, y: 4.35, z: -6.01}
+  m_LocalPosition: {x: -87, y: 4.35, z: -6.01}
   m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -33287,7 +33288,7 @@ GameObject:
   - component: {fileID: 8660315965257064055}
   m_Layer: 0
   m_Name: Evil_robot_shotgun
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
