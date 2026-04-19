@@ -1121,13 +1121,14 @@ MonoBehaviour:
   disableCharacterControllerIfAny: 1
   disableRootColliderOnDeath: 1
   explodeOnDeath: 1
-  explodeDelay: 1
+  explodeDelay: 0.5
   explosionVFXPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
   explosionPoint: {fileID: 102723670461503607}
   explosionOffset: {x: 0, y: 0, z: 0}
   explosionSound: {fileID: 8300000, guid: 4e1e135ee57d81a4d8360637922400dc, type: 3}
   explosionVolume: 1
   destroyWholeRootObject: 1
+  explosionScale: 5
   ammoPickupPrefab: {fileID: 2172874739975864943, guid: a597dfb07d9bc9c40b93eba1c97b6e32, type: 3}
   healthPickupPrefab: {fileID: 6345333170667456609, guid: 3bb95ddf31f0c2e4dbb013e4dcd0fe8f, type: 3}
   healthDropChance: 0.2
