@@ -55,7 +55,7 @@ public class SupabaseAuth : MonoBehaviour
         }
 
         if (statusText != null) statusText.text = "Success!";
-        Loader.Load(Loader.Scene.Room01);
+        Loader.Load(Loader.Scene.SC001);
     }
 
     IEnumerator LoginCoroutine(string email, string password)
