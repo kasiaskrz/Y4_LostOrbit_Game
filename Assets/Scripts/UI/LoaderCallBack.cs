@@ -1,21 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LoaderCallback : MonoBehaviour
 {
+    [SerializeField] private TypewriterEffect typewriterEffect;
 
-
-    private bool isFirstUpdate = true;
+    private bool isLoadingStarted = false;
 
     private void Update()
     {
-        if (isFirstUpdate)
+        if (!isLoadingStarted)
         {
-            isFirstUpdate = false;
-
-            Loader.LoaderCallback();
+            isLoadingStarted = true;
+            StartCoroutine(WaitForTyping());
         }
     }
 
+    private IEnumerator WaitForTyping()
+    {
+        // wait until typing finishes
+        yield return new WaitUntil(() => typewriterEffect.IsFinishedTyping());
+
+        // small extra pause (optional)
+        yield return new WaitForSeconds(0.5f);
+
+        Loader.LoaderCallback();
+    }
 }

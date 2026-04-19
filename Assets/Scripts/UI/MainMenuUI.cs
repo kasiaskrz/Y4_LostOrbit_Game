@@ -31,7 +31,7 @@ public class MainMenuUI : MonoBehaviour
 
         guestButton.onClick.AddListener(() =>
         {
-            Loader.Load(Loader.Scene.Room01);
+            Loader.Load(Loader.Scene.SC001);
         });
 
         waveModeButton.onClick.AddListener(() =>
