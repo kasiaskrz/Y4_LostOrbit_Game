@@ -2,9 +2,6 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-
-/// MainHall guide - updates messages based on keys collected.
-/// Also handles locked door popup when player tries to enter SC005 without both keys.
 public class MainHallGuide : MonoBehaviour
 {
     [Header("UI")]
@@ -12,83 +9,102 @@ public class MainHallGuide : MonoBehaviour
     public CanvasGroup hintCanvasGroup;
 
     [Header("Locked Door Popup")]
-    [Tooltip("Assign the SC005 door trigger collider object.")]
     public GameObject finalDoor;
 
     [Header("Fade")]
     public float fadeSpeed = 3f;
+
+    [Header("Typewriter")]
+    public float typeSpeed = 0.04f;
+    public float linePause = 0.3f;
+    public AudioClip typingSound;
+    public AudioSource audioSource;
 
     private Coroutine currentCoroutine;
     private int lastKeyCount = -1;
 
     private void Start()
     {
-        if (hintCanvasGroup != null)
-            hintCanvasGroup.alpha = 0f;
-
+        if (hintCanvasGroup != null) hintCanvasGroup.alpha = 0f;
         StartCoroutine(GuideLoop());
     }
 
     private IEnumerator GuideLoop()
     {
         yield return new WaitForSeconds(1f);
-
         while (true)
         {
             int keys = GameProgress.Instance != null ? GameProgress.Instance.keysCollected : 0;
-
-            // Only update if key count changed
             if (keys != lastKeyCount)
             {
                 lastKeyCount = keys;
-
-                string message;
+                string[] message;
                 if (keys == 0)
-                    message = "Welcome to the Main Hall.\nTwo rooms are available.\nFind the 2 keys to unlock the final door.";
+                    message = new string[] { "// SYSTEM ONLINE", "Two sectors are accessible.", "Retrieve both access keys to unlock the final corridor." };
                 else if (keys == 1)
-                    message = "Good work! You found 1 key.\nFind the last key in the other room\nto unlock the final door.";
+                    message = new string[] { "// ACCESS KEY ACQUIRED [ 1 / 2 ]", "One key fragment recovered.", "Locate the second key to proceed." };
                 else
-                    message = "Both keys collected!\nThe final door is now unlocked.\nHead through the black door.";
-
+                    message = new string[] { "// ALL KEYS ACQUIRED [ 2 / 2 ]", "Final corridor unlocked.", "Proceed through the black door." };
                 if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-                currentCoroutine = StartCoroutine(ShowThenFade(message, 6f));
+                currentCoroutine = StartCoroutine(ShowThenFade(message, 1f));
             }
-
             yield return new WaitForSeconds(10f);
-
-            // Repeat current relevant message every 10 seconds
             int currentKeys = GameProgress.Instance != null ? GameProgress.Instance.keysCollected : 0;
-            string reminder;
+            string[] reminder;
             if (currentKeys == 0)
-                reminder = "Find the 2 keys in SC002 and SC003\nto unlock the final door.";
+                reminder = new string[] { "// MISSION OBJECTIVE", "Retrieve access keys from Sector SC002 and SC003." };
             else if (currentKeys == 1)
-                reminder = "Find the last key in the other room\nto unlock the final door.";
+                reminder = new string[] { "// MISSION OBJECTIVE", "One key fragment remaining.", "Search the other sector." };
             else
-                reminder = "Both keys collected!\nHead through the final door.";
-
+                reminder = new string[] { "// OBJECTIVE COMPLETE", "Proceed through the final corridor." };
             if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-            currentCoroutine = StartCoroutine(ShowThenFade(reminder, 5f));
+            currentCoroutine = StartCoroutine(ShowThenFade(reminder, 1f));
         }
     }
 
-    /// Call this from the final door trigger when player tries to enter without both keys
     public void ShowLockedDoorMessage()
     {
         int keys = GameProgress.Instance != null ? GameProgress.Instance.keysCollected : 0;
-        string msg = keys == 0
-            ? "Door locked!\nFind both keys in SC002 and SC003 first."
-            : "Door locked!\nFind the last key to unlock this door.";
-
+        string[] msg = keys == 0
+            ? new string[] { "// ACCESS DENIED", "Two key fragments required.", "Search Sector SC002 and SC003." }
+            : new string[] { "// ACCESS DENIED", "One key fragment still missing.", "Complete your search." };
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        currentCoroutine = StartCoroutine(ShowThenFade(msg, 4f));
+        currentCoroutine = StartCoroutine(ShowThenFade(msg, 1f));
     }
 
-    private IEnumerator ShowThenFade(string message, float duration)
+    private IEnumerator ShowThenFade(string[] lines, float duration)
     {
-        if (hintText != null) hintText.text = message;
-        yield return FadeTo(1f);
+        if (hintText != null) hintText.text = "";
+        if (hintCanvasGroup != null) hintCanvasGroup.alpha = 1f;
+        yield return StartCoroutine(TypeWriterLines(lines));
         yield return new WaitForSeconds(duration);
         yield return FadeTo(0f);
+    }
+
+    private IEnumerator TypeWriterLines(string[] lines)
+    {
+        if (hintText == null) yield break;
+        hintText.text = "";
+        if (audioSource != null && typingSound != null)
+        {
+            audioSource.clip = typingSound;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+        for (int i = 0; i < lines.Length; i++)
+        {
+            foreach (char c in lines[i])
+            {
+                hintText.text += c;
+                yield return new WaitForSeconds(typeSpeed);
+            }
+            if (i < lines.Length - 1)
+            {
+                yield return new WaitForSeconds(linePause);
+                hintText.text += "\n";
+            }
+        }
+        if (audioSource != null) audioSource.Stop();
     }
 
     private IEnumerator FadeTo(float target)
@@ -96,8 +112,7 @@ public class MainHallGuide : MonoBehaviour
         if (hintCanvasGroup == null) yield break;
         while (Mathf.Abs(hintCanvasGroup.alpha - target) > 0.01f)
         {
-            hintCanvasGroup.alpha = Mathf.MoveTowards(
-                hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
+            hintCanvasGroup.alpha = Mathf.MoveTowards(hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
             yield return null;
         }
         hintCanvasGroup.alpha = target;

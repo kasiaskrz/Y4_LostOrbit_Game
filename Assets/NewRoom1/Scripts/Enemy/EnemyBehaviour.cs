@@ -23,7 +23,10 @@ public class EnemyBehavior : MonoBehaviour
     public float repathRate = 0.25f;
 
     [Header("Return")]
-    public Transform returnPoint; // assign in Inspector, leave empty to use start position
+    public Transform returnPoint;
+
+    [Header("Tutorial")]
+    public bool tutorialLocked = false;
 
     private State state = State.Idle;
     private Vector3 startPosition;
@@ -50,14 +53,20 @@ public class EnemyBehavior : MonoBehaviour
 
         startRotation = transform.rotation;
 
-        agent.isStopped = true;
-        agent.speed = idleSpeed;
-        agent.velocity = Vector3.zero;
+        // Only stop agent if it's on a NavMesh
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.isStopped = true;
+            agent.speed = idleSpeed;
+            agent.velocity = Vector3.zero;
+        }
     }
 
     void Update()
     {
+        if (tutorialLocked) return;
         if (!player) return;
+        if (agent == null || !agent.isOnNavMesh) return;
 
         switch (state)
         {
@@ -108,7 +117,6 @@ public class EnemyBehavior : MonoBehaviour
 
         float dist = Vector3.Distance(transform.position, player.position);
 
-
         if (!CanSeePlayer() && dist > visionRange)
             EnterReturn();
     }
@@ -132,7 +140,6 @@ public class EnemyBehavior : MonoBehaviour
             agent.velocity = Vector3.zero;
             agent.ResetPath();
 
-            // Stop rigidbody if present
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -150,6 +157,10 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    public void Unlock()
+    {
+        tutorialLocked = false;
+    }
 
     public void Die()
     {
@@ -162,7 +173,7 @@ public class EnemyBehavior : MonoBehaviour
             agent.enabled = false;
         }
 
-        enabled = false; // stops Update() completely
+        enabled = false;
     }
 
     void OnDrawGizmosSelected()
@@ -176,6 +187,5 @@ public class EnemyBehavior : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, leftDir * visionRange);
         Gizmos.DrawRay(transform.position, rightDir * visionRange);
-
     }
 }

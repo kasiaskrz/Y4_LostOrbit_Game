@@ -11,13 +11,18 @@ public class SC003Guide : MonoBehaviour
     [Header("References")]
     public MovableBox movableBox;
     public Camera playerCamera;
-    [Tooltip("Assign the exit door collider object.")]
     public GameObject exitDoor;
 
     [Header("Settings")]
     public float welcomeDuration = 5f;
     public float raycastDistance = 3f;
     public float fadeSpeed = 3f;
+
+    [Header("Typewriter")]
+    public float typeSpeed = 0.04f;
+    public float linePause = 0.3f;
+    public AudioClip typingSound;
+    public AudioSource audioSource;
 
     private bool welcomeShown = false;
     private bool boxPushed = false;
@@ -26,40 +31,48 @@ public class SC003Guide : MonoBehaviour
 
     private void Start()
     {
-        if (hintCanvasGroup != null)
-            hintCanvasGroup.alpha = 0f;
-
-        if (playerCamera == null)
-            playerCamera = Camera.main;
-
+        if (hintCanvasGroup != null) hintCanvasGroup.alpha = 0f;
+        if (playerCamera == null) playerCamera = Camera.main;
         StartCoroutine(RunGuide());
     }
 
     private void Update()
     {
         if (keyCollectedFlag) return;
-
-        // Show press E when looking at box (before box is pushed)
         if (welcomeShown && !boxPushed)
         {
             if (IsLookingAt(movableBox != null ? movableBox.gameObject : null))
             {
-                SetText("Press [E] to push the box.", true);
+                if (hintText != null && hintText.text != "Press [E] to push the container.")
+                {
+                    if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                    hintText.text = "Press [E] to push the container.";
+                }
+                if (hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
+                {
+                    if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                    currentCoroutine = StartCoroutine(FadeTo(1f));
+                }
                 return;
             }
         }
-
-        // Show locked message when looking at exit door (before key collected)
         if (boxPushed && exitDoor != null)
         {
             if (IsLookingAt(exitDoor))
             {
-                SetText("You need the key before you can leave!", true);
+                if (hintText != null && hintText.text != "// EXIT LOCKED\nKey fragment required to leave.")
+                {
+                    if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                    hintText.text = "// EXIT LOCKED\nKey fragment required to leave.";
+                }
+                if (hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
+                {
+                    if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+                    currentCoroutine = StartCoroutine(FadeTo(1f));
+                }
                 return;
             }
         }
-
-        // Nothing to show — fade out
         if (welcomeShown && hintCanvasGroup != null && hintCanvasGroup.alpha > 0f)
         {
             if (currentCoroutine != null) StopCoroutine(currentCoroutine);
@@ -67,73 +80,66 @@ public class SC003Guide : MonoBehaviour
         }
     }
 
-    private void SetText(string message, bool show)
-    {
-        if (hintText != null && hintText.text != message)
-        {
-            hintText.text = message;
-            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        }
-        if (show && hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
-        {
-            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-            currentCoroutine = StartCoroutine(FadeTo(1f));
-        }
-    }
-
     private bool IsLookingAt(GameObject target)
     {
         if (playerCamera == null || target == null) return false;
-
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
-        {
-            return hit.collider.gameObject == target ||
-                   hit.collider.transform.IsChildOf(target.transform);
-        }
+            return hit.collider.gameObject == target || hit.collider.transform.IsChildOf(target.transform);
         return false;
     }
 
     private IEnumerator RunGuide()
     {
         yield return new WaitForSeconds(1f);
-
-        yield return ShowText("Find the box in this room.\nWalk up to it and push it to reveal the key.");
+        if (GameProgress.Instance != null && GameProgress.Instance.sc003Complete)
+        {
+            int keys = GameProgress.Instance.keysCollected;
+            string[] revisitMsg = keys >= 2
+                ? new string[] { "// SECTOR SC003 — PREVIOUSLY CLEARED", "Both key fragments recovered.", "The final corridor awaits." }
+                : new string[] { "// SECTOR SC003 — PREVIOUSLY CLEARED", "Key fragment already retrieved from this sector.", "Locate the remaining fragment in Sector SC002." };
+            yield return StartCoroutine(ShowLines(revisitMsg, 4f));
+            yield break;
+        }
+        yield return StartCoroutine(ShowLines(new string[] { "// SECTOR SC003 ONLINE", "Locate the container unit in this sector.", "Push it to reveal the key fragment." }, 0f));
         yield return new WaitForSeconds(welcomeDuration);
         yield return FadeTo(0f);
-
         welcomeShown = true;
-
         yield return new WaitUntil(() => movableBox == null || movableBox.movementFinished);
         boxPushed = true;
-
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        yield return ShowText("The key has appeared!\nCollect it.");
-        yield return new WaitForSeconds(5f);
+        yield return StartCoroutine(ShowLines(new string[] { "// ACCESS KEY DETECTED", "Key fragment revealed.", "Retrieve it to proceed." }, 1f));
         yield return FadeTo(0f);
     }
 
-    public void ShowLockedExitMessage() { } // Now handled by Update raycast
+    public void ShowLockedExitMessage() { }
 
     public void OnKeyCollected()
     {
         keyCollectedFlag = true;
         StopAllCoroutines();
-        StartCoroutine(ShowThenFade("Key collected!\nHead back to the Main Hall.", 5f));
+        StartCoroutine(ShowLines(new string[] { "// KEY FRAGMENT ACQUIRED", "Return to the Main Hall." }, 5f));
     }
 
-    private IEnumerator ShowText(string message)
+    private IEnumerator ShowLines(string[] lines, float holdDuration)
     {
-        if (hintText != null) hintText.text = message;
-        yield return FadeTo(1f);
+        if (hintText != null) hintText.text = "";
+        if (hintCanvasGroup != null) hintCanvasGroup.alpha = 1f;
+        yield return StartCoroutine(TypeWriterLines(lines));
+        if (holdDuration > 0f) { yield return new WaitForSeconds(holdDuration); yield return FadeTo(0f); }
     }
 
-    private IEnumerator ShowThenFade(string message, float duration)
+    private IEnumerator TypeWriterLines(string[] lines)
     {
-        if (hintText != null) hintText.text = message;
-        yield return FadeTo(1f);
-        yield return new WaitForSeconds(duration);
-        yield return FadeTo(0f);
+        if (hintText == null) yield break;
+        hintText.text = "";
+        if (audioSource != null && typingSound != null) { audioSource.clip = typingSound; audioSource.loop = true; audioSource.Play(); }
+        for (int i = 0; i < lines.Length; i++)
+        {
+            foreach (char c in lines[i]) { hintText.text += c; yield return new WaitForSeconds(typeSpeed); }
+            if (i < lines.Length - 1) { yield return new WaitForSeconds(linePause); hintText.text += "\n"; }
+        }
+        if (audioSource != null) audioSource.Stop();
     }
 
     private IEnumerator FadeTo(float target)
@@ -141,8 +147,7 @@ public class SC003Guide : MonoBehaviour
         if (hintCanvasGroup == null) yield break;
         while (Mathf.Abs(hintCanvasGroup.alpha - target) > 0.01f)
         {
-            hintCanvasGroup.alpha = Mathf.MoveTowards(
-                hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
+            hintCanvasGroup.alpha = Mathf.MoveTowards(hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
             yield return null;
         }
         hintCanvasGroup.alpha = target;
