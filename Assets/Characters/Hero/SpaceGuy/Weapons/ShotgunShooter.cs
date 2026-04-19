@@ -33,11 +33,17 @@ public class ShotgunShooter : MonoBehaviour
     public AudioClip emptyClip;
     public AudioClip reloadStartClip;
     public AudioClip reloadInsertClip;
-    public AudioClip reloadEndClip;
+    public AudioClip reloadSingleClip;
+    public AudioClip reloadEndClip; // optional / legacy
 
     [Header("Audio Pitch")]
     public float minPitch = 0.98f;
     public float maxPitch = 1.02f;
+
+    [Header("Audio Cooldowns")]
+    public float emptySoundCooldown = 0.15f;
+
+    private float nextEmptySoundTime;
 
     public void FireOnce()
     {
@@ -51,7 +57,6 @@ public class ShotgunShooter : MonoBehaviour
 
         Transform aimSource = null;
 
-        // Decide aim source
         if (cam != null)
             aimSource = cam.transform;
         else if (aimTransform != null)
@@ -69,10 +74,8 @@ public class ShotgunShooter : MonoBehaviour
         for (int i = 0; i < pellets; i++)
         {
             Vector3 dir = GetSpreadDirection(aimSource.forward, aimSource);
-
             Vector3 end = tracerStart + dir * range;
 
-            // Raycast from aim source
             if (Physics.Raycast(aimSource.position, dir, out RaycastHit hit, range, hitMask, QueryTriggerInteraction.Ignore))
             {
                 end = hit.point;
@@ -85,7 +88,8 @@ public class ShotgunShooter : MonoBehaviour
                 else
                 {
                     var dmg = hit.collider.GetComponentInParent<IDamageable>();
-                    if (dmg != null) dmg.TakeDamage(damagePerPellet);
+                    if (dmg != null)
+                        dmg.TakeDamage(damagePerPellet);
                 }
             }
 
@@ -107,13 +111,17 @@ public class ShotgunShooter : MonoBehaviour
                 aimSource.up * r.y).normalized;
     }
 
-    void PlayClip(AudioClip clip)
+    void PlayClip(AudioClip clip, bool randomizePitch = true)
     {
         if (audioSource == null || clip == null) return;
 
-        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        float originalPitch = audioSource.pitch;
+
+        if (randomizePitch)
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
+
         audioSource.PlayOneShot(clip);
-        audioSource.pitch = 1f;
+        audioSource.pitch = originalPitch;
     }
 
     public void PlayFireSound()
@@ -123,7 +131,10 @@ public class ShotgunShooter : MonoBehaviour
 
     public void PlayEmptySound()
     {
-        PlayClip(emptyClip);
+        if (Time.time < nextEmptySoundTime) return;
+
+        nextEmptySoundTime = Time.time + emptySoundCooldown;
+        PlayClip(emptyClip, false);
     }
 
     public void PlayReloadStartSound()
@@ -134,6 +145,14 @@ public class ShotgunShooter : MonoBehaviour
     public void PlayReloadInsertSound()
     {
         PlayClip(reloadInsertClip);
+    }
+
+    public void PlayReloadSingleSound()
+    {
+        if (reloadSingleClip != null)
+            PlayClip(reloadSingleClip);
+        else
+            PlayClip(reloadInsertClip);
     }
 
     public void PlayReloadEndSound()
@@ -159,6 +178,20 @@ public class ShotgunShooter : MonoBehaviour
     public bool HasReserveAmmo()
     {
         return reserveAmmo > 0;
+    }
+
+    public int GetMissingShells()
+    {
+        if (!useAmmo) return 0;
+        return Mathf.Max(0, magSize - currentAmmo);
+    }
+
+    public bool CanReload()
+    {
+        if (!useAmmo) return false;
+        if (currentAmmo >= magSize) return false;
+        if (reserveAmmo <= 0) return false;
+        return true;
     }
 }
 

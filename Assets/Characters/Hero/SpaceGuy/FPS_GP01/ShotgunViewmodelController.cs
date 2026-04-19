@@ -34,7 +34,7 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     public string reloadSingleBool = "ReloadSingle";
 
     [Header("Timing (tweak to match your clips)")]
-    public float fireLockTime = 0.15f;
+    public float fireLockTime = 0.65f;
     public float inspectLockTime = 1.0f;
     public float interactLockTime = 0.6f;
 
@@ -95,6 +95,7 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     {
         if (ammoInMag <= 0)
         {
+            if (shooter) shooter.PlayEmptySound();
             TryReload();
             return;
         }
@@ -190,6 +191,7 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
             // Otherwise use ReloadRepeat
             TriggerBoth(reloadRepeatTrigger);
+            if (shooter) shooter.PlayReloadInsertSound();
             yield return StartCoroutine(InsertShellDuringClip(reloadRepeatTime));
         }
 
@@ -202,6 +204,7 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     {
         SetBoolBoth(reloadSingleBool, true);
         TriggerBoth(reloadSingleFullTrigger);
+        if (shooter) shooter.PlayReloadSingleSound();
 
         yield return StartCoroutine(InsertShellDuringClip(reloadSingleTime));
 
