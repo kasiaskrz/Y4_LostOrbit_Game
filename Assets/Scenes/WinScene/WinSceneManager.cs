@@ -12,6 +12,10 @@ public class WinSceneManager : MonoBehaviour
 
     private void Start()
     {
+        // unlock mouse
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
         if (loopSound != null)
         {
             loopSource = gameObject.AddComponent<AudioSource>();

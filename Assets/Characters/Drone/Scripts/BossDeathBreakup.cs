@@ -20,6 +20,10 @@ public class BossDeathBreakup : MonoBehaviour
     [Header("Cleanup")]
     public float destroyDelay = 6f;
 
+    [Header("Win Scene")]
+    public string winSceneName = "WinScene";
+    public float winDelay = 3f;
+
     private bool hasDied = false;
 
     public void PlayDeath()
@@ -65,11 +69,20 @@ public class BossDeathBreakup : MonoBehaviour
         }
 
         StartCoroutine(DestroyRootAfterDelay(0.05f));
+
+        // Load win scene after delay
+        Invoke(nameof(LoadWinScene), winDelay);
     }
 
     private IEnumerator DestroyRootAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        gameObject.SetActive(false);
+
+        Destroy(gameObject);
+    }
+
+    private void LoadWinScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(winSceneName);
     }
 }
