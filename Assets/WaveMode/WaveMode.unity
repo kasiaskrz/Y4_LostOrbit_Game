@@ -1442,6 +1442,10 @@ PrefabInstance:
       propertyPath: ammoItemData
       value: 
       objectReference: {fileID: 11400000, guid: de02f47d8551e834e99bdc7a253bb2bc, type: 2}
+    - target: {fileID: 3486273859795174987, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: explosionKnockback
+      value: 
+      objectReference: {fileID: 1783151810}
     - target: {fileID: 6170991296996076264, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1495,6 +1499,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6170991296996076264, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1783151799}
+    - targetCorrespondingSourceObject: {fileID: 6170991296996076264, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1783151810}
     - targetCorrespondingSourceObject: {fileID: 5656537282056194659, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 331954743}
@@ -3860,6 +3867,21 @@ CharacterController:
   m_CorrespondingSourceObject: {fileID: 621010053398872971, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
   m_PrefabInstance: {fileID: 767257391}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1783151810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783151798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07ad32c5b483b04f8a588092d7bbb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplosionKnockback
+  horizontalDamp: 2.5
+  verticalDamp: 1.8
+  stopThreshold: 0.15
 --- !u!1 &1783908905 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2550463727306718371, guid: eb9e82906c8daa841a82446653c64f64, type: 3}
