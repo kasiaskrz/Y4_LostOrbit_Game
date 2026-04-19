@@ -69,8 +69,8 @@ public class NotePickup : MonoBehaviour, IInteractable
     {
         if (IsOpen && Input.GetKeyDown(KeyCode.Escape))
         {
+            PauseMenu.EscConsumed = true; 
             CloseNote();
-            PauseMenu.EscConsumed = true;
         }
     }
 }
