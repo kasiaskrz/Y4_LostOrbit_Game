@@ -32,14 +32,17 @@ public class BossDeathBreakup : MonoBehaviour
         hasDied = true;
 
         if (explosionVFX != null)
-        {
             Instantiate(explosionVFX, transform.position, Quaternion.identity);
-        }
 
         if (audioSource != null && explosionSound != null)
-        {
             audioSource.PlayOneShot(explosionSound);
-        }
+
+        // Stop timer and submit Level 3 time
+        LevelRunReporter reporter = FindFirstObjectByType<LevelRunReporter>();
+        if (reporter != null)
+            reporter.StopTimer();
+        else
+            Debug.LogWarning("LevelRunReporter not found in scene!");
 
         for (int i = 0; i < parts.Length; i++)
         {
@@ -68,21 +71,23 @@ public class BossDeathBreakup : MonoBehaviour
             Destroy(part.gameObject, destroyDelay);
         }
 
-        StartCoroutine(DestroyRootAfterDelay(0.05f));
-
-        // Load win scene after delay
-        Invoke(nameof(LoadWinScene), winDelay);
+        // ✅ Single coroutine handles everything — no Invoke that gets cancelled
+        StartCoroutine(DeathSequence());
     }
 
-    private IEnumerator DestroyRootAfterDelay(float delay)
+    private IEnumerator DeathSequence()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(0.05f);
 
-        Destroy(gameObject);
-    }
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
+            renderer.enabled = false;
 
-    private void LoadWinScene()
-    {
+        yield return new WaitForSeconds(winDelay - 0.05f);
+
+        LevelRunReporter reporter = FindFirstObjectByType<LevelRunReporter>();
+        if (reporter != null)
+            PlayerPrefs.SetFloat("WinTime", reporter.elapsed);
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(winSceneName);
     }
 }

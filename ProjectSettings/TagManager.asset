@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Music
   - SFX
+  - Boss
   layers:
   - Default
   - TransparentFX

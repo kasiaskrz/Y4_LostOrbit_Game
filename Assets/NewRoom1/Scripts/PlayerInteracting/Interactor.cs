@@ -19,13 +19,23 @@ public class Interactor : MonoBehaviour
     public GameObject promptPanel;
     public TextMeshProUGUI promptText;
 
+    [Header("Boss Targeting")]
+    public Color bossAimColor = Color.red;
 
     public static IInteractable CurrentInteractable { get; private set; }
+
+    private bool aimedAtBoss = false;
+    private float bossDetectRange = 60f;
 
     void Awake()
     {
         if (cam == null) cam = Camera.main;
         if (promptPanel != null) promptPanel.SetActive(false);
+
+        // Auto-match range to shotgun
+        ShotgunShooter shooter = FindFirstObjectByType<ShotgunShooter>();
+        if (shooter != null)
+            bossDetectRange = shooter.range;
     }
 
     void Update()
@@ -33,14 +43,13 @@ public class Interactor : MonoBehaviour
         if (Time.timeScale == 0f && !NotePickup.IsOpen && !WirePuzzle.IsOpen) return;
 
         FindInteractable();
+        CheckBossAim();
         UpdateCrosshair();
         UpdatePrompt();
 
-        // Interact
         if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && !WirePuzzle.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
 
-        // Close note with Escape
         if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
         {
             NotePickup note = FindFirstObjectByType<NotePickup>();
@@ -50,7 +59,6 @@ public class Interactor : MonoBehaviour
                 NoteReader.Instance.CloseNote();
         }
 
-        // Close wire puzzle with Escape
         if (Input.GetKeyDown(KeyCode.Escape) && WirePuzzle.IsOpen)
         {
             WirePuzzle puzzle = FindFirstObjectByType<WirePuzzle>();
@@ -69,10 +77,27 @@ public class Interactor : MonoBehaviour
             CurrentInteractable = hit.collider.GetComponentInParent<IInteractable>();
     }
 
+    void CheckBossAim()
+    {
+        if (cam == null) { aimedAtBoss = false; return; }
+
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit, bossDetectRange))
+            aimedAtBoss = hit.collider.CompareTag("Boss");
+        else
+            aimedAtBoss = false;
+    }
+
     void UpdateCrosshair()
     {
         if (crosshair == null) return;
-        crosshair.color = (CurrentInteractable != null) ? highlightColor : idleColor;
+
+        if (aimedAtBoss)
+            crosshair.color = bossAimColor;       // red — aiming at boss
+        else if (CurrentInteractable != null)
+            crosshair.color = highlightColor;      // green — interactable
+        else
+            crosshair.color = idleColor;           // white — nothing
     }
 
     void UpdatePrompt()
