@@ -30,7 +30,7 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     public string reloadSingleFullTrigger = "Reload";
     public string reloadStartTrigger = "ReloadStart";
     public string reloadRepeatTrigger = "ReloadRepeat";
-    public string reloadEndTrigger = "ReloadEnd";
+    public string reloadEndTrigger = "ReloadEnd"; // kept only so inspector doesn't break
     public string reloadSingleBool = "ReloadSingle";
 
     [Header("Timing (tweak to match your clips)")]
@@ -40,7 +40,8 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     public float reloadStartTime = 0.35f;
     public float reloadRepeatTime = 0.55f;
-    public float reloadEndTime = 0.35f;
+    public float reloadSingleTime = 0.55f;
+    public float reloadEndTime = 0.35f; // unused now, kept so inspector doesn't break
 
     [Range(0.05f, 0.95f)]
     public float shellInsertPoint = 0.6f;
@@ -57,7 +58,6 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
 
     IEnumerator Start()
     {
-        // Wait two frames for InventoryManager to finish giving starting items
         yield return null;
         yield return null;
         inventoryReady = true;
@@ -66,9 +66,8 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
     void Update()
     {
         if (!armsAnimator) return;
-
-        // Block all gun input when inventory is open
         if (Time.timeScale == 0f) return;
+
         if (!busy && Input.GetMouseButtonDown(0))
             TryFire();
 
@@ -101,8 +100,15 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
         }
 
         ammoInMag--;
+
+        if (shooter)
+        {
+            shooter.currentAmmo = ammoInMag;
+            shooter.FireOnce();
+            ammoInMag = shooter.currentAmmo;
+        }
+
         TriggerBoth(fireTrigger);
-        if (shooter) shooter.FireOnce();
         StartCoroutine(LockFor(fireLockTime));
     }
 
@@ -127,39 +133,45 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
         if (reloadCo != null)
             StopCoroutine(reloadCo);
 
-        reloadCo = StartCoroutine(ReloadRoutine(missing));
+        reloadCo = StartCoroutine(ReloadRoutine());
     }
 
-    IEnumerator ReloadRoutine(int shellsNeeded)
+    IEnumerator ReloadRoutine()
     {
-        if (shellsNeeded == 1)
+        int shellsNeeded = magSize - ammoInMag;
+
+        if (shellsNeeded <= 0)
         {
-            SetBoolBoth(reloadSingleBool, true);
-            TriggerBoth(reloadSingleFullTrigger);
-
-            float t1 = Mathf.Clamp01(shellInsertPoint) * reloadRepeatTime;
-            float t2 = reloadRepeatTime - t1;
-
-            yield return new WaitForSeconds(t1);
-
-            if (ammoItemData != null && InventoryManager.Instance != null)
-                InventoryManager.Instance.UseAmmo(ammoItemData, 1);
-
-            ammoInMag = Mathf.Clamp(ammoInMag + 1, 0, magSize);
-            yield return new WaitForSeconds(t2);
-
-            SetBoolBoth(reloadSingleBool, false);
             busy = false;
             reloadCo = null;
             yield break;
         }
 
+        // 1 shell missing = just play Reload
+        if (shellsNeeded == 1)
+        {
+            yield return StartCoroutine(PlayReloadSingle());
+            busy = false;
+            reloadCo = null;
+            yield break;
+        }
+
+        // 2+ shells missing:
+        // ReloadStart = setup only, NO shell inserted here
         SetBoolBoth(reloadSingleBool, false);
         TriggerBoth(reloadStartTrigger);
         yield return new WaitForSeconds(reloadStartTime);
 
-        while (shellsNeeded > 0 && ammoInMag < magSize)
+        // After ReloadStart, load shells.
+        // All middle shells = ReloadRepeat
+        // Final shell = Reload
+        while (ammoInMag < magSize)
         {
+            shellsNeeded = magSize - ammoInMag;
+
+            if (shellsNeeded <= 0)
+                break;
+
             if (ammoItemData != null && InventoryManager.Instance != null)
             {
                 if (!InventoryManager.Instance.HasItem(ammoItemData, 1))
@@ -169,26 +181,62 @@ public class ShotgunViewmodelController : MonoBehaviour, IWeaponUIProvider
                 }
             }
 
+            // Final shell uses Reload
+            if (shellsNeeded == 1)
+            {
+                yield return StartCoroutine(PlayReloadSingle());
+                break;
+            }
+
+            // Otherwise use ReloadRepeat
             TriggerBoth(reloadRepeatTrigger);
-
-            float t1 = Mathf.Clamp01(shellInsertPoint) * reloadRepeatTime;
-            float t2 = reloadRepeatTime - t1;
-
-            yield return new WaitForSeconds(t1);
-
-            if (ammoItemData != null && InventoryManager.Instance != null)
-                InventoryManager.Instance.UseAmmo(ammoItemData, 1);
-
-            ammoInMag++;
-            shellsNeeded--;
-            yield return new WaitForSeconds(t2);
+            yield return StartCoroutine(InsertShellDuringClip(reloadRepeatTime));
         }
 
-        TriggerBoth(reloadEndTrigger);
-        yield return new WaitForSeconds(reloadEndTime);
-
+        SetBoolBoth(reloadSingleBool, false);
         busy = false;
         reloadCo = null;
+    }
+
+    IEnumerator PlayReloadSingle()
+    {
+        SetBoolBoth(reloadSingleBool, true);
+        TriggerBoth(reloadSingleFullTrigger);
+
+        yield return StartCoroutine(InsertShellDuringClip(reloadSingleTime));
+
+        SetBoolBoth(reloadSingleBool, false);
+    }
+
+    IEnumerator InsertShellDuringClip(float clipLength)
+    {
+        float t1 = Mathf.Clamp01(shellInsertPoint) * clipLength;
+        float t2 = clipLength - t1;
+
+        yield return new WaitForSeconds(t1);
+
+        if (ammoInMag < magSize)
+        {
+            bool hasAmmo = true;
+
+            if (ammoItemData != null && InventoryManager.Instance != null)
+            {
+                hasAmmo = InventoryManager.Instance.HasItem(ammoItemData, 1);
+
+                if (hasAmmo)
+                    InventoryManager.Instance.UseAmmo(ammoItemData, 1);
+            }
+
+            if (hasAmmo)
+            {
+                ammoInMag = Mathf.Clamp(ammoInMag + 1, 0, magSize);
+
+                if (shooter)
+                    shooter.currentAmmo = ammoInMag;
+            }
+        }
+
+        yield return new WaitForSeconds(t2);
     }
 
     IEnumerator LockFor(float seconds)
