@@ -3092,7 +3092,7 @@ MonoBehaviour:
   gridSlots: 20
   hotbarSlots: 5
   startingAmmo: {fileID: 11400000, guid: de02f47d8551e834e99bdc7a253bb2bc, type: 2}
-  startingAmmoAmount: 5
+  startingAmmoAmount: 6
 --- !u!4 &611758352
 Transform:
   m_ObjectHideFlags: 0
@@ -3996,6 +3996,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 156692894}
     - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: ammoItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: de02f47d8551e834e99bdc7a253bb2bc, type: 2}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: reloadEndClip
       value: 
       objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
@@ -4003,6 +4007,10 @@ PrefabInstance:
       propertyPath: reloadStartClip
       value: 
       objectReference: {fileID: 8300000, guid: ef302f1e04759054abe3419b8284bcdf, type: 3}
+    - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 611758351}
     - target: {fileID: 6606319381855073737, guid: 0ec226ea4fb75004e9d539bad3b8311f, type: 3}
       propertyPath: reloadInsertClip
       value: 
