@@ -9,12 +9,22 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public float currentHealth = 100f;
 
     [Header("Ragdoll")]
-    public float destroyAfterSeconds = 30f;
     public float hitForce = 6f;
     public bool disableCharacterControllerIfAny = true;
 
     [Tooltip("If your enemy has a root collider (capsule), it will be disabled on death.")]
     public bool disableRootColliderOnDeath = true;
+
+    [Header("Explosion Death")]
+    public bool explodeOnDeath = true;
+    public float explodeDelay = 1f;
+    public GameObject explosionVFXPrefab;
+    public Transform explosionPoint;
+    public Vector3 explosionOffset = Vector3.zero;
+    public AudioClip explosionSound;
+    [Range(0f, 1f)] public float explosionVolume = 1f;
+    public bool destroyWholeRootObject = true;
+    public float explosionScale = 3f;
 
     [Header("Drops")]
     public GameObject ammoPickupPrefab;
@@ -27,18 +37,23 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public float maxDropPopForce = 2.0f;
     public Vector2 dropSpreadRange = new Vector2(0.4f, 0.4f);
 
-    bool dead;
+    [Header("Debug")]
+    public bool debugDeathLogs = true;
+    public KeyCode testExplodeKey = KeyCode.L;
+
+    private bool dead;
+    private bool deathSequenceStarted;
     public bool IsDead => dead;
 
-    Animator anim;
-    NavMeshAgent agent;
-    UtilityAIController ai;
-    EnemyTracker tracker;
+    private Animator anim;
+    private NavMeshAgent agent;
+    private UtilityAIController ai;
+    private EnemyTracker tracker;
 
-    Rigidbody[] ragdollBodies;
-    Collider[] ragdollColliders;
+    private Rigidbody[] ragdollBodies;
+    private Collider[] ragdollColliders;
 
-    Collider rootCollider;
+    private Collider rootCollider;
 
     void Awake()
     {
@@ -57,6 +72,15 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         SetRagdoll(false);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(testExplodeKey))
+        {
+            Debug.Log($"{name}: Test explode key pressed.");
+            StartCoroutine(ExplosionDeathRoutine());
+        }
+    }
+
     public void TakeDamage(float amount)
     {
         ApplyDamage(amount, Vector3.zero, Vector3.zero);
@@ -67,6 +91,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (dead) return;
 
         currentHealth = Mathf.Clamp(currentHealth - amount, 0f, maxHealth);
+
         if (currentHealth <= 0f)
             Die(hitPoint, hitDir);
     }
@@ -80,7 +105,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     void Die(Vector3 hitPoint, Vector3 hitDir)
     {
+        if (dead) return;
         dead = true;
+
+        if (debugDeathLogs)
+            Debug.Log($"{name}: Die() called.");
 
         if (ai) ai.enabled = false;
 
@@ -88,17 +117,18 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         {
             if (agent.isOnNavMesh)
                 agent.isStopped = true;
+
             agent.enabled = false;
         }
 
-        var behavior = GetComponent<EnemyBehavior>();
+        EnemyBehavior behavior = GetComponent<EnemyBehavior>();
         if (behavior) behavior.enabled = false;
 
         if (anim) anim.enabled = false;
 
         if (disableCharacterControllerIfAny)
         {
-            var cc = GetComponent<CharacterController>();
+            CharacterController cc = GetComponent<CharacterController>();
             if (cc) cc.enabled = false;
         }
 
@@ -118,7 +148,65 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         StartCoroutine(DropLootDelayed());
 
-        Destroy(gameObject, destroyAfterSeconds);
+        if (explodeOnDeath)
+        {
+            if (debugDeathLogs)
+                Debug.Log($"{name}: Starting explosion death routine.");
+
+            StartCoroutine(ExplosionDeathRoutine());
+        }
+    }
+
+    IEnumerator ExplosionDeathRoutine()
+    {
+        if (deathSequenceStarted) yield break;
+        deathSequenceStarted = true;
+
+        if (debugDeathLogs)
+            Debug.Log($"{name}: Waiting {explodeDelay} seconds before explosion.");
+
+        yield return new WaitForSeconds(explodeDelay);
+
+        Vector3 spawnPos = transform.position + explosionOffset;
+
+        if (explosionPoint != null)
+            spawnPos = explosionPoint.position + explosionOffset;
+
+        if (explosionVFXPrefab != null)
+        {
+            GameObject explosion = Instantiate(explosionVFXPrefab, spawnPos, Quaternion.identity);
+            explosion.transform.localScale = Vector3.one * explosionScale;
+
+            if (debugDeathLogs)
+                Debug.Log($"{name}: Explosion VFX spawned at {spawnPos} with scale {explosionScale}.");
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: No explosionVFXPrefab assigned.");
+        }
+
+        if (explosionSound != null)
+        {
+            AudioSource.PlayClipAtPoint(explosionSound, spawnPos, explosionVolume);
+
+            if (debugDeathLogs)
+                Debug.Log($"{name}: Explosion sound played.");
+        }
+
+        if (destroyWholeRootObject)
+        {
+            if (debugDeathLogs)
+                Debug.Log($"{name}: Destroying root object {transform.root.name}");
+
+            Destroy(transform.root.gameObject);
+        }
+        else
+        {
+            if (debugDeathLogs)
+                Debug.Log($"{name}: Destroying object {name}");
+
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator DropLootDelayed()
@@ -243,7 +331,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         for (int i = 0; i < ragdollBodies.Length; i++)
         {
-            var rb = ragdollBodies[i];
+            Rigidbody rb = ragdollBodies[i];
             if (!rb || rb.gameObject == gameObject) continue;
 
             float d = (rb.worldCenterOfMass - hitPoint).sqrMagnitude;

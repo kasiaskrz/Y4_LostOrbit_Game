@@ -187,6 +187,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5771234744592876523}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2132425073500396523}
     - targetCorrespondingSourceObject: {fileID: -840090891665532707, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1388466843863771967}
@@ -1114,10 +1117,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
   currentHealth: 100
-  destroyAfterSeconds: 30
   hitForce: 6
   disableCharacterControllerIfAny: 1
   disableRootColliderOnDeath: 1
+  explodeOnDeath: 1
+  explodeDelay: 1
+  explosionVFXPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  explosionPoint: {fileID: 102723670461503607}
+  explosionOffset: {x: 0, y: 0, z: 0}
+  explosionSound: {fileID: 8300000, guid: 4e1e135ee57d81a4d8360637922400dc, type: 3}
+  explosionVolume: 1
+  destroyWholeRootObject: 1
   ammoPickupPrefab: {fileID: 2172874739975864943, guid: a597dfb07d9bc9c40b93eba1c97b6e32, type: 3}
   healthPickupPrefab: {fileID: 6345333170667456609, guid: 3bb95ddf31f0c2e4dbb013e4dcd0fe8f, type: 3}
   healthDropChance: 0.2
@@ -1125,6 +1135,8 @@ MonoBehaviour:
   minDropPopForce: 2.5
   maxDropPopForce: 4
   dropSpreadRange: {x: 0.4, y: 0.4}
+  debugDeathLogs: 1
+  testExplodeKey: 108
 --- !u!114 &8044978578283479576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,9 +1183,11 @@ MonoBehaviour:
   emptyClip: {fileID: 8300000, guid: 429a1495f26757f498344c2d7954e402, type: 3}
   reloadStartClip: {fileID: 0}
   reloadInsertClip: {fileID: 0}
+  reloadSingleClip: {fileID: 0}
   reloadEndClip: {fileID: 0}
   minPitch: 0.98
   maxPitch: 1.02
+  emptySoundCooldown: 0.15
 --- !u!114 &769386574319610057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,6 +1450,27 @@ MonoBehaviour:
   minSpeed: 0.1
   minPitch: 0.9
   maxPitch: 1.05
+--- !u!114 &-2132425073500396523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4384455469053536505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2541eac49c5cbbe4d977e9082146f53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotDeathExploder
+  explodeDelay: 1
+  explosionVFXPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  explosionPoint: {fileID: 102723670461503607}
+  explosionOffset: {x: 0, y: 0, z: 0}
+  explosionSound: {fileID: 8300000, guid: 4e1e135ee57d81a4d8360637922400dc, type: 3}
+  explosionVolume: 1
+  destroyWholeRootObject: 1
+  debugLog: 1
+  testExplodeKey: 108
 --- !u!1 &4922077180240153973 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -840090891665532707, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}

@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 04cc0c46b8bf81546b2eb5be536c6cd5, type: 3}
       propertyPath: m_Name
-      value: Evil_robot_shotgun
+      value: Evil_robot_Shooter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1062,10 +1062,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
   currentHealth: 100
-  destroyAfterSeconds: 30
   hitForce: 6
   disableCharacterControllerIfAny: 1
   disableRootColliderOnDeath: 1
+  explodeOnDeath: 1
+  explodeDelay: 1
+  explosionVFXPrefab: {fileID: 0}
+  explosionPoint: {fileID: 0}
+  explosionOffset: {x: 0, y: 0, z: 0}
+  explosionSound: {fileID: 0}
+  explosionVolume: 1
+  destroyWholeRootObject: 1
+  explosionScale: 3
+  ammoPickupPrefab: {fileID: 0}
+  healthPickupPrefab: {fileID: 0}
+  healthDropChance: 0.2
+  dropOffset: {x: 0, y: 0.2, z: 0}
+  minDropPopForce: 1.2
+  maxDropPopForce: 2
+  dropSpreadRange: {x: 0.4, y: 0.4}
+  debugDeathLogs: 1
+  testExplodeKey: 108
 --- !u!114 &8044978578283479576
 MonoBehaviour:
   m_ObjectHideFlags: 0
