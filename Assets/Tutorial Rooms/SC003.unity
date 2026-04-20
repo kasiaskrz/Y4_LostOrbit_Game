@@ -608,6 +608,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1572840464}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -62.102}
+--- !u!1 &263084131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1786591456509561866, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
+  m_PrefabInstance: {fileID: 651535400}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &298896515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2625005577838596576, guid: 908682ea63f49bd459bd4c0e8a44ec28, type: 3}
+  m_PrefabInstance: {fileID: 1607310272}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce06d88b503f5144eb9bb70fdb863f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
 --- !u!1001 &305310950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1766,6 +1782,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3247263370124518807, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
+      propertyPath: optionsPanel
+      value: 
+      objectReference: {fileID: 263084131}
+    - target: {fileID: 3247263370124518807, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
       propertyPath: menuContainer
       value: 
       objectReference: {fileID: 1659493194}
@@ -1773,6 +1793,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4588092663268822121, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 298896515}
     - target: {fileID: 4620543213250914130, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4663,6 +4687,10 @@ PrefabInstance:
       propertyPath: quitButton
       value: 
       objectReference: {fileID: 948776601}
+    - target: {fileID: 2625005577838596576, guid: 908682ea63f49bd459bd4c0e8a44ec28, type: 3}
+      propertyPath: optionsPanel
+      value: 
+      objectReference: {fileID: 263084131}
     - target: {fileID: 2625005577838596576, guid: 908682ea63f49bd459bd4c0e8a44ec28, type: 3}
       propertyPath: resumeButton
       value: 

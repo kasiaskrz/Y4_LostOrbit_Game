@@ -20,29 +20,35 @@ public class PauseMenu : MonoBehaviour
     private bool isPaused = false;
     public static bool EscConsumed = false;
 
-
     void Start()
     {
-        if (pausePanel == null) { Debug.LogError("[PauseMenu] pausePanel not assigned!"); return; }
-        if (helpPanel == null) { Debug.LogError("[PauseMenu] helpPanel not assigned!"); return; }
-        if (menuContainer == null) { Debug.LogError("[PauseMenu] menuContainer not assigned!"); return; }
+        Debug.Log("[PauseMenu] Start() ran on: " + gameObject.name);
 
-        pausePanel.SetActive(false);
-        helpPanel.SetActive(false);
-        if (optionsPanel) optionsPanel.SetActive(false);
-
-        if (resumeButton) resumeButton.onClick.AddListener(Resume);
-        if (optionsButton) optionsButton.onClick.AddListener(OpenOptions);
-        if (helpButton) helpButton.onClick.AddListener(OpenHelp);
-        if (quitButton) quitButton.onClick.AddListener(QuitGame);
+        // Wire up buttons FIRST
+        if (resumeButton)   resumeButton.onClick.AddListener(Resume);
+        if (optionsButton)  optionsButton.onClick.AddListener(OpenOptions);
+        if (helpButton)     helpButton.onClick.AddListener(OpenHelp);
+        if (quitButton)     quitButton.onClick.AddListener(QuitGame);
         if (helpBackButton) helpBackButton.onClick.AddListener(CloseHelp);
+
+        Debug.Log("[PauseMenu] resumeButton null? " + (resumeButton == null));
+        Debug.Log("[PauseMenu] optionsButton null? " + (optionsButton == null));
+
+        if (pausePanel == null)    Debug.LogError("[PauseMenu] pausePanel not assigned!");
+        if (helpPanel == null)     Debug.LogError("[PauseMenu] helpPanel not assigned!");
+        if (menuContainer == null) Debug.LogError("[PauseMenu] menuContainer not assigned!");
+
+        if (pausePanel)    pausePanel.SetActive(false);
+        if (helpPanel)     helpPanel.SetActive(false);
+        if (menuContainer) menuContainer.SetActive(true);
+        if (optionsPanel)  optionsPanel.SetActive(false);
     }
 
     void Update()
     {
-        if (EscConsumed) { EscConsumed = false; return; } 
-        if (NotePickup.IsOpen) return;
-        if (WirePuzzle.IsOpen) return;
+        if (EscConsumed) { EscConsumed = false; return; }
+        if (NotePickup.IsOpen)    return;
+        if (WirePuzzle.IsOpen)    return;
         if (LevelComplete.IsOpen) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -60,10 +66,11 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
+        if (pausePanel == null || menuContainer == null) return;
         isPaused = true;
         pausePanel.SetActive(true);
         menuContainer.SetActive(true);
-        helpPanel.SetActive(false);
+        if (helpPanel)    helpPanel.SetActive(false);
         if (optionsPanel) optionsPanel.SetActive(false);
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
@@ -72,9 +79,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        if (pausePanel == null || menuContainer == null) return;
         isPaused = false;
         pausePanel.SetActive(false);
-        helpPanel.SetActive(false);
+        if (helpPanel)    helpPanel.SetActive(false);
         if (optionsPanel) optionsPanel.SetActive(false);
         menuContainer.SetActive(true);
         Time.timeScale = 1f;
@@ -84,26 +92,26 @@ public class PauseMenu : MonoBehaviour
 
     void OpenOptions()
     {
-        menuContainer.SetActive(false);
-        if (optionsPanel) optionsPanel.SetActive(true);
+        if (menuContainer) menuContainer.SetActive(false);
+        if (optionsPanel)  optionsPanel.SetActive(true);
     }
 
     public void CloseOptions()
     {
-        if (optionsPanel) optionsPanel.SetActive(false);
-        menuContainer.SetActive(true);
+        if (optionsPanel)  optionsPanel.SetActive(false);
+        if (menuContainer) menuContainer.SetActive(true);
     }
 
     void OpenHelp()
     {
-        menuContainer.SetActive(false);
-        helpPanel.SetActive(true);
+        if (menuContainer) menuContainer.SetActive(false);
+        if (helpPanel)     helpPanel.SetActive(true);
     }
 
     void CloseHelp()
     {
-        helpPanel.SetActive(false);
-        menuContainer.SetActive(true);
+        if (helpPanel)     helpPanel.SetActive(false);
+        if (menuContainer) menuContainer.SetActive(true);
     }
 
     void QuitGame()
