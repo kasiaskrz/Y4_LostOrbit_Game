@@ -74,6 +74,10 @@ public class LevelComplete : MonoBehaviour
                 levelText.text = $"Level {reporter.levelNumber}";
         }
 
+        HUDController hud = FindFirstObjectByType<HUDController>();
+        if (hud != null)
+            hud.gameObject.SetActive(false);
+
         levelCompletePanel.SetActive(true);
     }
 
