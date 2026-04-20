@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -15,15 +16,14 @@ public class TypewriterEffect : MonoBehaviour
 
     private string fullText;
     private bool isFinished = false;
+    private bool isStarted = false;  
 
-    public bool IsFinishedTyping()
-    {
-        return isFinished;
-    }
+    public bool IsFinishedTyping() => isFinished;
 
     void Start()
     {
         isFinished = false;
+        isStarted = true;
         fullText = textComponent.text;
         textComponent.text = "";
         StartCoroutine(TypeText());
@@ -33,7 +33,6 @@ public class TypewriterEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(startDelay);
 
-        // ▶️ START LOOP
         if (audioSource != null && typingLoopSound != null)
         {
             audioSource.clip = typingLoopSound;
@@ -42,17 +41,17 @@ public class TypewriterEffect : MonoBehaviour
             audioSource.Play();
         }
 
-        foreach (char letter in fullText.ToCharArray())
+        // Use StringBuilder to avoid repeated TMP layout rebuilds
+        StringBuilder sb = new StringBuilder();
+        foreach (char letter in fullText)
         {
-            textComponent.text += letter;
+            sb.Append(letter);
+            textComponent.text = sb.ToString();  
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        // ⛔ STOP LOOP
         if (audioSource != null)
-        {
             audioSource.Stop();
-        }
 
         isFinished = true;
     }

@@ -1222,6 +1222,7 @@ MonoBehaviour:
   rocketTargetHeightOffset: -1.2
   faceSpeed: 6
   canAttack: 1
+  tutorialLocked: 0
 --- !u!82 &3323385097965652219
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1241,7 +1242,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 27
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

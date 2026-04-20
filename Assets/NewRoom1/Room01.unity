@@ -26939,10 +26939,10 @@ MonoBehaviour:
   disableRootColliderOnDeath: 1
   explodeOnDeath: 1
   explodeDelay: 1
-  explosionVFXPrefab: {fileID: 0}
-  explosionPoint: {fileID: 0}
+  explosionVFXPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  explosionPoint: {fileID: 102723670360347038}
   explosionOffset: {x: 0, y: 0, z: 0}
-  explosionSound: {fileID: 0}
+  explosionSound: {fileID: 8300000, guid: 4e1e135ee57d81a4d8360637922400dc, type: 3}
   explosionVolume: 1
   destroyWholeRootObject: 1
   explosionScale: 3
@@ -27321,6 +27321,10 @@ PrefabInstance:
     - target: {fileID: 419385687733420629, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445146843735536212, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -257
       objectReference: {fileID: 0}
     - target: {fileID: 1275543506798311713, guid: edaa5439c0b26a044ad8e631a6976bae, type: 3}
       propertyPath: m_AnchorMax.y
@@ -33367,6 +33371,7 @@ GameObject:
   - component: {fileID: 8660315965257064057}
   - component: {fileID: 8660315965257064056}
   - component: {fileID: 8660315965257064055}
+  - component: {fileID: 8660315965257064059}
   m_Layer: 0
   m_Name: Evil_robot_shotgun
   m_TagString: Boss
@@ -40881,6 +40886,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8660315965257064059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4384455468950479120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2541eac49c5cbbe4d977e9082146f53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotDeathExploder
+  explodeDelay: 1
+  explosionVFXPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  explosionPoint: {fileID: 102723670360347038}
+  explosionOffset: {x: 0, y: 0, z: 0}
+  explosionSound: {fileID: 8300000, guid: 4e1e135ee57d81a4d8360637922400dc, type: 3}
+  explosionVolume: 1
+  destroyWholeRootObject: 1
+  debugLog: 1
+  testExplodeKey: 108
 --- !u!1 &8667968540855434509
 GameObject:
   m_ObjectHideFlags: 0

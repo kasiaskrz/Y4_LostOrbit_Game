@@ -1157,6 +1157,8 @@ MonoBehaviour:
   aimTransform: {fileID: 102723670461503607}
   muzzle: {fileID: 302626827077065011}
   tracerPrefab: {fileID: 9158382082500895871, guid: 35c80ee68e7788443885e9ddc7aeccb3, type: 3}
+  ammoItemData: {fileID: 0}
+  inventoryManager: {fileID: 0}
   pellets: 10
   range: 60
   spreadDegrees: 4.5
@@ -1168,7 +1170,6 @@ MonoBehaviour:
   tracerMuzzleForwardOffset: 0.05
   magSize: 6
   currentAmmo: 6
-  reserveAmmo: 24
   useAmmo: 1
   audioSource: {fileID: 0}
   fireClip: {fileID: 0}
@@ -1208,6 +1209,7 @@ MonoBehaviour:
   rocketTargetHeightOffset: -1.2
   faceSpeed: 6
   canAttack: 1
+  tutorialLocked: 0
 --- !u!82 &-1356813939872304316
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1227,7 +1229,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 53
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

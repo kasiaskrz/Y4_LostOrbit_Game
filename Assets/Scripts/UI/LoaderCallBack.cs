@@ -5,23 +5,12 @@ public class LoaderCallback : MonoBehaviour
 {
     [SerializeField] private TypewriterEffect typewriterEffect;
 
-    private bool isLoadingStarted = false;
-
-    private void Update()
+    private IEnumerator Start()
     {
-        if (!isLoadingStarted)
-        {
-            isLoadingStarted = true;
-            StartCoroutine(WaitForTyping());
-        }
-    }
+        yield return null;
 
-    private IEnumerator WaitForTyping()
-    {
-        // wait until typing finishes
         yield return new WaitUntil(() => typewriterEffect.IsFinishedTyping());
 
-        // small extra pause (optional)
         yield return new WaitForSeconds(0.5f);
 
         Loader.LoaderCallback();

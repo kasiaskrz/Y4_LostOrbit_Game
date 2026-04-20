@@ -715,7 +715,6 @@ GameObject:
   - component: {fileID: 652080657}
   - component: {fileID: 652080660}
   - component: {fileID: 652080659}
-  - component: {fileID: 652080658}
   m_Layer: 5
   m_Name: Level
   m_TagString: Untagged
@@ -742,19 +741,6 @@ RectTransform:
   m_AnchoredPosition: {x: 202, y: 148}
   m_SizeDelta: {x: 280.3, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &652080658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 652080656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e83bf24e6b5bef4da48e5e691b2dc1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WinSceneTimer
-  timeText: {fileID: 652080659}
 --- !u!114 &652080659
 MonoBehaviour:
   m_ObjectHideFlags: 0
