@@ -13,11 +13,13 @@ public class EnemyBehavior : MonoBehaviour
     [Header("Detection")]
     public float visionRange = 15f;
     public float visionAngle = 90f;
+    public float eyeHeight = 1.6f;
     public LayerMask obstacleMask;
 
     [Header("Chase")]
     public float chaseSpeed = 4f;
     public float idleSpeed = 0f;
+    public float lostSightGrace = 3f;
 
     [Header("Repath")]
     public float repathRate = 0.25f;
@@ -28,10 +30,14 @@ public class EnemyBehavior : MonoBehaviour
     [Header("Tutorial")]
     public bool tutorialLocked = false;
 
+    // Expose state for EnemyWeaponAttack to read
+    public State CurrentState => state;
+
     private State state = State.Idle;
     private Vector3 startPosition;
     private Quaternion startRotation;
     private float nextRepath;
+    private float lostSightTimer = 0f;
 
     void Start()
     {
@@ -53,7 +59,6 @@ public class EnemyBehavior : MonoBehaviour
 
         startRotation = transform.rotation;
 
-        // Only stop agent if it's on a NavMesh
         if (agent != null && agent.isOnNavMesh)
         {
             agent.isStopped = true;
@@ -90,11 +95,16 @@ public class EnemyBehavior : MonoBehaviour
         float dist = Vector3.Distance(transform.position, player.position);
         if (dist > visionRange) return false;
 
-        Vector3 dirToPlayer = (player.position - transform.position).normalized;
+        // Cast from eye level toward player's center
+        Vector3 eyePos = transform.position + Vector3.up * eyeHeight;
+        Vector3 playerCenter = player.position + Vector3.up * 1f;
+        Vector3 dirToPlayer = (playerCenter - eyePos).normalized;
+
         float angle = Vector3.Angle(transform.forward, dirToPlayer);
         if (angle > visionAngle / 2f) return false;
 
-        if (Physics.Raycast(transform.position + Vector3.up, dirToPlayer, dist, obstacleMask))
+        // If raycast hits an obstacle (wall/door), can't see player
+        if (Physics.Raycast(eyePos, dirToPlayer, dist, obstacleMask))
             return false;
 
         return true;
@@ -103,6 +113,7 @@ public class EnemyBehavior : MonoBehaviour
     void EnterChase()
     {
         state = State.Chase;
+        lostSightTimer = 0f;
         agent.isStopped = false;
         agent.speed = chaseSpeed;
     }
@@ -115,10 +126,21 @@ public class EnemyBehavior : MonoBehaviour
             agent.SetDestination(player.position);
         }
 
-        float dist = Vector3.Distance(transform.position, player.position);
-
-        if (!CanSeePlayer() && dist > visionRange)
-            EnterReturn();
+        if (CanSeePlayer())
+        {
+            // Still sees player, reset the lost sight timer
+            lostSightTimer = 0f;
+        }
+        else
+        {
+            // Lost sight — count down grace period then give up
+            lostSightTimer += Time.deltaTime;
+            if (lostSightTimer >= lostSightGrace)
+            {
+                lostSightTimer = 0f;
+                EnterReturn();
+            }
+        }
     }
 
     void EnterReturn()
