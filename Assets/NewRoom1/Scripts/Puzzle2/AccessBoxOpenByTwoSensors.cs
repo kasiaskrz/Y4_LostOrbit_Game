@@ -10,9 +10,14 @@ public class AccessBoxOpenByTwoSensors : MonoBehaviour, IInteractable
     public Animator animator;
     public string openTrigger = "Open";
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip openSound;
+
     private bool opened = false;
 
     public string PromptText => opened ? "" : sensorA.isActive && sensorB.isActive ? "Open Access Box" : "Locked - Activate both sensors";
+
     void Awake()
     {
         if (animator == null)
@@ -34,6 +39,10 @@ public class AccessBoxOpenByTwoSensors : MonoBehaviour, IInteractable
     void OpenBox()
     {
         opened = true;
+
+        // 🔊 Play sound here
+        if (audioSource != null && openSound != null)
+            audioSource.PlayOneShot(openSound);
 
         if (animator != null)
             animator.SetTrigger(openTrigger);
