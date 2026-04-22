@@ -15,6 +15,9 @@ public class LevelComplete : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI levelText;
 
+    [Header("Crosshair")]
+    public GameObject crosshair; // <-- ADDED
+
     [Header("Fade")]
     public Image fadeImage;
     public float fadeDuration = 0.8f;
@@ -77,6 +80,9 @@ public class LevelComplete : MonoBehaviour
         HUDController hud = FindFirstObjectByType<HUDController>();
         if (hud != null)
             hud.gameObject.SetActive(false);
+
+        if (crosshair != null) // <-- ADDED
+            crosshair.SetActive(false);
 
         levelCompletePanel.SetActive(true);
     }
