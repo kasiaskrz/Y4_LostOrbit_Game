@@ -15,19 +15,22 @@ public class SC001Exit : MonoBehaviour
     public AudioClip typingSound;
     public AudioSource audioSource;
 
-    private TeleportOnTrigger teleport;
+    [Header("Transition")]
+    public string sceneToLoad = "MainHall";
+    public string targetSpawnID = "MainHallSpawn";
+
     private Coroutine currentCoroutine;
+    private bool hasTriggered = false;
 
     private void Start()
     {
-        teleport = GetComponent<TeleportOnTrigger>();
-        if (teleport != null) teleport.enabled = false;
         if (hintCanvasGroup != null) hintCanvasGroup.alpha = 0f;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        if (hasTriggered) return;
 
         bool tutDone = GameProgress.Instance != null && GameProgress.Instance.tutorialComplete;
 
@@ -42,28 +45,26 @@ public class SC001Exit : MonoBehaviour
             return;
         }
 
+        hasTriggered = true;
+
         if (GameProgress.Instance != null)
             GameProgress.Instance.SetTutorialComplete();
 
-        if (teleport != null)
-        {
-            teleport.enabled = true;
-            teleport.SendMessage("OnTriggerEnter", other, SendMessageOptions.DontRequireReceiver);
-        }
+        // Use SceneTransitionManager directly instead of SendMessage
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.TransitionToScene(sceneToLoad, targetSpawnID);
     }
 
     private IEnumerator ShowThenFade(string[] lines, float duration)
     {
         if (hintText != null) hintText.text = "";
         if (hintCanvasGroup != null) hintCanvasGroup.alpha = 1f;
-
         if (audioSource != null && typingSound != null)
         {
             audioSource.clip = typingSound;
             audioSource.loop = true;
             audioSource.Play();
         }
-
         for (int i = 0; i < lines.Length; i++)
         {
             foreach (char c in lines[i])
@@ -77,7 +78,6 @@ public class SC001Exit : MonoBehaviour
                 if (hintText != null) hintText.text += "\n";
             }
         }
-
         if (audioSource != null) audioSource.Stop();
         yield return new WaitForSeconds(duration);
         yield return FadeTo(0f);
@@ -88,8 +88,7 @@ public class SC001Exit : MonoBehaviour
         if (hintCanvasGroup == null) yield break;
         while (Mathf.Abs(hintCanvasGroup.alpha - target) > 0.01f)
         {
-            hintCanvasGroup.alpha = Mathf.MoveTowards(
-                hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
+            hintCanvasGroup.alpha = Mathf.MoveTowards(hintCanvasGroup.alpha, target, fadeSpeed * Time.deltaTime);
             yield return null;
         }
         hintCanvasGroup.alpha = target;

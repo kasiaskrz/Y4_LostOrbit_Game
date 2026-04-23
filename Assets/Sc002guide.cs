@@ -38,12 +38,15 @@ public class SC002Guide : MonoBehaviour
     private void Update()
     {
         if (!welcomeShown || boxPushed || keyCollectedFlag) return;
+
+        string msg = $"Press [{OptionsManager.Interact}] to push the container.";
+
         if (IsLookingAtBox())
         {
-            if (hintText != null && hintText.text != "Press [E] to push the container.")
+            if (hintText != null && hintText.text != msg)
             {
                 if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-                hintText.text = "Press [E] to push the container.";
+                hintText.text = msg;
             }
             if (hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
             {
@@ -73,37 +76,58 @@ public class SC002Guide : MonoBehaviour
     private IEnumerator RunGuide()
     {
         yield return new WaitForSeconds(1f);
+
         if (GameProgress.Instance != null && GameProgress.Instance.sc002Complete)
         {
             int keys = GameProgress.Instance.keysCollected;
             string[] revisitMsg = keys >= 2
-                ? new string[] { "// SECTOR SC002 — PREVIOUSLY CLEARED", "Both key fragments recovered.", "The final corridor awaits." }
-                : new string[] { "// SECTOR SC002 — PREVIOUSLY CLEARED", "Key fragment already retrieved from this sector.", "Locate the remaining fragment in Sector SC003." };
+                ? new string[] { "SECTOR SC002 - PREVIOUSLY CLEARED", "Both key fragments recovered.", "The final corridor awaits." }
+                : new string[] { "SECTOR SC002 - PREVIOUSLY CLEARED", "Key fragment already retrieved from this sector.", "Locate the remaining fragment in Sector SC003." };
             yield return StartCoroutine(ShowLines(revisitMsg, 4f));
             yield break;
         }
-        yield return StartCoroutine(ShowLines(new string[] { "// SECTOR SC002 ONLINE", "Locate the container unit in this sector.", "Approach it to reveal further instructions." }, 0f));
+
+        string interact = OptionsManager.Interact.ToString();
+        yield return StartCoroutine(ShowLines(new string[] {
+            "SECTOR SC002 ONLINE",
+            "Locate the container unit in this sector.",
+            $"Approach it and press [{interact}] to push it to the marked spot."
+        }, 0f));
+
         yield return new WaitForSeconds(welcomeDuration);
         yield return FadeTo(0f);
         welcomeShown = true;
+
         yield return new WaitUntil(() => movableBox == null || movableBox.movementFinished);
         boxPushed = true;
+
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        yield return StartCoroutine(ShowLines(new string[] { "// ACCESS KEY DETECTED", "Key fragment revealed.", "Retrieve it to proceed." }, 1f));
+        yield return StartCoroutine(ShowLines(new string[] {
+            "ACCESS KEY DETECTED",
+            "Key fragment revealed.",
+            "Retrieve it to proceed."
+        }, 1f));
         yield return FadeTo(0f);
     }
 
     public void ShowLockedExitMessage()
     {
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        currentCoroutine = StartCoroutine(ShowLines(new string[] { "// EXIT LOCKED", "Key fragment required to leave this sector.", "Locate and retrieve it first." }, 4f));
+        currentCoroutine = StartCoroutine(ShowLines(new string[] {
+            "EXIT LOCKED",
+            "Key fragment required to leave this sector.",
+            "Locate and retrieve it first."
+        }, 4f));
     }
 
     public void OnKeyCollected()
     {
         keyCollectedFlag = true;
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        StartCoroutine(ShowLines(new string[] { "// KEY FRAGMENT ACQUIRED", "Return to the Main Hall." }, 5f));
+        StartCoroutine(ShowLines(new string[] {
+            "KEY FRAGMENT ACQUIRED",
+            "Return to the Main Hall."
+        }, 5f));
     }
 
     private IEnumerator ShowLines(string[] lines, float holdDuration)

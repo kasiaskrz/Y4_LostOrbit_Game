@@ -26,6 +26,7 @@ public class TutorialManager : MonoBehaviour
     private Vector3 startPosition;
     private Coroutine displayCoroutine;
     private bool tutorialDone = false;
+    private bool pauseWasOpen = false;
 
     private void Awake()
     {
@@ -39,6 +40,8 @@ public class TutorialManager : MonoBehaviour
             tutorialCanvasGroup.alpha = 0f;
         StartCoroutine(RunTutorial());
     }
+
+    private string Key(KeyCode k) => k.ToString();
 
     private IEnumerator RunTutorial()
     {
@@ -56,70 +59,92 @@ public class TutorialManager : MonoBehaviour
             yield break;
         }
 
+        // MOVEMENT
         yield return TypeLines(new string[] {
             "// SYSTEM BOOT COMPLETE",
             "Initialising movement protocols.",
-            "Use [W][A][S][D] to navigate your surroundings."
+            $"Use [{Key(OptionsManager.MoveForward)}][{Key(OptionsManager.MoveLeft)}][{Key(OptionsManager.MoveBack)}][{Key(OptionsManager.MoveRight)}] to navigate."
         });
         yield return WaitForCondition(PlayerHasMoved, new string[] {
-            "// AWAITING INPUT", "Move using [W][A][S][D]."
+            "// AWAITING INPUT",
+            $"Move using [{Key(OptionsManager.MoveForward)}][{Key(OptionsManager.MoveLeft)}][{Key(OptionsManager.MoveBack)}][{Key(OptionsManager.MoveRight)}]."
         });
 
+        // SPRINT
         yield return TypeLines(new string[] {
             "// MOBILITY UPGRADE AVAILABLE",
-            "Hold [Left Shift] to engage sprint mode."
+            $"Hold [{Key(OptionsManager.Sprint)}] to engage sprint mode."
         });
         yield return WaitForCondition(PlayerIsSprinting, new string[] {
-            "// AWAITING INPUT", "Hold [Left Shift] while moving to sprint."
+            "// AWAITING INPUT",
+            $"Hold [{Key(OptionsManager.Sprint)}] while moving to sprint."
         });
 
+        // JUMP
         yield return TypeLines(new string[] {
             "// JUMP PROTOCOL ACTIVE",
-            "Press [Space] to engage jump thrusters."
+            $"Press [{Key(OptionsManager.Jump)}] to engage jump thrusters."
         });
         yield return WaitForCondition(PlayerJumped, new string[] {
-            "// AWAITING INPUT", "Press [Space] to jump."
+            "// AWAITING INPUT",
+            $"Press [{Key(OptionsManager.Jump)}] to jump."
         });
 
+        // INTERACT
         yield return TypeLines(new string[] {
             "// INTERACTION MODULE ONLINE",
             "Approach the container unit.",
-            "Press [E] to interact with objects."
+            $"Press [{Key(OptionsManager.Interact)}] to interact with objects."
         });
         yield return WaitForCondition(PlayerPressedInteract, new string[] {
-            "// AWAITING INPUT", "Walk up to the container and press [E]."
+            "// AWAITING INPUT",
+            $"Walk up to the container and press [{Key(OptionsManager.Interact)}]."
         });
 
+        // INVENTORY OPEN
         yield return TypeLines(new string[] {
             "// INVENTORY SYSTEM ONLINE",
-            "Press [TAB] to access your inventory.",
+            $"Press [{Key(OptionsManager.Inventory)}] to access your inventory.",
             "Items can be managed from this interface."
         });
-        yield return WaitForCondition(PlayerOpenedInventory, new string[] {
-            "// AWAITING INPUT", "Press [TAB] to open your inventory."
+        yield return WaitForCondition(PlayerPressedInventory, new string[] {
+            "// AWAITING INPUT",
+            $"Press [{Key(OptionsManager.Inventory)}] to open your inventory."
         });
 
+        // INVENTORY CLOSE
         yield return TypeLines(new string[] {
             "// INVENTORY OPEN",
-            "Press [TAB] again to close when ready."
+            $"Press [{Key(OptionsManager.Inventory)}] again to close it when ready."
         });
-        yield return new WaitForSeconds(3f);
+        yield return WaitForCondition(PlayerPressedInventory, new string[] {
+            "// AWAITING INPUT",
+            $"Press [{Key(OptionsManager.Inventory)}] to close the inventory."
+        });
 
+        // PAUSE OPEN
         yield return TypeLines(new string[] {
             "// PAUSE PROTOCOL",
-            "Press [ESC] to access the system menu.",
+            $"Press [{Key(OptionsManager.Pause)}] to access the system menu.",
             "Options and key bindings are available here."
         });
         yield return WaitForCondition(PlayerOpenedPause, new string[] {
-            "// AWAITING INPUT", "Press [ESC] to open the pause menu."
+            "// AWAITING INPUT",
+            $"Press [{Key(OptionsManager.Pause)}] to open the pause menu."
         });
 
+        // PAUSE CLOSE
         yield return TypeLines(new string[] {
             "// SYSTEM MENU OPEN",
-            "Press [ESC] again to resume when ready."
+            $"Press [{Key(OptionsManager.Pause)}] again to resume.",
+            $"[{Key(OptionsManager.Pause)}] can always be used to pause or resume."
         });
-        yield return new WaitForSeconds(3f);
+        yield return WaitForCondition(PlayerClosedPause, new string[] {
+            "// AWAITING INPUT",
+            $"Press [{Key(OptionsManager.Pause)}] to close the pause menu and resume."
+        });
 
+        // COMPLETE
         yield return TypeLines(new string[] {
             "// TRAINING SEQUENCE COMPLETE",
             "All systems nominal.",
@@ -154,21 +179,22 @@ public class TutorialManager : MonoBehaviour
 
     private bool PlayerJumped() => Input.GetKeyDown(OptionsManager.Jump);
     private bool PlayerPressedInteract() => Input.GetKeyDown(OptionsManager.Interact);
+    private bool PlayerPressedInventory() => Input.GetKeyDown(OptionsManager.Inventory);
 
-    private bool inventoryWasOpen = false;
-    private bool PlayerOpenedInventory()
+    private bool PlayerOpenedPause()
     {
-        bool isOpen = Time.timeScale == 0f;
-        bool justOpened = isOpen && !inventoryWasOpen;
-        inventoryWasOpen = isOpen;
+        bool isPaused = Time.timeScale == 0f;
+        bool justOpened = isPaused && !pauseWasOpen;
+        pauseWasOpen = isPaused;
         return justOpened;
     }
 
-    private bool pauseWasOpen = false;
-    private bool PlayerOpenedPause()
+    private bool PlayerClosedPause()
     {
-        if (Input.GetKeyDown(OptionsManager.Pause)) { pauseWasOpen = true; return true; }
-        return false;
+        bool isPaused = Time.timeScale == 0f;
+        bool justClosed = !isPaused && pauseWasOpen;
+        pauseWasOpen = isPaused;
+        return justClosed;
     }
 
     private IEnumerator WaitForCondition(System.Func<bool> condition, string[] reminder)

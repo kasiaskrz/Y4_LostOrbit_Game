@@ -44,7 +44,6 @@ public class InventoryManager : MonoBehaviour
     private IEnumerator GiveStartingItems()
     {
         yield return null;
-
         if (startingAmmo != null)
         {
             slots[0] = new InventoryItem(startingAmmo, startingAmmoAmount);
@@ -55,7 +54,6 @@ public class InventoryManager : MonoBehaviour
     public bool TryAddItem(ItemData data, int amount = 1, bool showNotification = true)
     {
         if (data == null || amount <= 0) return false;
-
         int remaining = amount;
 
         if (data.stackable)
@@ -86,18 +84,15 @@ public class InventoryManager : MonoBehaviour
         if (addedSome)
         {
             OnInventoryChanged?.Invoke();
-
             if (showNotification)
                 PickupNotification.Show(data.icon, data.itemName, amount - remaining);
         }
-
         return addedSome;
     }
 
     public bool TryRemoveItem(ItemData data, int amount = 1)
     {
         if (!HasItem(data, amount)) return false;
-
         int remaining = amount;
         for (int i = TotalSlots - 1; i >= 0 && remaining > 0; i--)
         {
@@ -106,12 +101,10 @@ public class InventoryManager : MonoBehaviour
                 int remove = Mathf.Min(slots[i].quantity, remaining);
                 slots[i].quantity -= remove;
                 remaining -= remove;
-
                 if (slots[i].quantity <= 0)
                     slots[i] = new InventoryItem(null, 0);
             }
         }
-
         OnInventoryChanged?.Invoke();
         return true;
     }
@@ -121,26 +114,18 @@ public class InventoryManager : MonoBehaviour
         if (indexA < 0 || indexA >= TotalSlots) return;
         if (indexB < 0 || indexB >= TotalSlots) return;
         if (indexA == indexB) return;
-
         InventoryItem temp = slots[indexA];
         slots[indexA] = slots[indexB];
         slots[indexB] = temp;
-
         OnInventoryChanged?.Invoke();
     }
 
-    public bool UseAmmo(ItemData ammoData, int amount = 1)
-    {
-        return TryRemoveItem(ammoData, amount);
-    }
+    public bool UseAmmo(ItemData ammoData, int amount = 1) => TryRemoveItem(ammoData, amount);
 
     public bool RemoveItemByName(string itemName, int amount = 1)
     {
-        if (string.IsNullOrEmpty(itemName) || amount <= 0)
-            return false;
-
+        if (string.IsNullOrEmpty(itemName) || amount <= 0) return false;
         int remaining = amount;
-
         for (int i = TotalSlots - 1; i >= 0 && remaining > 0; i--)
         {
             if (slots[i].data != null &&
@@ -149,65 +134,33 @@ public class InventoryManager : MonoBehaviour
                 int remove = Mathf.Min(slots[i].quantity, remaining);
                 slots[i].quantity -= remove;
                 remaining -= remove;
-
                 if (slots[i].quantity <= 0)
                     slots[i] = new InventoryItem(null, 0);
             }
         }
-
-        if (remaining < amount)
-        {
-            OnInventoryChanged?.Invoke();
-            return true;
-        }
-
+        if (remaining < amount) { OnInventoryChanged?.Invoke(); return true; }
         return false;
     }
 
     public void DropSlot(int slotIndex, Transform dropOrigin)
     {
         if (slotIndex < 0 || slotIndex >= TotalSlots) return;
-
         InventoryItem item = slots[slotIndex];
         if (item.IsEmpty) return;
-
         if (item.data.worldPrefab != null)
         {
             Vector3 pos = dropOrigin.position + dropOrigin.forward * 1.2f;
             GameObject dropped = Instantiate(item.data.worldPrefab, pos, Quaternion.identity);
             WorldPickup pickup = dropped.GetComponent<WorldPickup>();
-            if (pickup != null)
-            {
-                pickup.itemData = item.data;
-                pickup.quantity = item.quantity;
-            }
+            if (pickup != null) { pickup.itemData = item.data; pickup.quantity = item.quantity; }
         }
-
         slots[slotIndex] = new InventoryItem(null, 0);
         OnInventoryChanged?.Invoke();
     }
 
-    public void DropSelectedHotbarItem(Transform dropOrigin)
-        => DropSlot(SelectedHotbarIndex, dropOrigin);
-
-    public bool HasItem(ItemData data, int amount = 1)
-    {
-        int found = 0;
-        foreach (var slot in slots)
-            if (slot.data == data) found += slot.quantity;
-
-        return found >= amount;
-    }
-
-    public int CountItem(ItemData data)
-    {
-        int total = 0;
-        foreach (var slot in slots)
-            if (slot.data == data) total += slot.quantity;
-
-        return total;
-    }
-
+    public void DropSelectedHotbarItem(Transform dropOrigin) => DropSlot(SelectedHotbarIndex, dropOrigin);
+    public bool HasItem(ItemData data, int amount = 1) { int found = 0; foreach (var slot in slots) if (slot.data == data) found += slot.quantity; return found >= amount; }
+    public int CountItem(ItemData data) { int total = 0; foreach (var slot in slots) if (slot.data == data) total += slot.quantity; return total; }
     public InventoryItem GetSlot(int index) => slots[index];
 
     public void SelectHotbarSlot(int index)
@@ -219,29 +172,18 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        // Hotbar number keys 1-5 (these are fixed number keys, not rebindable)
         for (int i = 0; i < hotbarSlots; i++)
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
                 SelectHotbarSlot(i);
 
+        // Scroll wheel
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f) SelectHotbarSlot((SelectedHotbarIndex - 1 + hotbarSlots) % hotbarSlots);
         else if (scroll < 0f) SelectHotbarSlot((SelectedHotbarIndex + 1) % hotbarSlots);
     }
 
-    // ===== ADDED: RESERVE AMMO HELPERS =====
-
-    public int GetReserveAmmo(ItemData ammoData)
-    {
-        return CountItem(ammoData);
-    }
-
-    public bool HasReserveAmmo(ItemData ammoData, int amount = 1)
-    {
-        return HasItem(ammoData, amount);
-    }
-
-    public bool ConsumeReserveAmmo(ItemData ammoData, int amount = 1)
-    {
-        return TryRemoveItem(ammoData, amount);
-    }
+    public int GetReserveAmmo(ItemData ammoData) => CountItem(ammoData);
+    public bool HasReserveAmmo(ItemData ammoData, int amount = 1) => HasItem(ammoData, amount);
+    public bool ConsumeReserveAmmo(ItemData ammoData, int amount = 1) => TryRemoveItem(ammoData, amount);
 }

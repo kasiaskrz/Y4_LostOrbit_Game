@@ -39,14 +39,18 @@ public class SC003Guide : MonoBehaviour
     private void Update()
     {
         if (keyCollectedFlag) return;
+
+        string pushMsg = $"Press [{OptionsManager.Interact}] to push the container.";
+        string exitMsg = "// EXIT LOCKED\nKey fragment required to leave.";
+
         if (welcomeShown && !boxPushed)
         {
             if (IsLookingAt(movableBox != null ? movableBox.gameObject : null))
             {
-                if (hintText != null && hintText.text != "Press [E] to push the container.")
+                if (hintText != null && hintText.text != pushMsg)
                 {
                     if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-                    hintText.text = "Press [E] to push the container.";
+                    hintText.text = pushMsg;
                 }
                 if (hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
                 {
@@ -56,14 +60,15 @@ public class SC003Guide : MonoBehaviour
                 return;
             }
         }
+
         if (boxPushed && exitDoor != null)
         {
             if (IsLookingAt(exitDoor))
             {
-                if (hintText != null && hintText.text != "// EXIT LOCKED\nKey fragment required to leave.")
+                if (hintText != null && hintText.text != exitMsg)
                 {
                     if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-                    hintText.text = "// EXIT LOCKED\nKey fragment required to leave.";
+                    hintText.text = exitMsg;
                 }
                 if (hintCanvasGroup != null && hintCanvasGroup.alpha < 1f)
                 {
@@ -73,6 +78,7 @@ public class SC003Guide : MonoBehaviour
                 return;
             }
         }
+
         if (welcomeShown && hintCanvasGroup != null && hintCanvasGroup.alpha > 0f)
         {
             if (currentCoroutine != null) StopCoroutine(currentCoroutine);
@@ -92,6 +98,7 @@ public class SC003Guide : MonoBehaviour
     private IEnumerator RunGuide()
     {
         yield return new WaitForSeconds(1f);
+
         if (GameProgress.Instance != null && GameProgress.Instance.sc003Complete)
         {
             int keys = GameProgress.Instance.keysCollected;
@@ -101,18 +108,39 @@ public class SC003Guide : MonoBehaviour
             yield return StartCoroutine(ShowLines(revisitMsg, 4f));
             yield break;
         }
-        yield return StartCoroutine(ShowLines(new string[] { "// SECTOR SC003 ONLINE", "Locate the container unit in this sector.", "Push it to reveal the key fragment." }, 0f));
+
+        string interact = OptionsManager.Interact.ToString();
+        yield return StartCoroutine(ShowLines(new string[] {
+            "// SECTOR SC003 ONLINE",
+            "Locate the container unit in this sector.",
+            $"Press [{interact}] to push it and reveal the key fragment."
+        }, 0f));
+
         yield return new WaitForSeconds(welcomeDuration);
         yield return FadeTo(0f);
         welcomeShown = true;
+
         yield return new WaitUntil(() => movableBox == null || movableBox.movementFinished);
         boxPushed = true;
+
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-        yield return StartCoroutine(ShowLines(new string[] { "// ACCESS KEY DETECTED", "Key fragment revealed.", "Retrieve it to proceed." }, 1f));
+        yield return StartCoroutine(ShowLines(new string[] {
+            "// ACCESS KEY DETECTED",
+            "Key fragment revealed.",
+            "Retrieve it to proceed."
+        }, 1f));
         yield return FadeTo(0f);
     }
 
-    public void ShowLockedExitMessage() { }
+    public void ShowLockedExitMessage()
+    {
+        if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+        currentCoroutine = StartCoroutine(ShowLines(new string[] {
+            "// EXIT LOCKED",
+            "Key fragment required to leave this sector.",
+            "Locate and retrieve it first."
+        }, 4f));
+    }
 
     public void OnKeyCollected()
     {
