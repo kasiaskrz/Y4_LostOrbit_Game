@@ -1067,10 +1067,10 @@ MonoBehaviour:
   disableRootColliderOnDeath: 1
   explodeOnDeath: 1
   explodeDelay: 1
-  explosionVFXPrefab: {fileID: 0}
-  explosionPoint: {fileID: 0}
+  explosionVFXPrefab: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  explosionPoint: {fileID: 302626827077065011}
   explosionOffset: {x: 0, y: 0, z: 0}
-  explosionSound: {fileID: 0}
+  explosionSound: {fileID: 8300000, guid: 4e1e135ee57d81a4d8360637922400dc, type: 3}
   explosionVolume: 1
   destroyWholeRootObject: 1
   explosionScale: 3

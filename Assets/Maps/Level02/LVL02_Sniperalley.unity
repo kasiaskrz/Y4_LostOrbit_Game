@@ -5787,10 +5787,14 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  fuseItemData: {fileID: 0}
+  interactionEnabled: 1
+  fuseItemData: {fileID: 11400000, guid: 7f4cb6b7c7edd6e4ab05694d6b278b3b, type: 2}
   requiredItemName: Fuse
   fuseVisual: {fileID: 2006132283}
+  fuseToggle: {fileID: 267217120}
   connectedBridge: {fileID: 724689677}
+  receiverToUnlock: {fileID: 1054497461}
+  unlockReceiverOnTakeFuse: 1
   hasFuseInside: 1
   alreadyUsed: 0
 --- !u!65 &267217118
@@ -5826,11 +5830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460c6564cde7ee54397ffc83b9d8e62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FuseToggle
-  interactDistance: 2.5
-  playerCamera: {fileID: 0}
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
   fuseObject: {fileID: 2006132283}
   audioSource: {fileID: 267217122}
   takeSound1: {fileID: 8300000, guid: 86706ca3cf2082947bc455b8eaff9f9b, type: 3}
@@ -10927,7 +10926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.980175
+      value: -43.039
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14331,7 +14330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.413174
+      value: -44.96
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23064,7 +23063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 03cdfce374cacc547b32bbacf669c798, type: 3}
       propertyPath: m_Name
-      value: Fusebox (1)
+      value: Fusebox (locked)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 03cdfce374cacc547b32bbacf669c798, type: 3}
       propertyPath: m_Layer
@@ -23121,6 +23120,8 @@ MonoBehaviour:
   requiredItemName: Fuse
   insertedFuseVisual: {fileID: 1054497460}
   bridgeController: {fileID: 724689677}
+  fuseToggle: {fileID: 1054497468}
+  interactionEnabled: 0
   fuseInserted: 0
 --- !u!65 &1054497466
 BoxCollider:
@@ -23155,11 +23156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460c6564cde7ee54397ffc83b9d8e62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FuseToggle
-  interactDistance: 2.5
-  playerCamera: {fileID: 0}
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
   fuseObject: {fileID: 1054497460}
   audioSource: {fileID: 1054497470}
   takeSound1: {fileID: 8300000, guid: 86706ca3cf2082947bc455b8eaff9f9b, type: 3}
@@ -25423,7 +25419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.50117
+      value: -41.205
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35423,7 +35419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -43.70817
+      value: -43.953
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -41291,7 +41287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.273174
+      value: -42.087
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -44260,7 +44256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.71417
+      value: -40.207
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1dd1115831713ff46a6169e3813d2ce3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -44665,7 +44661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 03cdfce374cacc547b32bbacf669c798, type: 3}
       propertyPath: m_Name
-      value: Fusebox
+      value: Fusebox {source}
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
