@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ChestInteract : MonoBehaviour, IInteractable
@@ -56,11 +57,24 @@ public class ChestInteract : MonoBehaviour, IInteractable
 
         opened = true;
 
-        DisableBlockingCollider();
-
         InventoryManager.Instance.TryRemoveItem(keyItemData, 1);
 
+        StartCoroutine(EnableLootAfterAnimation());
+
         Debug.Log("Chest opened!");
+    }
+
+    IEnumerator EnableLootAfterAnimation()
+    {
+        if (anim == null || anim.GetClip(clipName) == null)
+        {
+            DisableBlockingCollider();
+            yield break;
+        }
+
+        yield return new WaitForSeconds(anim[clipName].length);
+
+        DisableBlockingCollider();
     }
 
     void DisableBlockingCollider()

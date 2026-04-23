@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 {
     public int maxHealth = 100;
     public int currentHealth;
+    bool isDead = false;
 
     public Action<int, int> OnHealthChanged;
 
@@ -16,6 +17,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        if (isDead) return;
+
         int damage = Mathf.RoundToInt(amount);
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -38,6 +41,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         Debug.Log("Player died.");
         Debug.Log("hasCheckpoint = " + (GameSaveManager.Instance != null ? GameSaveManager.Instance.hasCheckpoint.ToString() : "no instance"));
 
