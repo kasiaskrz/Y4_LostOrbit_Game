@@ -6,6 +6,7 @@ public class OptionsManager : MonoBehaviour
     [HideInInspector] public float masterVolume = 1f;
     [HideInInspector] public float musicVolume = 1f;
     [HideInInspector] public float sfxVolume = 1f;
+
     public static KeyCode MoveForward = KeyCode.W;
     public static KeyCode MoveBack = KeyCode.S;
     public static KeyCode MoveLeft = KeyCode.A;
@@ -17,6 +18,8 @@ public class OptionsManager : MonoBehaviour
     public static KeyCode Inventory = KeyCode.Tab;
     public static KeyCode Pause = KeyCode.Escape;
     public static KeyCode Inspect = KeyCode.F;
+    public static KeyCode RotateLeft = KeyCode.T;
+    public static KeyCode RotateRight = KeyCode.Y;
 
     void Awake()
     {
@@ -51,6 +54,8 @@ public class OptionsManager : MonoBehaviour
         PlayerPrefs.SetInt("Key_Inventory", (int)Inventory);
         PlayerPrefs.SetInt("Key_Pause", (int)Pause);
         PlayerPrefs.SetInt("Key_Inspect", (int)Inspect);
+        PlayerPrefs.SetInt("Key_RotateLeft", (int)RotateLeft);
+        PlayerPrefs.SetInt("Key_RotateRight", (int)RotateRight);
         PlayerPrefs.Save();
     }
 
@@ -70,6 +75,8 @@ public class OptionsManager : MonoBehaviour
         Inventory = (KeyCode)PlayerPrefs.GetInt("Key_Inventory", (int)KeyCode.Tab);
         Pause = (KeyCode)PlayerPrefs.GetInt("Key_Pause", (int)KeyCode.Escape);
         Inspect = (KeyCode)PlayerPrefs.GetInt("Key_Inspect", (int)KeyCode.F);
+        RotateLeft = (KeyCode)PlayerPrefs.GetInt("Key_RotateLeft", (int)KeyCode.T);
+        RotateRight = (KeyCode)PlayerPrefs.GetInt("Key_RotateRight", (int)KeyCode.Y);
         ApplyVolume();
     }
 
@@ -82,6 +89,7 @@ public class OptionsManager : MonoBehaviour
         Interact = KeyCode.E; Reload = KeyCode.R;
         Inventory = KeyCode.Tab; Pause = KeyCode.Escape;
         Inspect = KeyCode.F;
+        RotateLeft = KeyCode.T; RotateRight = KeyCode.Y;
         ApplyVolume();
         SaveSettings();
     }

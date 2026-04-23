@@ -31,11 +31,8 @@ public class Interactor : MonoBehaviour
     {
         if (cam == null) cam = Camera.main;
         if (promptPanel != null) promptPanel.SetActive(false);
-
-        // Auto-match range to shotgun
         ShotgunShooter shooter = FindFirstObjectByType<ShotgunShooter>();
-        if (shooter != null)
-            bossDetectRange = shooter.range;
+        if (shooter != null) bossDetectRange = shooter.range;
     }
 
     void Update()
@@ -47,23 +44,20 @@ public class Interactor : MonoBehaviour
         UpdateCrosshair();
         UpdatePrompt();
 
-        if (Input.GetKeyDown(KeyCode.E) && !NotePickup.IsOpen && !WirePuzzle.IsOpen && CurrentInteractable != null)
+        if (Input.GetKeyDown(OptionsManager.Interact) && !NotePickup.IsOpen && !WirePuzzle.IsOpen && CurrentInteractable != null)
             CurrentInteractable.Interact();
 
-        if (Input.GetKeyDown(KeyCode.Escape) && NotePickup.IsOpen)
+        if (Input.GetKeyDown(OptionsManager.Pause) && NotePickup.IsOpen)
         {
             NotePickup note = FindFirstObjectByType<NotePickup>();
-            if (note != null)
-                note.CloseNote();
-            else
-                NoteReader.Instance.CloseNote();
+            if (note != null) note.CloseNote();
+            else NoteReader.Instance.CloseNote();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && WirePuzzle.IsOpen)
+        if (Input.GetKeyDown(OptionsManager.Pause) && WirePuzzle.IsOpen)
         {
             WirePuzzle puzzle = FindFirstObjectByType<WirePuzzle>();
-            if (puzzle != null)
-                puzzle.puzzlePanel.SetActive(false);
+            if (puzzle != null) puzzle.puzzlePanel.SetActive(false);
         }
     }
 
@@ -71,7 +65,6 @@ public class Interactor : MonoBehaviour
     {
         CurrentInteractable = null;
         if (cam == null) return;
-
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask, triggerInteraction))
             CurrentInteractable = hit.collider.GetComponentInParent<IInteractable>();
@@ -80,7 +73,6 @@ public class Interactor : MonoBehaviour
     void CheckBossAim()
     {
         if (cam == null) { aimedAtBoss = false; return; }
-
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, bossDetectRange))
             aimedAtBoss = hit.collider.CompareTag("Boss");
@@ -91,26 +83,21 @@ public class Interactor : MonoBehaviour
     void UpdateCrosshair()
     {
         if (crosshair == null) return;
-
-        if (aimedAtBoss)
-            crosshair.color = bossAimColor;       // red — aiming at boss
-        else if (CurrentInteractable != null)
-            crosshair.color = highlightColor;      // green — interactable
-        else
-            crosshair.color = idleColor;           // white — nothing
+        if (aimedAtBoss) crosshair.color = bossAimColor;
+        else if (CurrentInteractable != null) crosshair.color = highlightColor;
+        else crosshair.color = idleColor;
     }
 
     void UpdatePrompt()
     {
         if (promptPanel == null) return;
-
         if (CurrentInteractable != null && !NotePickup.IsOpen && !WirePuzzle.IsOpen)
         {
             promptPanel.SetActive(true);
             if (promptText != null)
                 promptText.text = (CurrentInteractable is LaserEmitterInteractable)
                     ? CurrentInteractable.PromptText
-                    : $"[E] {CurrentInteractable.PromptText}";
+                    : $"[{OptionsManager.Interact}] {CurrentInteractable.PromptText}";
         }
         else
         {

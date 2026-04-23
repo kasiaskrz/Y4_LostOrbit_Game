@@ -22,6 +22,8 @@ public class OptionsUI : MonoBehaviour
     public Button inventoryBtn;
     public Button pauseBtn;
     public Button inspectBtn;
+    public Button rotateLeftBtn;
+    public Button rotateRightBtn;
 
     [Header("Keybind Labels")]
     public TextMeshProUGUI moveForwardLabel;
@@ -35,6 +37,8 @@ public class OptionsUI : MonoBehaviour
     public TextMeshProUGUI inventoryLabel;
     public TextMeshProUGUI pauseLabel;
     public TextMeshProUGUI inspectLabel;
+    public TextMeshProUGUI rotateLeftLabel;
+    public TextMeshProUGUI rotateRightLabel;
 
     [Header("Press To Rebind Overlay")]
     public GameObject pressToRebindPanel;
@@ -50,7 +54,6 @@ public class OptionsUI : MonoBehaviour
     private int waitingIndex = -1;
     private bool started = false;
     private bool mouseWasDown = false;
-
     private Button[] allKeybindButtons;
 
     private KeyCode[] allKeys = new KeyCode[] {
@@ -61,8 +64,7 @@ public class OptionsUI : MonoBehaviour
         KeyCode.Y, KeyCode.Z,
         KeyCode.Space, KeyCode.LeftShift, KeyCode.RightShift,
         KeyCode.LeftControl, KeyCode.RightControl,
-        KeyCode.Tab, KeyCode.Backspace,
-        KeyCode.Escape,
+        KeyCode.Tab, KeyCode.Backspace, KeyCode.Escape,
         KeyCode.Alpha0, KeyCode.Alpha1, KeyCode.Alpha2,
         KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5,
         KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9,
@@ -75,14 +77,11 @@ public class OptionsUI : MonoBehaviour
     {
         if (!started) return;
         if (OptionsManager.Instance == null) return;
-
         masterSlider.value = OptionsManager.Instance.masterVolume;
         musicSlider.value = OptionsManager.Instance.musicVolume;
         sfxSlider.value = OptionsManager.Instance.sfxVolume;
         RefreshLabels();
-
-        if (EventSystem.current != null)
-            EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
     }
 
     void Start()
@@ -92,24 +91,12 @@ public class OptionsUI : MonoBehaviour
         allKeybindButtons = new Button[] {
             moveForwardBtn, moveBackBtn, moveLeftBtn, moveRightBtn,
             sprintBtn, jumpBtn, interactBtn, reloadBtn,
-            inventoryBtn, pauseBtn, inspectBtn
+            inventoryBtn, pauseBtn, inspectBtn, rotateLeftBtn, rotateRightBtn
         };
 
-        masterSlider.onValueChanged.AddListener(v => {
-            OptionsManager.Instance.masterVolume = v;
-            OptionsManager.Instance.ApplyVolume();
-            OptionsManager.Instance.SaveSettings();
-        });
-        musicSlider.onValueChanged.AddListener(v => {
-            OptionsManager.Instance.musicVolume = v;
-            OptionsManager.Instance.ApplyVolume();
-            OptionsManager.Instance.SaveSettings();
-        });
-        sfxSlider.onValueChanged.AddListener(v => {
-            OptionsManager.Instance.sfxVolume = v;
-            OptionsManager.Instance.ApplyVolume();
-            OptionsManager.Instance.SaveSettings();
-        });
+        masterSlider.onValueChanged.AddListener(v => { OptionsManager.Instance.masterVolume = v; OptionsManager.Instance.ApplyVolume(); OptionsManager.Instance.SaveSettings(); });
+        musicSlider.onValueChanged.AddListener(v => { OptionsManager.Instance.musicVolume = v; OptionsManager.Instance.ApplyVolume(); OptionsManager.Instance.SaveSettings(); });
+        sfxSlider.onValueChanged.AddListener(v => { OptionsManager.Instance.sfxVolume = v; OptionsManager.Instance.ApplyVolume(); OptionsManager.Instance.SaveSettings(); });
 
         moveForwardBtn.onClick.AddListener(() => StartRebind(0));
         moveBackBtn.onClick.AddListener(() => StartRebind(1));
@@ -122,6 +109,8 @@ public class OptionsUI : MonoBehaviour
         inventoryBtn.onClick.AddListener(() => StartRebind(8));
         pauseBtn.onClick.AddListener(() => StartRebind(9));
         inspectBtn.onClick.AddListener(() => StartRebind(10));
+        if (rotateLeftBtn) rotateLeftBtn.onClick.AddListener(() => StartRebind(11));
+        if (rotateRightBtn) rotateRightBtn.onClick.AddListener(() => StartRebind(12));
 
         resetButton.onClick.AddListener(OnReset);
         backButton.onClick.AddListener(OnBack);
@@ -136,8 +125,7 @@ public class OptionsUI : MonoBehaviour
             RefreshLabels();
         }
 
-        if (EventSystem.current != null)
-            EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
     }
 
     void StartRebind(int index)
@@ -145,12 +133,8 @@ public class OptionsUI : MonoBehaviour
         if (waitingIndex >= 0) return;
         waitingIndex = index;
         mouseWasDown = true;
-
         SetAllButtonsInteractable(false);
-
-        if (EventSystem.current != null)
-            EventSystem.current.SetSelectedGameObject(null);
-
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
         if (pressToRebindPanel != null) pressToRebindPanel.SetActive(true);
         if (pressToRebindText != null) pressToRebindText.text = "Press any key...";
     }
@@ -167,18 +151,8 @@ public class OptionsUI : MonoBehaviour
     {
         if (waitingIndex < 0) return;
 
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-        {
-            mouseWasDown = true;
-            return;
-        }
-
-        if (mouseWasDown)
-        {
-            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
-                mouseWasDown = false;
-            return;
-        }
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) { mouseWasDown = true; return; }
+        if (mouseWasDown) { if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1)) mouseWasDown = false; return; }
 
         foreach (KeyCode key in allKeys)
         {
@@ -186,25 +160,18 @@ public class OptionsUI : MonoBehaviour
             {
                 if (IsKeyAlreadyUsed(key, waitingIndex))
                 {
-                    if (pressToRebindText != null)
-                        pressToRebindText.text = key.ToString() + " is already in use!\nPress another key...";
+                    if (pressToRebindText != null) pressToRebindText.text = key.ToString() + " is already in use!\nPress another key...";
                     return;
                 }
-
                 ApplyRebind(waitingIndex, key);
                 RefreshLabels();
                 OptionsManager.Instance.SaveSettings();
                 waitingIndex = -1;
                 mouseWasDown = false;
-
                 SetAllButtonsInteractable(true);
-
                 if (pressToRebindPanel != null) pressToRebindPanel.SetActive(false);
                 if (pressToRebindText != null) pressToRebindText.text = "Press any key...";
-
-                if (EventSystem.current != null)
-                    EventSystem.current.SetSelectedGameObject(null);
-
+                if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
                 return;
             }
         }
@@ -218,7 +185,8 @@ public class OptionsUI : MonoBehaviour
             OptionsManager.Sprint,      OptionsManager.Jump,
             OptionsManager.Interact,    OptionsManager.Reload,
             OptionsManager.Inventory,   OptionsManager.Pause,
-            OptionsManager.Inspect
+            OptionsManager.Inspect,     OptionsManager.RotateLeft,
+            OptionsManager.RotateRight
         };
         for (int i = 0; i < current.Length; i++)
         {
@@ -243,6 +211,8 @@ public class OptionsUI : MonoBehaviour
             case 8: OptionsManager.Inventory = key; break;
             case 9: OptionsManager.Pause = key; break;
             case 10: OptionsManager.Inspect = key; break;
+            case 11: OptionsManager.RotateLeft = key; break;
+            case 12: OptionsManager.RotateRight = key; break;
         }
     }
 
@@ -259,6 +229,8 @@ public class OptionsUI : MonoBehaviour
         if (inventoryLabel != null) inventoryLabel.text = OptionsManager.Inventory.ToString();
         if (pauseLabel != null) pauseLabel.text = OptionsManager.Pause.ToString();
         if (inspectLabel != null) inspectLabel.text = OptionsManager.Inspect.ToString();
+        if (rotateLeftLabel != null) rotateLeftLabel.text = OptionsManager.RotateLeft.ToString();
+        if (rotateRightLabel != null) rotateRightLabel.text = OptionsManager.RotateRight.ToString();
     }
 
     void OnReset()
@@ -268,15 +240,12 @@ public class OptionsUI : MonoBehaviour
         musicSlider.value = 1f;
         sfxSlider.value = 1f;
         RefreshLabels();
-
-        if (EventSystem.current != null)
-            EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
     }
 
     void OnBack()
     {
         gameObject.SetActive(false);
-        if (pauseMenu != null)
-            pauseMenu.CloseOptions();
+        if (pauseMenu != null) pauseMenu.CloseOptions();
     }
 }

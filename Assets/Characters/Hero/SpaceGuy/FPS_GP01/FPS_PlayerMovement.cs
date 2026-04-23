@@ -35,44 +35,29 @@ public class FPS_PlayerMovement : MonoBehaviour
     public float fovLerp = 10f;
 
     CharacterController cc;
-
     float pitch;
     Vector2 currentLook;
     Vector2 lookVel;
-
     Vector3 velocity;
     Vector3 currentMove;
-
     Vector3 camStartLocalPos;
     float bobTimer;
 
     void Awake()
     {
         cc = GetComponent<CharacterController>();
-
-        if (!cameraPivot)
-            Debug.LogError("PlayerMovement: cameraPivot not assigned.");
-
-        if (!playerCamera && cameraPivot)
-            playerCamera = cameraPivot.GetComponentInChildren<Camera>();
-
-        if (explosionKnockback == null)
-            explosionKnockback = GetComponent<PlayerExplosionKnockback>();
-
-        if (playerCamera)
-            camStartLocalPos = playerCamera.transform.localPosition;
-
+        if (!cameraPivot) Debug.LogError("PlayerMovement: cameraPivot not assigned.");
+        if (!playerCamera && cameraPivot) playerCamera = cameraPivot.GetComponentInChildren<Camera>();
+        if (explosionKnockback == null) explosionKnockback = GetComponent<PlayerExplosionKnockback>();
+        if (playerCamera) camStartLocalPos = playerCamera.transform.localPosition;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        if (playerCamera && enableFovKick)
-            playerCamera.fieldOfView = walkFov;
+        if (playerCamera && enableFovKick) playerCamera.fieldOfView = walkFov;
     }
 
     void Update()
     {
         if (Time.timeScale == 0f || NotePickup.IsOpen || LevelComplete.IsOpen) return;
-
         Look();
         Move();
         Headbob();
@@ -82,11 +67,8 @@ public class FPS_PlayerMovement : MonoBehaviour
     void Look()
     {
         Vector2 targetLook = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensitivity;
-
         currentLook = Vector2.SmoothDamp(currentLook, targetLook, ref lookVel, 1f / lookSmooth);
-
         transform.Rotate(Vector3.up * currentLook.x);
-
         pitch -= currentLook.y;
         pitch = Mathf.Clamp(pitch, -yClamp, yClamp);
         cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
@@ -96,78 +78,60 @@ public class FPS_PlayerMovement : MonoBehaviour
     {
         bool grounded = cc.isGrounded;
 
-        float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
+        bool isSprinting = Input.GetKey(OptionsManager.Sprint);
+        float speed = isSprinting ? sprintSpeed : walkSpeed;
 
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        float x = 0f;
+        float z = 0f;
+        if (Input.GetKey(OptionsManager.MoveRight)) x += 1f;
+        if (Input.GetKey(OptionsManager.MoveLeft)) x -= 1f;
+        if (Input.GetKey(OptionsManager.MoveForward)) z += 1f;
+        if (Input.GetKey(OptionsManager.MoveBack)) z -= 1f;
 
-        Vector3 input = new Vector3(x, 0f, z);
-        input = Vector3.ClampMagnitude(input, 1f);
-
+        Vector3 input = Vector3.ClampMagnitude(new Vector3(x, 0f, z), 1f);
         Vector3 desired = (transform.right * input.x + transform.forward * input.z) * speed;
 
         float currentAccel = grounded ? accel : airControl;
         currentMove = Vector3.Lerp(currentMove, desired, currentAccel * Time.deltaTime);
 
-        if (grounded && velocity.y < 0f)
-            velocity.y = groundedStick;
+        if (grounded && velocity.y < 0f) velocity.y = groundedStick;
 
-        if (grounded && Input.GetKeyDown(KeyCode.Space))
+        if (grounded && Input.GetKeyDown(OptionsManager.Jump))
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
         velocity.y += gravity * Time.deltaTime;
 
         Vector3 knockback = Vector3.zero;
-
         if (explosionKnockback != null)
         {
             knockback = explosionKnockback.CurrentKnockback;
-
-            if (grounded && knockback.y < 0f)
-                knockback.y = 0f;
-
+            if (grounded && knockback.y < 0f) knockback.y = 0f;
             explosionKnockback.TickDamping(Time.deltaTime);
         }
 
-        Vector3 finalMove = currentMove + knockback + Vector3.up * velocity.y;
-        cc.Move(finalMove * Time.deltaTime);
+        cc.Move((currentMove + knockback + Vector3.up * velocity.y) * Time.deltaTime);
     }
 
     void Headbob()
     {
         if (!enableHeadbob || !playerCamera) return;
-
         Vector3 horiz = new Vector3(cc.velocity.x, 0f, cc.velocity.z);
         bool moving = horiz.magnitude > 0.2f && cc.isGrounded;
-
         if (!moving)
         {
             bobTimer = 0f;
-            playerCamera.transform.localPosition = Vector3.Lerp(
-                playerCamera.transform.localPosition,
-                camStartLocalPos,
-                12f * Time.deltaTime
-            );
+            playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, camStartLocalPos, 12f * Time.deltaTime);
             return;
         }
-
-        bobTimer += Time.deltaTime * bobSpeed * (Input.GetKey(KeyCode.LeftShift) ? 1.25f : 1f);
-
+        bobTimer += Time.deltaTime * bobSpeed * (Input.GetKey(OptionsManager.Sprint) ? 1.25f : 1f);
         float bob = Mathf.Sin(bobTimer) * bobAmount;
-        Vector3 target = camStartLocalPos + new Vector3(0f, bob, 0f);
-
-        playerCamera.transform.localPosition = Vector3.Lerp(
-            playerCamera.transform.localPosition,
-            target,
-            12f * Time.deltaTime
-        );
+        playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, camStartLocalPos + new Vector3(0f, bob, 0f), 12f * Time.deltaTime);
     }
 
     void FovKick()
     {
         if (!enableFovKick || !playerCamera) return;
-
-        float target = Input.GetKey(KeyCode.LeftShift) ? sprintFov : walkFov;
+        float target = Input.GetKey(OptionsManager.Sprint) ? sprintFov : walkFov;
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, target, fovLerp * Time.deltaTime);
     }
 }
